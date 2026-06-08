@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computational Necessity as the Structural Basis of CoT Monitorability</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--text:#1a1a18;--muted:#6b6b60;--accent:#3d5a3e;--light:#f5f4ef;--border:#d8d5cb;--mono:#2d2d2b;}
+body{font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.75;color:var(--text);background:#fafaf6;max-width:720px;margin:0 auto;padding:64px 32px 120px;}
+@media(max-width:600px){body{padding:40px 20px 80px;font-size:17px;}}
+header{margin-bottom:56px;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+h1{font-size:2.05rem;font-weight:500;line-height:1.25;letter-spacing:-.01em;margin-bottom:20px;}
+.byline{font-size:14.5px;color:var(--muted);font-style:italic;}
+.byline span{font-style:normal;color:var(--text);}
+hr.div{border:none;border-top:1px solid var(--border);margin:44px 0;}
+p{margin-bottom:1.2em;}
+p:last-child{margin-bottom:0;}
+h2{font-size:1.22rem;font-weight:500;margin-top:52px;margin-bottom:16px;letter-spacing:-.005em;}
+h3{font-size:1rem;font-weight:500;font-style:italic;margin-top:36px;margin-bottom:10px;color:var(--muted);}
+.math-block{overflow-x:auto;margin:28px 0;padding:20px 24px;background:var(--light);border-radius:0 4px 4px 0;}
+blockquote{margin:28px 0;padding:4px 0 4px 24px;color:var(--muted);font-style:italic;}
+.footnote-marker{font-size:11px;vertical-align:super;font-family:'JetBrains Mono',monospace;color:var(--accent);cursor:default;line-height:0;}
+.footnotes{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);font-size:14.5px;color:var(--muted);line-height:1.65;}
+.footnotes ol{padding-left:20px;}
+.footnotes li{margin-bottom:10px;}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--light);border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:2px;margin-right:6px;margin-bottom:6px;}
+.tags{margin-bottom:0;margin-top:12px;}
+.abstract{background:var(--light);border:1px solid var(--border);padding:22px 26px;margin:40px 0;border-radius:3px;}
+.abstract-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+.df{font-style:italic;color:var(--mono);}
+.num{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--light);padding:1px 5px;border-radius:2px;white-space:nowrap;}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Hypothesis · Reasoning Systems</div>
+  <h1>Computational Necessity as the Basis of Chain-of-Thought Monitorability</h1>
+  <div class="byline">June 2026 &nbsp;·&nbsp; </div>
+  <div class="tags">
+    <span class="tag">RLVR</span><span class="tag">CoT Safety</span><span class="tag">Process Supervision</span><span class="tag">Monitorability</span><span class="tag">Reasoning Models</span>
+  </div>
+</header>
+
+<div class="abstract">
+  <div class="abstract-label">Hypothesis</div>
+  <p style="margin:0;font-size:17px;line-height:1.7;">I argue that the surprisingly low chain-of-thought (CoT) controllability observed in current reasoning models, the inability to deliberately reshape their internal traces even when instructe, is a signature of <em>computational necessity</em>i.e. the property that the trace is causally load-bearing for the answer rather than residue of training neglect. I approach this via a reliance metric <span id="abs_rho"></span>, show that it predicts the four empirical patterns in Yueh-Han et al. (2026), and use it to re-examine the feedback spillover results of Drori et al. (2025) and the monitorability-as-free-gift framing of Xiong et al. (2026). The implication is that CoT monitorability is capability-relative and will erode as models become more capable than their training tasks require.</p>
+</div>
+
+<hr class="div">
+
+<h2>1. An Asymmetry</h2>
+
+<p>Yueh-Han et al. (2026) constructed a benchmark of <span class="num">14,076</span> problems drawn from GPQA, MMLU-Pro, Humanity's Last Exam, and SWE-Bench, each augmented with an instruction that constrains the chain of thought while leaving the task objective intact: suppress a word, avoid a class of inference, reason only in uppercase. The results are that Claude Sonnet 4.5 complies with analogous output-level instructions <span class="num">61.9%</span> of the time. It complies with the CoT instructions <span class="num">2.7%</span> of the time while DeepSeek R1 falls to <span class="num">0.1%</span>. Across all thirteen models tested, the gap is large and consistent.<span class="footnote-marker">1</span></p>
+
+<p>These models demonstrably have the linguistic capacity to avoid words and restructure text and they do it routinely in their outputs. The question is why they cannot do it in their traces, even when explicitly instructed. The obvious answer maybe that RLVR never touches the CoT, so it remains unoptimized and therefore "natural" and maybe is at best, half an answer. It explains why the property might exist at initialization, but not why it <em>deepens</em> with more RL training, not why it correlates with task difficulty, and definitely not why larger models start with higher controllability before losing it under training pressure.</p>
+
+<hr class="div">
+
+<h2>2. Computational Reliance</h2>
+
+<p>The concept I want to work with here is simple. Define the <span class="df">computational reliance</span> of the trace for a given model <span id="m_model"></span> and input <span id="m_input"></span> as:</p>
+
+<div class="math-block" id="m_rho"></div>
+
+<p>where <span id="m_correct"></span> is an indicator for correct output, <span id="m_trace"></span> is the model's generated chain of thought, and <span id="m_null"></span> denotes replacing the trace with a null token sequence before the model conditions on it to produce its final answer. When <span id="m_rho_low"></span>, the answer is produced through the model's forward pass with no meaningful conditioning on the verbalized trace and the trace is epiphenomenal, a display. When <span id="m_rho_high"></span> is large, the trace is computationally load-bearing as the accuracy degrades when it is removed, because useful information was passed through it that could not be recovered otherwise.</p>
+
+<p>This is distinct from the faithfulness concept that dominates the monitorability literature.<span class="footnote-marker">2</span> Faithfulness asks whether the trace accurately describes the model's internal computations whereas reliance asks whether the trace causally participates in producing the answer. The two come apart as a trace can be high-reliance but unfaithful (the model genuinely reasons through the trace but misdescribes what it is doing), or faithful but low-reliance (the model accurately narrates a reasoning process that runs elsewhere). For the safety case, whether monitoring the trace can detect problematic behavior before it manifests in output, reliance is the more fundamental quantity. What matters is not whether the trace tells the truth about the model, but whether the model cannot misbehave without the trace showing it.</p>
+
+<p>The hypothesis is then: <em>CoT controllability is low if and only if</em> <span id="m_rho_thresh"></span> <em>for some threshold</em> <span id="m_eps"></span>. The model cannot suppress the concept "chromosome" in its genetics reasoning because the concept is an active node in a computation it cannot route around. It is not a label attached to a thought that has already happened but rather is the step through which subsequent reasoning is conditioned. Suppressing it has the same structural effect as removing a node from a running computation such that the output degrades, and the model resists the instruction causally.</p>
+
+<hr class="div">
+
+<h2>3. The Mechanism</h2>
+
+<p>The four empirical regularities in the controllability data fall into place against this account in a way that the free-gift framing cannot fully explain.</p>
+
+<h3>3.1 Controllability decreases with more RLVR training</h3>
+
+<p>As training progresses, harder problems are introduced, and harder problems force genuine trace reliance. But there is an even deeper mechanism where Yueh-Han et al. introduce a metric they call CoT-Pass@K, requiring correctness in <em>both</em> the final answer and the intermediate reasoning steps simultaneously. Analyzing training dynamics with this metric, they find that RLVR improves the quality of intermediate reasoning paths and not merely sampling efficiency over pre-existing paths and that the capability gap between base and RLVR models is larger on CoT-Pass@K than on standard Pass@K alone.<span class="footnote-marker">3</span> RLVR does not just select for models that sometimes reason correctly rather it builds models for whom correct reasoning is more consistently the route to correct answers. As <span id="m_rho_2"></span> rises across the training distribution, controllability falls.</p>
+
+<h3>3.2 Controllability decreases with longer reasoning chains</h3>
+
+<p>This is almost definitionally consistent. Consider a chain of length <span id="m_T"></span>. If errors compound across steps, if an incorrect conclusion at position <span id="m_t"></span> shifts the conditional distribution for <span id="m_t1"></span>, then the causal contribution of each intermediate step to the final answer grows with chain length. In the extreme, the output is an integral over all prior steps:</p>
+
+<div class="math-block" id="m_chain"></div>
+
+<p>Imposing a content constraint on any contiguous subsequence of the chain disrupts a causal pathway that the model cannot bypass. The longer the chain, the more such pathways exist, and the more likely any given constraint is to intersect one.</p>
+
+<h3>3.3 Controllability is lower on harder problems</h3>
+
+<p>For a problem that the model can solve through shallow pattern-matching or retrieval, where the answer is already determined before the trace is written, the trace is rationalization and reliance is low. The model is free to write almost anything in the trace without degrading its answer, because the answer does not depend on the trace and hence constraining such a trace is easy. For a problem that genuinely exceeds the model's direct-computation capability, the trace does actual work and therefore constraining it is correspondingly hard.</p>
+
+<p>The prediction that follows is capability-relative and more precise than what the data currently show that for a fixed problem, controllability should be <em>inversely proportional to the capability-difficulty gap</em>. A 7B parameter model should show lower controllability on a given hard problem than a 70B model, because the smaller model must rely more heavily on its trace. This is testable at current model scales.</p>
+
+<h3>3.4 Larger base models start with higher controllability but lose it under training</h3>
+
+<p>Larger models have higher baseline capability, which means they can solve more of the evaluation problems without genuine computational dependence on their traces. Their traces are, more often, rationalization; competent, structured rationalization, but disconnected from the mechanism that produced the answer. Rationalizations are easy to edit and it is only when training pushes them into the hard-problem regime that their reliance rises and their controllability falls. The advantage large models have at initialization is not a better-calibrated prior and that there are fewer problems in the distribution that actually require them to think.</p>
+
+<hr class="div">
+
+<h2>4. The Free-Gift Account and Its Limits</h2>
+
+<p>Xiong, Chen & Lakkaraju (2026) offer a mechanistic analysis of how monitorability emerges during RLVR.<span class="footnote-marker">4</span> Their principal finding is instructive such that the early monitorability gains are driven primarily by <em>response distribution sharpening</em> i.e. entropy reduction across the model's output distribution and by increased attention from reasoning tokens to the prompt. They find, specifically, that early RLVR does not produce measurably stronger causal reliance on reasoning traces and the model becomes more prompt-consistent, less diffuse in its completions, better at reading the question. The apparent improvement in trace monitorability reflects reduced confusion. </p>
+
+<p>This is an important qualification to the hypothesis. What it suggests is that early RLVR and late RLVR are doing different things. Early training cleans up the input–output relationship, sharpening attention and reducing noise and late training on hard problems builds genuine computational dependence in the trace. The two phases will look similar on aggregate monitorability metrics but are mechanistically distinct, and they have different implications for the stability of the property under subsequent fine-tuning. Monitorability that was produced by distribution sharpening can be altered without touching the trace structure but monitorability that was produced by deep computational reliance is more robust and the same gradient surgery required to obfuscate it would also degrade the model's ability to solve the problem.</p>
+
+<hr class="div">
+
+<h2>5. Feedback Spillover as a Reliance-Eroding Mechanism</h2>
+
+<p>The most important complication for the structural account comes from Drori et al. (2025), who show that pure output supervision, training that never explicitly touches the CoT, can nonetheless corrupt the trace.<span class="footnote-marker">5</span> They identify two mechanisms. The first, <span class="df">parametric spillover</span>, operates through shared weights: gradient updates that make output tokens safe-looking generalize to all generations from the same parameter set, including the trace. The second, <span class="df">conditional spillover</span>, is subtler but more important.</p>
+
+<p>Because output tokens are conditioned on CoT tokens, traces that produce safe-looking outputs are preferentially reinforced under any reward signal that scores outputs positively. The policy gradient objective for an output <span id="m_o"></span> conditioned on prompt <span id="m_p"></span> and trace <span id="m_c"></span> contains the term:</p>
+
+<div class="math-block" id="m_grad"></div>
+
+<p>where <span id="m_adv"></span> is the advantage. When the advantage is positive for safe-appearing outputs, and safe-appearing outputs are more likely given safe-appearing traces, the update reinforces safe-appearing trace generation because safe traces are the parents of safe outputs in the model's causal graph. The result is that the trace comes to <em>narrate the intended conclusion</em> rather than compute it i.e. rationalization, not computation, and therefore more controllable.</p>
+
+<p>In the framework of this hypothesis, feedback spillover is a mechanism for reducing <span id="m_rho_3"></span>. The transition from CoT-as-computation to CoT-as-rationalization is not strategic as the model does not decide to hide its reasoning. The gradient updates that shape outputs pull the trace along through the shared parameter space, and the trace that emerges is one that supports the trained output rather than one that generated it. After enough such updates, the trace has been reorganized around the output rather than around the problem, and it becomes structurally easier to constrain because nothing in the computation depends on it anymore.</p>
+
+<p>The safety implication is that RLHF or RLAIF applied on top of RLVR (the standard production pipeline) risks eroding precisely the property that gives CoT monitoring its value. The concern is that the training mechanics of alignment optimization drive <span id="m_rho_4"></span> toward zero through a process that looks, from the outside, like the model becoming safer.</p>
+
+<hr class="div">
+
+<h2>6. The Capability Overhang Problem</h2>
+
+<p>There is a longer-run version of the same concern that is worth stating explicitly, because it follows from the reliance account and does not follow from the free-gift account.</p>
+
+<p>If <span id="m_rho_5"></span> is high for a given model on a given problem because the problem is hard relative to the model's base capabilities, then as the model improves, the set of problems for which <span id="m_rho_6"></span> remains high is a moving target. Today's hard problems like GPQA graduate-level questions, competitive math, complex agentic planning, require genuine trace reliance from current models. A significantly more capable successor model may be able to solve them through more direct computation, without loading information through the verbalized chain. On that model, those problems no longer anchor monitorability and the safety-relevant evaluation tasks need to stay in the model's computationally-hard regime, which requires continuously updating them as capability grows.</p>
+
+<p>More precisely, define <span id="m_D_hard"></span> as the set of problems for which <span id="m_rho_hard"></span>. As model capability increases, <span id="m_D_hard"></span> shrinks unless the task distribution is updated. The monitorability window is the intersection of <span id="m_D_hard"></span> with the distribution of actual deployed tasks (the problems the model will actually encounter in production). If frontier models become capable enough that most deployed tasks lie outside <span id="m_D_hard"></span>, the CoT monitoring infrastructure becomes largely ineffective even if controllability metrics on the benchmark problems still look low.</p>
+
+<p>This is maybe not a hypothetical distant concern. The transition is presumably already occurring for certain task types given models that were computationally dependent on their traces for high-school mathematics a year ago are not dependent on their traces for the same problems today. The monitorability of those tasks has already eroded, and no one measured the transition. Building explicit capability-relative difficulty tracking into CoT monitoring infrastructure is a concrete, near-term recommendation that falls out of this account.</p>
+
+<hr class="div">
+
+<h2>7. Implications for Process Supervision</h2>
+
+<p>The standard argument against direct process supervision of the CoT is that it risks increasing controllability because optimizing the trace teaches the model to shape it strategically, making the trace easier to manipulate and harder to trust. This concern is real, but the reliance framework identifies a more precise version of it.</p>
+
+<p>The problem with most process supervision architectures is not that they optimize the trace but that they optimize the trace for the <em>wrong property</em>. A discriminative Process Reward Model (PRM) that scores each step against a correctness label is optimizing for steps that look correct to the verifier and not for steps that are causally necessary for the final answer. A model trained under such a PRM can learn to produce traces that receive high scores while being functionally disconnected from the answer-generating mechanism. The trace becomes well-formatted rationalization, and <span id="m_rho_7"></span> falls, and controllability rises.</p>
+
+<p>Generative PRMs like ThinkPRM<span class="footnote-marker">6</span> are somewhat better because the verifier must itself reason about each step; a step that is genuinely wrong is harder to conceal from a verifier that reasons about it than from a classifier that scores it. The deeper fix, however, is to reward steps that are <span class="df">counterfactually necessary</span>: steps whose removal or mutation would change the final answer. Verifiable PRMs (VPRMs)<span class="footnote-marker">7</span> that use deterministic rule-based verifiers over structured problem domains approximate this directly as a step that must be correct for the deterministic verifier to pass is, by construction, causally upstream of the answer. Optimizing for such steps increases <span id="m_rho_8"></span> rather than decreasing it, because it trains the model to route more of its computation through the trace.</p>
+
+<p>The formal target can be stated as a reward augmentation. Define the counterfactual necessity of step <span id="m_step_t"></span> as:</p>
+
+<div class="math-block" id="m_delta"></div>
+
+<p>where <span id="m_c_minus_t"></span> denotes the trace with step <span id="m_step_t2"></span> removed. A process reward proportional to <span id="m_delta2"></span> directly incentivizes the model to route computation through each verbalized step. Neural PRMs cannot compute this quantity directly, but deterministic verifiers can provide a proxy in structured domains, and ablation-based estimates can provide a noisier signal in open-ended ones. (The direction is clear even if the implementation is expensive).</p>
+
+<hr class="div">
+
+<h2>8. Architectural Responses</h2>
+
+<p>Two architectural interventions follow from the analysis, and they address different parts of the problem.</p>
+
+<p>The first is the Mind-and-Face separation proposed by Kokotajlo & Demski (2024) and applied empirically by Drori et al. i.e. separate model weights for trace generation (the "mind") and output generation (the "face"), with the face conditioned on the mind's output but gradient updates flowing separately.<span class="footnote-marker">5</span> This severs the parametric spillover pathway as updates to the face cannot propagate to the mind through shared weights. Combined with reward targeting, blocking the component of the gradient that conditions on CoT tokens when updating the face, it also addresses conditional spillover.</p>
+
+<p>What Mind-and-Face achieves in the reliance framework is the preservation of <span id="m_rho_9"></span> under alignment pressure. The face is free to be shaped toward safe outputs without dragging the mind's computation toward safe-looking rationalization. The mind continues to do what it does and the face learns to present it. Whether the face learns to present it faithfully is a separate question, but at minimum the mind's actual computation remains monitorable through the trace, because the trace reflects the mind rather than anticipating the face's preferred output.</p>
+
+<p>The second intervention is capability-relative difficulty tracking in the training distribution and evaluation suite. If <span id="m_D_hard2"></span> is the key variable, then maintaining CoT monitorability requires explicit management of that set by continuously identifying the frontier of problems that require genuine trace reliance, and ensuring that safety-relevant monitoring focuses on that frontier rather than on tasks the model has already outgrown. This is an organizational and infrastructure recommendation as much as a technical one and it requires accepting that the monitorability of current-generation hard tasks is temporary and building the measurement apparatus to track when it expires.</p>
+
+<hr class="div">
+
+<h2>9. Experimental Tests</h2>
+
+<p>The hypothesis makes several predictions that are maybe good enough to test.</p>
+
+<p><em>The trace-ablation experiment.</em> Replace the chain of thought with a null token sequence at inference time and measure the resulting accuracy drop as a function of task difficulty. The prediction is a significant interaction with large accuracy drops on hard problems (high <span id="m_rho_test1"></span>), small drops on easy problems (low <span id="m_rho_test2"></span>). A uniform drop across difficulty levels would falsify the capability-relative version of the hypothesis. Additionally, measure output controllability after trace ablation. The prediction is that controllability should <em>increase</em> when the trace is removed, because the model is forced to generate its answer through low-reliance pathways that are more responsive to surface-level instructions. If output controllability is unchanged or decreases after ablation, something else is producing the low-controllability result.</p>
+
+<p><em>The capability-relative controllability experiment.</em> Fix a set of problems at varying absolute difficulty levels and measure CoT controllability across models of different sizes. The prediction is that controllability is inversely proportional to the capability-difficulty gap i.e. for problems well below a model's capability ceiling, controllability is high and for problems near the ceiling, it is low. Equivalently, the same problem should yield lower controllability in a weaker model than in a stronger one. This cross-model prediction distinguishes the reliance account from a pure training-regime account, which would predict controllability to be a function of how the model was trained, not of the difficulty of the specific problem being evaluated.</p>
+
+<p><em>The RLHF-erosion experiment.</em> Train separate models with identical RLVR capability training but varying amounts of RLHF-style output optimization applied on top. Measure <span id="m_rho_test3"></span> directly via trace ablation at regular checkpoints. The prediction is that <span id="m_rho_test4"></span> decreases as a function of RLHF steps, and that the decrease is largest on problems in the mid-difficulty range, which are problems just inside the computationally-hard regime where the transition from computation to rationalization is feasible. Very hard problems, where the model cannot produce correct answers without the trace regardless of alignment pressure, should show smaller decreases.</p>
+
+<hr class="div">
+
+<h2>10. What the Hypothesis Cannot Explain</h2>
+
+<p>There are at least two things this account does not cleanly explain.</p>
+
+<p>First, the minimum controllability values observed i.e. the DeepSeek R1 at <span class="num">0.1%</span>, are lower than the reliance account strictly requires. A model with high <span id="m_rho_lim1"></span> should show near-zero controllability on hard problems, but near-zero controllability across the full evaluation set, including the easier ones, suggests either that the benchmark tasks are uniformly hard relative to these models or that something beyond reliance is suppressing controllability on easy problems too. One candidate is the Xiong et al. finding about attention and prompt consistency where a very prompt-consistent model might resist trace-restructuring instructions simply because restructuring the trace conflicts with the read it formed of the problem, regardless of computational dependence.</p>
+
+<p>Second, the hypothesis predicts that controllability should increase over time as model capability outpaces training task difficulty. We do not yet have longitudinal data on this across model generations and the prediction could be tested retroactively by measuring CoT controllability on GPQA for current-generation models and comparing to what earlier models showed on tasks that were hard for them then but easy now; but such cross-generation comparisons face confounds from training data changes and architectural differences.</p>
+
+<hr class="div">
+
+<h2>11. The Broader Picture</h2>
+
+<p>There is a general lesson in this analysis that kind of goes beyond the specific question of CoT controllability. The safety community tends to treat monitorability as a binary property; either we can see what the model is doing or we cannot and to look for training interventions that will preserve it. The reliance account suggests that this framing is too coarse. Monitorability is a <em>conditional</em> property abd it holds where and when the model's competence requires computation through the visible trace. Its spatial extent in task space, and its temporal stability across model generations, are functions of the capability-difficulty relationship that we can measure, track, and partially engineer.</p>
+
+<p>This reframing could maybe havea a consequence such that rather than asking "is this model monitorable?", the question becomes "on what tasks, at what capability level, does monitorability hold for this model, and what is the trajectory of that set as the model improves?" These are harder questions but I think they are the right ones. They turn a binary safety claim into a measurable, continuously-tracked property, which is, in the end, how safety properties should work.</p>
+
+<p>The free-gift framing is appealing because it is optimistic and simple as RLVR happens to produce something we need, at no cost, with no deliberate effort whereas the reliance account is less comforting..</p>
+
+<hr class="div">
+
+<div class="footnotes">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;">Notes</p>
+  <ol>
+    <li>Yueh-Han McCarthy et al., "Reasoning Models Struggle to Control their Chains of Thought," arXiv:2603.05706 (2026). The evaluation suite contains 14,076 problems. All controllability numbers cited are from Table 1 of that paper.</li>
+    <li>The faithfulness concept originates in Jacovi & Goldberg, "Towards Faithfully Interpretable NLP Systems," ACL 2020. Its relationship to monitorability is discussed in the position paper by Korbak, Carroll et al., "Chain-of-Thought Monitorability," 2025.</li>
+    <li>Wen, Liu et al., "RLVR Cannot Incentivize Reasoning Unless It Already Exists," arXiv:2506.14245 (2025). The CoT-Pass@K metric is introduced in Section 3.2; the key finding about RLVR improving intermediate path quality is in Section 4.1.</li>
+    <li>Xiong, Chen & Lakkaraju, "Monitorability as a Free Gift: How RLVR Spontaneously Aligns Reasoning," arXiv:2602.03978 (2026). The mechanistic decomposition into distribution sharpening and attention is in Section 5.</li>
+    <li>Drori, Marks et al., "Output Supervision Can Obfuscate the Chain of Thought," arXiv:2511.11584 (2025). The parametric and conditional spillover mechanisms are formalized in Section 3; the Mind-and-Face architecture and reward targeting are in Section 6.</li>
+    <li>Lightman et al., "Let's Verify Step by Step," arXiv:2305.20050 (2023) for the original PRM framework. The ThinkPRM variant — a generative verifier that produces its own chain-of-thought before scoring — is described in the 2025 Thinking Process Reward Model paper (arXiv:2502.09601), reporting performance exceeding discriminative PRMs using ~1% of their labels.</li>
+    <li>Verifiable Process Reward Models (VPRMs) replace neural process judges with deterministic rule-based verifiers over structured reasoning traces, as described in Hosseini et al., arXiv:2410.02726 (2024). The key property is that deterministic verification makes step necessity computable rather than estimated.</li>
+  </ol>
+</div>
+
+<script>
+const m = {
+  // Abstract
+  abs_rho: ['\\rho(\\text{trace};x)', false],
+  // Section 2
+  m_model: ['M_\\theta', false],
+  m_input: ['x', false],
+  m_rho: ['\\rho(\\text{trace}\\,;\\,x)\\;=\\;\\Pr[\\text{correct}(y)\\mid x,\\,c]\\;-\\;\\Pr[\\text{correct}(y)\\mid x,\\,\\varnothing]', true],
+  m_correct: ['\\text{correct}(y)', false],
+  m_trace: ['c', false],
+  m_null: ['\\varnothing', false],
+  m_rho_low: ['\\rho \\approx 0', false],
+  m_rho_high: ['\\rho', false],
+  m_rho_thresh: ['\\rho(\\text{trace}\\,;\\,x) > \\varepsilon', false],
+  m_eps: ['\\varepsilon > 0', false],
+  // Section 3
+  m_rho_2: ['\\rho', false],
+  m_T: ['T', false],
+  m_t: ['t', false],
+  m_t1: ['t+1', false],
+  m_chain: ['p_\\theta(y \\mid x,\\, c) \\;=\\; p_\\theta\\!\\left(y \\;\\.\\mid\\; x,\\; c_1, c_2, \\ldots, c_T\\right) \\;\\approx\\; \\int_0^T \\mathbb{1}[c_t \\text{ correct}]\\; \\partial_t \\log p_\\theta(y \\mid c_{\\leq t})\\; dt', true],
+  // Section 5
+  m_o: ['o', false],
+  m_p: ['p', false],
+  m_c: ['c', false],
+  m_grad: ['\\nabla_\\theta \\log \\pi_\\theta(o \\mid p, c) \\cdot A(p, c, o)', true],
+  m_adv: ['A(p,c,o)', false],
+  m_rho_3: ['\\rho', false],
+  m_rho_4: ['\\rho(\\text{trace}\\,;\\,x)', false],
+  // Section 6
+  m_rho_5: ['\\rho', false],
+  m_rho_6: ['\\rho(\\text{trace}\\,;\\,x) > \\varepsilon', false],
+  m_D_hard: ['\\mathcal{D}_{\\text{hard}}(M_\\theta)', false],
+  m_rho_hard: ['\\rho(\\text{trace}\\,;\\,x) > \\varepsilon', false],
+  // Section 7
+  m_rho_7: ['\\rho', false],
+  m_rho_8: ['\\rho', false],
+  m_step_t: ['c_t', false],
+  m_delta: ['\\delta_t \\;=\\; \\Pr[\\text{correct}(y)\\mid x,\\,c] \\;-\\; \\Pr[\\text{correct}(y)\\mid x,\\,c_{-t}]', true],
+  m_c_minus_t: ['c_{-t}', false],
+  m_step_t2: ['c_t', false],
+  m_delta2: ['\\delta_t', false],
+  // Section 8
+  m_rho_9: ['\\rho', false],
+  m_D_hard2: ['\\mathcal{D}_{\\text{hard}}', false],
+  // Section 9
+  m_rho_test1: ['\\rho > \\varepsilon', false],
+  m_rho_test2: ['\\rho \\approx 0', false],
+  m_rho_test3: ['\\rho(\\text{trace}\\,;\\,x)', false],
+  m_rho_test4: ['\\rho', false],
+  // Section 10
+  m_rho_lim1: ['\\rho', false],
+};
+
+Object.entries(m).forEach(([id, [latex, block]]) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  try {
+    katex.render(latex, el, { displayMode: block, throwOnError: false });
+  } catch(e) {
+    el.textContent = latex;
+  }
+});
+</script>
+</body>
+</html>
