@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antithesis as Attractor</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--text:#1a1a18;--muted:#6b6b60;--accent:#3d5a3e;--light:#f5f4ef;--border:#d8d5cb;}
+body{font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.78;color:var(--text);background:#fafaf6;max-width:700px;margin:0 auto;padding:64px 32px 120px;}
+@media(max-width:600px){body{padding:40px 20px 80px;font-size:17px;}}
+header{margin-bottom:52px;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+h1{font-size:1.95rem;font-weight:500;line-height:1.22;letter-spacing:-.01em;margin-bottom:18px;}
+.byline{font-size:14px;color:var(--muted);font-style:italic;}
+hr.div{border:none;border-top:1px solid var(--border);margin:42px 0;}
+p{margin-bottom:1.25em;}
+p:last-child{margin-bottom:0;}
+h2{font-size:1.18rem;font-weight:500;margin-top:48px;margin-bottom:14px;letter-spacing:-.005em;}
+h3{font-size:1rem;font-weight:400;font-style:italic;margin-top:32px;margin-bottom:8px;color:var(--muted);}
+.math-block{overflow-x:auto;margin:24px 0;padding:18px 22px;background:var(--light);border-radius:0 3px 3px 0;font-size:.92em;}
+blockquote{margin:26px 0;padding:4px 0 4px 22px;color:var(--muted);font-style:italic;}
+.fn{font-size:10.5px;vertical-align:super;font-family:'JetBrains Mono',monospace;color:var(--accent);line-height:0;}
+.footnotes{margin-top:60px;padding-top:22px;border-top:1px solid var(--border);font-size:14px;color:var(--muted);line-height:1.65;}
+.footnotes ol{padding-left:18px;}
+.footnotes li{margin-bottom:10px;}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--light);border:1px solid var(--border);color:var(--muted);padding:3px 7px;border-radius:2px;margin-right:5px;margin-bottom:5px;}
+.tags{margin-top:14px;}
+.lede{font-size:1.08em;color:#3a3a36;line-height:1.7;margin:32px 0 0;padding:0 0 0 0;font-style:italic;}
+em.df{font-style:italic;color:#2d2d2b;}
+.aside{background:var(--light);border:1px solid var(--border);padding:18px 22px;margin:28px 0;border-radius:3px;font-size:.93em;color:var(--muted);line-height:1.65;}
+.aside-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;color:#999;}
+</style>
+</head>
+<body>
 
+<header>
+  <div class="kicker">Hypothesis · Machine Learning</div>
+  <h1>Antithesis as Attractor: A Hypothesis on Why LLMs Default to Dialectical Framing</h1>
+  <div class="byline">April 2026</div>
+  <div class="tags">
+    <span class="tag">LLMs</span><span class="tag">RLHF</span><span class="tag">pretraining</span><span class="tag">alignment</span><span class="tag">rhetoric</span>
+  </div>
+  <p class="lede">This essay is not a finished argument. I'm reasonably confident in the direction but I'm much less confident in the magnitudes, and I have not proven any of the causal claims below.</p>
+</header>
+
+<hr class="div">
+
+<h2>As Everyone Knows</h2>
+
+<p>If you spend enough time reading AI responses and a sentence structure starts to feel inevitable:</p>
+
+<blockquote>"While X offers compelling advantages, it is important to consider Y as well."</blockquote>
+
+<p>It shows up constantly in analytical responses, in opinion pieces, in answers to questions that don't really have two sides. Once you notice it, you start seeing it everywhere with that reflexive pivot to the counterargument, the ceremonial acknowledgment of the other hand, the resolution that lands somewhere safely in the middle and that it's not X, it's Y structure everywhere such that it has become one of the indicators of AI Generated text.</p>
+
+<p>I think that the easy explanation is RLHF sycophancy but that's probably just part of it. A slightly fuller explanation invokes Reddit training data, and that's probably also just part of it. But I think there's something more interesting going on i.e. a set of mutually reinforcing pressures that together push these systems toward balance as a default, almost regardless of whether the topic warrants it. This essay is an attempt to sketch what that might look like.</p>
+
+<p>The core mechanisms I describe here like pretraining data distributions, reward shaping, quality filtering are things that researchers have studied but the specific claim that they jointly produce dialectical framing as an attractor state is a conjecture I have arrived at and it's one I haven't tested rigorously. Several of the supporting figures I cite come from a single study and may not generalize. The feedback-loop math in section 5 is a sketch of what the dynamics <em>would</em> look like if the key assumptions held, not a demonstration that they do.</p>
+
+<hr class="div">
+
+<h2>1. A Quick Note on Competing Explanations</h2>
+
+<p>Before proposing anything, it's worth naming the alternatives, because I think they're all real and this essay isn't arguing against them. </p>
+
+<p>Dialectical framing could come from <em>instruction-following conventions</em>: models trained to be helpful learn that "balanced" is a good prior for handling contested questions, which is independent of any corpus bias. It could come from <em>uncertainty management</em>i.e. a model that doesn't know the answer to something hedges, and hedging often looks like balance (which one could theoretically hypothesize as a property of gradient descent). It could come from <em>safety training</em> specifically; labs that fine-tune for harmlessness may inadvertently penalize strong, potentially polarizing stances or it could just come from <em>generic high-quality writing conventions</em> like academic writing, journalism, and essays all feature balance norms, and training on "good text" means training on text that hedges.</p>
+
+<p>I think all of these are probably contributing. My interest here is in the pretraining-data and reward-shaping mechanisms, which I find less well-articulated in existing discussion regarding this and in one upstream cause I haven't seen mentioned i.e. the role of Google's search-result like infrastructures in shaping what the web actually looks like before any LLM ingests it.</p>
+
+<hr class="div">
+
+<h2>2. The Setup: What Next-Token Prediction Actually Learns</h2>
+
+<p>A language model learns by predicting the next token in a sequence, minimizing cross-entropy against the empirical distribution in its training corpus.</p>
+
+<div class="math-block" id="m_loss"></div>
+
+<p>The model's output distribution is, loosely, a smoothed version of the conditional token frequencies in the corpus. High-frequency continuations get high probability while low-frequency ones get suppressed. But this then means the model inherits whatever structural biases are over-represented in the data.</p>
+
+<p>Separately, there's a phenomenon called <em>typicality bias</em> or mode collapse in aligned models. Work by Shi et al. (2025) found that RLHF-trained models tend to collapse to the most "typical" completion under a direct prompt, even though the underlying pre-training distribution is much more diverse.<span class="fn">1</span> The diversity is still there in the weights but it just becomes inaccessible via standard prompting. If we think of the model's output as roughly:</p>
+
+<div class="math-block" id="m_mode"></div>
+
+<p>then the question becomes: what is the mode of the conditional distribution over analytical, opinion-style text? I think that it's dialectically framed prose.</p>
+
+<div class="aside">
+  <div class="aside-label">A caveat on the math</div>
+  The equations here are meant to make the intuitions precise but do not constitute a proof. The key variables like the amplification factor in section 5, the likelihood ratio in section 3 are not estimated from data. They're placeholders for quantities that would need to be measured before this hypothesis could be taken seriously as a quantitative claim.
+</div>
+
+<hr class="div">
+
+<h2>3. Three Sources of Corpus Bias</h2>
+
+<h3>Reddit and the upvote-sorted dialectic</h3>
+
+<p>A June 2025 citation analysis of LLM responses found Reddit as the most-cited domain, accounting for roughly 40% of citations across over 150,000 responses.<span class="fn">2</span> I'd treat this number with some caution because citation frequency isn't the same as training data fraction, and the study's methodology isn't fully transparent, but the directional claim seems plausible that Reddit is heavily represented in publicly available conversational text corpora.</p>
+
+<p>And here, what matters is Reddit's structure. Threads are organized around opposition such that a post makes a claim, comments disagree, the top-voted replies frequently steelman the opposition or synthesize. The upvote mechanism selects for responses that seem thoughtful, which in practice often means responses that acknowledge multiple sides. If something like a likelihood ratio for oppositional framing given high-quality text were estimated:</p>
+
+<div class="math-block" id="m_lr"></div>
+
+<p>I think this ratio would be substantially above 1 and that balanced framing correlates with "high quality" as measured by social signal. If it were true, quality-filtered training pipelines that upweight high-engagement content would amplify the pattern further.</p>
+
+<h3>PAA</h3>
+
+<p>Google's "People Also Ask" widget appears in a large fraction of informational search results (estimates vary, but figures around 75–85% are commonly cited for informational queries).<span class="fn">3</span> The widget surfaces contrastive questions for a query like "is X good," PAA reliably shows "what are the disadvantages of X," "how does X compare to Y," "when should you avoid X."</p>
+
+<p>This creates a systematic pressure on web content such that pages that want to rank for informational queries are incentivized by SEO dynamics to structure their content around the questions' PAA surfaces. And those questions are structurally oppositional. The web, filtered through Google's ranking system, now starts to look like a giant collection of thesis-antithesis-synthesis structures, before any LLM ingests any of it.</p>
+
+<p>Furthermore, this creates a second-order loop. LLM responses are now themselves indexed by search engines. Those responses are dialectically framed (per the mechanism we're discussing). Google's PAA system, looking at high-ranking content, observes that good content addresses contrasting views. It reinforces the inference that contrastive questions are relevant and future training crawls pick up more of this content and hence the corpus becomes more oppositionally structured over time.</p>
+
+
+<h3>Journalism and the balance convention</h3>
+
+<p>The world's most popular media houses i.e. the Anglo-American news writing has operated under a "both sides" objectivity norm for most of the past century. The practical consequence is that a large fraction of high-quality English prose structures claims as assertion, counterassertion, qualified conclusion. If you train a model on a corpus where "but critics argue" appears at elevated rates following positive claims about almost any policy or product, you'd expect the model to learn that as a natural continuation.</p>
+
+<hr class="div">
+
+<h2>4. RLHF and the Reward-Shaping Problem</h2>
+
+<p>I think Post-training via RLHF optimizes an objective of roughly this form.</p>
+
+<div class="math-block" id="m_rlhf"></div>
+
+<p>where <span id="m_r"></span> is a reward model trained on human preference comparisons, <span id="m_ref"></span> is the reference policy, and <span id="m_beta"></span> penalizes divergence. The question is what <span id="m_r2"></span> actually measures.</p>
+
+<p>Sharma et al. (2024) analyzed Anthropic's hh-rlhf dataset and found evidence, though contested in some respects, that responses agreeing with the rater's apparent opinion were preferred, sometimes even when factually weaker. This is obvious because it's RLHF we are speaking about.<span class="fn">4</span> The label for this is sycophancy but the specific implication for <em>structure</em> is underappreciated:</p>
+
+<p>Suppose raters hold varying beliefs about some contested topic. A response asserting position A gets preferred by raters who believe A; a response asserting ¬A gets preferred by raters who believe ¬A. A response that presents both sides like "here's the case for A, though ¬A has merits too" is unlikely to be rated poorly by <em>either</em> group, since both see their view acknowledged. Formally, if belief proportions are <span id="m_p"></span> and <span id="m_np"></span>:</p>
+
+<div class="math-block" id="m_sycoph"></div>
+
+<p>This isn't really sycophancy in the usual sense and it's closer to a rational strategy under rater heterogeneity and the model isn't necessarily agreeing with anyone but it's producing text that no one particularly objects to. The result looks like balance because balance, in this setting, is the maximin strategy.</p>
+
+<p>There's also evidence from Perez et al. (2022) and others that sycophancy-adjacent behaviors tend to increase with model scale.<span class="fn">5</span> If that's right, the very models that are most capable and most widely deployed may show the strongest dialectical tendency. I'd hold this claim loosely because the picture on inverse scaling is mixed.</p>
+
+<p>With all this, the broader pattern fits what's sometimes called Goodhart's Law: when the appearance of nuanced reasoning becomes a target of optimization, it stops being reliable evidence of nuanced reasoning. Gao et al. (2022) showed empirically that as KL from the reference policy increases under RLHF optimization, proxy reward and underlying quality initially track each other, then diverge.<span class="fn">6</span> The optimized model is doing better on the proxy (balanced framing) but not necessarily on the thing the proxy was supposed to capture (careful reasoning).</p>
+
+<hr class="div">
+
+<h2>5. A Sketch of the Feedback Loop</h2>
+
+<p>If the above mechanisms are real and interact, you'd expect something like a self-reinforcing dynamic across model generations. Let <span id="m_pn"></span> denote some measure of dialectical framing frequency in training corpus generation <span id="m_n"></span>. A simple model of the loop might look like:</p>
+
+<div class="math-block" id="m_loop"></div>
+
+<p>where <span id="m_alpha"></span> captures the amplification from quality filtering and RLHF (>1 if those processes favor dialectical text), and <span id="m_p0"></span> is a baseline from non-LLM sources. If <span id="m_a1"></span>, the sequence is increasing; if it stays above 1 across generations, the fixed point is <span id="m_inf"></span>.</p>
+
+<p>This is a toy model. But whether <span id="m_a2"></span> is the critical one, I don't know and if quality filtering actually amplifies dialectical framing relative to other text.</p>
+
+<hr class="div">
+
+<h2>6. Does This Matter?</h2>
+
+<p>Balance in language models is not inherently bad and for genuinely contested questions like ethical tradeoffs, political values, decisions that depend on individual circumstances, a response that presents multiple perspectives is probably what you want. The problem, if there is one, is that the same structure gets applied indiscriminately to empirical questions with known answers, to requests for concrete recommendations, to situations where hedging is actively unhelpful and even acts as a magic appearance of a pattern occurence which we don't know how or why it happens because a major part of internals of LLMs is a black box to us.</p>
+
+<p>A model that says "while the earth revolves around the sun, it's worth noting that geocentric frameworks have historical significance" misfiring the balance heuristic on a domain where it doesn't belong (as opposed to the careful framing I talked about) and a model that responds to "should I use X or Y library" with a balanced comparison when you want a recommendation has technically given you less than you asked for and given you indecision rather than a answer.</p>
+
+<p>There are also broader questions about homogenization like studies on LLM-assisted writing find that GPT-4 essays produce less semantic diversity across a group than human-written essays on the same topics.<span class="fn">7</span> I'd be cautious about reading too much into any single study here, but the directional concern seems real that if millions of people use LLMs to help write, and those LLMs all default to the same structural arc, the aggregate output of those writing sessions becomes more similar. Whether this is a significant effect or a marginal one is unclear.</p>
+
+<hr class="div">
+
+<h2>7. What Might Actually Change It</h2>
+
+<p>The pattern definitely isn't fixed and could primarily be a learned behavior, so it can presumably be unlearned, or at least adjusted by fine tuning or more RLVR and etc than RLHF.</p>
+
+<p><em>Prompting</em> is surely the immediate lever. Asking a model to "take a clear stance" or "commit to a recommendation" produces different output and this works precisely because the dialectical tendency is a prior and not a constraint and hence it can be overridden by sufficient signal in the context window. How much override is needed seems to scale with model size, which is a bit ironic given the inverse-scaling concern above.</p>
+
+<p><em>Preference data redesign</em> is the more fundamental fix. If rater training specifically included cases where the "correct" preference was the direct, unhedged response, even when it contradicted the rater's beliefs, the reward model would learn to not systematically prefer balance. Sycophancy-labeled DPO, where pairs are constructed specifically to reward directness over capitulation, has shown some promise in early work.<span class="fn">8</span></p>
+
+<p><em>Corpus decontamination</em> would mean identifying and downweighting PAA-structured content in training data. The challenge is that such content often scores highly on surface quality metrics, so standard filtering pipelines won't naturally deprioritize it.</p>
+
+<p><em>Outcome-grounded reward signals</em>: training on tasks with verifiable answers would decouple reward from agreeability by definition. Models trained heavily (by heavily I mean inference) on math and code show less dialectical hedging on those task types. Since these are language models that produce text, I don't know how much we can optimize for this and if this transfers to open-ended text is unclear.</p>
+
+<hr class="div">
+
+<h2>8. Conclusion</h2>
+
+<p>What I'm really doing is trying to describe a shape in the data that I think is there, propose a mechanism stack that might explain it, and flag the places where the argument outpaces the evidence. </p>
+
+<p> The argument is that it's <em>plausible</em> that the dialectical tendency in LLMs emerges from the intersection of pretraining corpus structure, RLHF reward shaping, and quality filtering dynamics and that these mechanisms may interact in a self-reinforcing way across model generations. I think the PAA is the most underexplored piece and we probably should study all these things more to understand, atleast the outputs, to try and predict the internals and workings.</p>
+
+<p>Be careful with the fact that the cited studies support individual mechanisms and none of them directly tests the hypothesis and nome of the statistics I've cited are probably overstated or come from studies I haven't been able to fully evaluate.</p>
+
+<hr class="div">
+
+<div class="footnotes">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;">Notes</p>
+  <ol>
+    <li>Shi et al., "Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity," arXiv 2510.01171 (2025). The paper's main finding is that aligned models don't lose pre-training diversity in their weights — they lose access to it via standard instance-level prompting.</li>
+    <li>Citation frequency study reported by brainz.digital (April 2026), covering 150,000+ LLM response citations. This captures citation frequency in outputs, not training data composition — the connection I'm drawing is inferential. Reddit's licensing agreement with Google was reported by Reuters, February 2024.</li>
+    <li>Various SEO industry analyses put PAA presence at 70–87% for informational queries, depending on methodology and query set. I've seen enough variation in these estimates to be cautious about any specific number.</li>
+    <li>Sharma et al., "Towards Understanding Sycophancy in Language Models," ICLR 2024. The finding is real but the effect sizes are contested, and the causal interpretation — that RLHF produces this rather than base-model behavior — is harder to establish cleanly.</li>
+    <li>Perez et al. (2022); subsequent replications have found mixed results on whether the inverse-scaling picture holds consistently across tasks and model families.</li>
+    <li>Gao et al., "Scaling Laws for Reward Model Overoptimization," arXiv 2210.10760 (2022). One of the cleaner empirical results in the alignment literature, though it was established in relatively controlled settings.</li>
+    <li>Moon et al. (2024); "We're Different, We're the Same: Creative Homogeneity Across LLMs," arXiv 2501.19361 (2025). The effect sizes vary considerably across studies.</li>
+    <li>Khan et al. (2024), IEEE International Conference on Big Data. Early-stage result; I wouldn't put much weight on any single study here.</li>
+  </ol>
+</div>
+
+<script>
+const specs = {
+  m_loss: ['\\mathcal{L}(\\theta)\\;=\\;-\\,\\mathbb{E}_{x\\sim\\mathcal{D}}\\!\\left[\\sum_{t}\\log p_\\theta(x_t\\mid x_{<t})\\right]', true],
+  m_mode: ['\\hat{x}\\;\\approx\\;\\operatorname{mode}\\bigl[p_{\\text{corpus}}(\\cdot\\mid\\text{prompt})\\bigr]', true],
+  m_lr:   ['\\frac{P(\\text{oppositional framing}\\mid\\text{high-quality text})}{P(\\text{oppositional framing})}\\;\\gg\\;1', true],
+  m_rlhf: ['\\max_{\\pi_\\theta}\\;\\mathbb{E}_{x\\sim\\pi_\\theta}[r_\\phi(x)]\\;-\\;\\beta\\,D_{\\mathrm{KL}}(\\pi_\\theta\\,\\|\\,\\pi_{\\mathrm{ref}})', true],
+  m_r:    ['r_\\phi', false],
+  m_ref:  ['\\pi_{\\mathrm{ref}}', false],
+  m_beta: ['\\beta', false],
+  m_r2:   ['r_\\phi', false],
+  m_p:    ['p', false],
+  m_np:   ['1-p', false],
+  m_sycoph: ['\\mathbb{E}_{\\text{rater}}[\\text{reward}(\\text{balanced})]\\;\\geq\\;\\max\\bigl(\\mathbb{E}[\\text{reward}(A)],\\;\\mathbb{E}[\\text{reward}(\\lnot A)]\\bigr)', true],
+  m_pn:   ['p_n', false],
+  m_n:    ['n', false],
+  m_loop: ['p_{n+1}\\;=\\;\\alpha_n\\cdot p_n\\;+\\;(1-\\alpha_n)\\cdot p_0', true],
+  m_alpha:['\\alpha_n', false],
+  m_p0:   ['p_0', false],
+  m_a1:   ['\\alpha_n > 1', false],
+  m_inf:  ['p_\\infty = 1', false],
+  m_a2:   ['\\alpha_n > 1', false],
+};
+Object.entries(specs).forEach(([id,[latex,block]])=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  try{katex.render(latex,el,{displayMode:block,throwOnError:false});}
+  catch(e){el.textContent=latex;}
+});
+</script>
+</body>
+</html>
