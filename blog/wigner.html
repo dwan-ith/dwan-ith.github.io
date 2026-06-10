@@ -649,7 +649,7 @@
 
 <p>
     This is the starting observation of what I want to call the <strong>Schrödinger's Observer</strong>: Consider the cat's perspective.
-    If you are Schrödinger's cat, you are not suspended in some blurred superposition of alive and dead, waiting for a human to open the box and decide your fate. From inside the box, the cat is a macroscopic system embedded in an environment, coupled to air molecules and thermal radiation and its own biochemistry at every moment. The instant the quantum event occurs, the atom decays or it doesn't, the cat's state becomes entangled with that outcome through a cascade of irreversible physical processes. The cat here, experiences one definite reality. If it is alive, it is alive continuously, with no gap or blur, long before anyone outside touches the latch. The external observer's uncertainty about the outcome is real, and the quantum formalism permits them to write a superposition but that is a description of their non-definitiveness. The cat was never waiting for permission to be one thing or the other.
+    If you are Schrödinger's cat, you are not suspended in some blurred superposition of alive and dead, waiting for a human to open the box and decide your fate. From inside the box, the cat is a macroscopic system embedded in an environment, coupled to air molecules and thermal radiation and its own biochemistry at every moment. The instant the quantum event occurs, the atom decays or it doesn't, the cat's state becomes entangled with that outcome through a cascade of irreversible physical processes. On this view, the cat experiences one definite reality. If it is alive, it is alive continuously, long before anyone outside touches the latch. The external observer's uncertainty about the outcome is real, and the quantum formalism permits them to write a superposition but that is a description of their non-definitiveness. The cat was never waiting for permission to be one thing or the other.
   </p>
 
   <p>
@@ -739,7 +739,7 @@
     &amp; Zeh (1985) obtain \(\tau_D \lesssim 10^{-20}\) s as a realistic upper bound for
     macroscopic superpositions. The shortest neural timescale relevant to perception is of
     order milliseconds and the gap between decoherence timescale and perceptual timescale is
-    approximately twenty orders of magnitude.
+    approximately twenty orders of magnitude. The exact number depends on the model, but the point is robust that the decoherence timescale is astronomically shorter than any perceptual timescale.
   </p>
 
   <p>
@@ -755,7 +755,7 @@
   <p>
     where \(\Delta S \sim k_B \times 10^{23}\) is the entropy increase from encoding the
     outcome into \(\sim 10^{23}\) environmental degrees of freedom. This is not "extremely
-    unlikely" in the ordinary sense but it is thermodynamically prohibited by the second law.
+    unlikely" in the ordinary sense — it is thermodynamically prohibited by the second law.
   </p>
 
   <div class="note">
@@ -767,7 +767,198 @@
     timescale, which is thermodynamically not acheiveable.
   </div>
 
-  <h2>4. Two Descriptions</h2>
+<h2>4. Causal Entanglement</h2>
+
+<p>
+  But, describing Wigner's superposition state assignment as reflecting "epistemic ignorance" i.e.
+  his lack of information about a pre-existing definite fact, is not quite right, and I think it
+  leaves the argument weaker than it needs to be. It is better not to call this merely “ignorance” and the more precise claim is that Wigner’s state assignment is relative to his causal and informational position. The stronger claim is that
+  within the relational picture developed here, Wigner’s description is the appropriate quantum description for an observer at his location and stage in the causal chain. But the entanglement carrying the measurement outcome
+  has not yet propagated to him, making this precise requires examining the locality
+  structure of quantum evolution. This, framed as the as a continuation
+  of the thought experiment of Schrödinger's Observer's causal picture is the more useful description.
+</p>
+
+<h3>Locality of the Hamiltonian</h3>
+
+<p>
+  Physical Hamiltonians are sums of local interaction terms. For a system on a lattice
+  \(\Lambda\):
+</p>
+
+<div class="math-block">
+  $$H = \sum_{X \,\subset\, \Lambda} h_X$$
+</div>
+
+<p>
+  where each \(h_X\) acts non-trivially only on the finite region \(X \subset \Lambda\).
+  Interactions may be nearest-neighbor, finite-range, or exponentially decaying but the
+  essential physical requirement is that no single term directly couples arbitrarily
+  distant regions. All long-range influences must propagate through intermediate degrees
+  of freedom.
+</p>
+
+<p>
+  This has an immediate and exact consequence. If two systems \(\mathcal{A}\) and
+  \(\mathcal{B}\) share no interaction term in \(H\),
+</p>
+
+<div class="math-block">
+  $$H = H_\mathcal{A} \otimes \mathbb{I}_\mathcal{B}
+  \;+\; \mathbb{I}_\mathcal{A} \otimes H_\mathcal{B}$$
+</div>
+
+<p>
+  and the initial state is a product
+  \(|\Psi(0)\rangle = |\psi_\mathcal{A}\rangle \otimes |\psi_\mathcal{B}\rangle\),
+  then unitary evolution preserves the product structure for all time:
+</p>
+
+<div class="math-block">
+  $$|\Psi(t)\rangle
+  = U_\mathcal{A}(t)\,|\psi_\mathcal{A}\rangle
+  \otimes U_\mathcal{B}(t)\,|\psi_\mathcal{B}\rangle$$
+</div>
+
+<p>
+  Entanglement between \(\mathcal{A}\) and \(\mathcal{B}\) is impossible without a
+  cross-term \(H_{\mathcal{AB}}\). This follows from the
+  tensor product structure of composite Hilbert spaces and the unitarity of evolution.
+  In the setting considered here, entanglement is generated by local interaction.
+</p>
+
+<h3>The Entanglement Frontier</h3>
+
+<p>
+  Let \(M\) denote the measurement system (spin \(\otimes\) apparatus) and
+  \(\{S_i\}_{i \in \Lambda}\) the environmental degrees of freedom. The quantum mutual
+  information between \(M\) and a subsystem \(S_i\) at time \(t\) is:
+</p>
+
+<div class="math-block">
+  $$I(M : S_i)(t)
+  \;=\; S\!\left(\rho_M(t)\right)
+  + S\!\left(\rho_{S_i}(t)\right)
+  - S\!\left(\rho_{M,\,S_i}(t)\right)$$
+</div>
+
+<p>
+  where \(S(\rho) = -\mathrm{Tr}(\rho \log \rho)\) is the von Neumann entropy.
+  \(I(M : S_i)(t) > 0\) if and only if \(M\) and \(S_i\) share quantum or classical
+  correlations at time \(t\). We can now define the object that gives the propagation
+  picture its precise content.
+</p>
+
+
+  <h3>Causal Entanglement Frontier: </h3>
+  <p style="margin:0 0 0.6rem; font-size:0.97rem;">
+    Fix an operationally negligible threshold \(\varepsilon > 0\). The
+    <strong>correlated region</strong> at time \(t\) is:
+  </p>
+  <p style="margin:0 0 0.6rem;">
+    $$\mathcal{C}(t) \;=\;
+    \bigl\{\, S_i \in \Lambda \;:\; I(M : S_i)(t) \;>\; \varepsilon \,\bigr\}$$
+  </p>
+  <p>
+    The <strong>causal entanglement frontier</strong> (is a term I am introducing for this essay)
+    \(\mathcal{F}(t) = \partial\,\mathcal{C}(t)\) is its boundary. By the locality
+    argument above, \(\mathcal{C}(t)\) is monotonically expanding:
+    \(\mathcal{C}(t_1) \subseteq \mathcal{C}(t_2)\) for all \(t_1 < t_2\). Systems
+    inside \(\mathcal{C}(t)\) have acquired correlations with the measurement record;
+    systems outside have not. For macroscopic systems, the transition across
+    \(\mathcal{F}(t)\) is effectively sharp on any observable timescale, because
+    decoherence occurs in \(\tau_D \sim 10^{-20}\) s once the frontier arrives.
+  </p>
+
+
+<h3>The Lieb–Robinson Bound</h3>
+
+<p>
+  The key theorem quantifying how fast \(\mathcal{F}(t)\) can expand is the
+  Lieb–Robinson bound (Lieb and Robinson, 1972). For a quantum lattice system
+  with Hamiltonian \(H = \sum_X h_X\) satisfying the quasi-locality condition
+  \(\|h_X\| \leq \lambda\,e^{-\mu |X|}\), and for any two operators \(A\), \(B\)
+  supported on regions \(X_A\), \(X_B\) respectively:
+</p>
+
+  <p>
+    $$\bigl\|\,[A(t),\, B]\,\bigr\|
+    \;\leq\;
+    C\,|X_A|\,\|A\|\,\|B\|
+    \;\exp\!\Bigl(-\,\mu\bigl(\,d(X_A,\,X_B)
+    \;-\; v_{\mathrm{LR}}\,|t|\,\bigr)\Bigr)$$
+  </p>
+  <p style="margin:0; font-size:0.93rem; color:#555;">
+    Here \(d(X_A, X_B)\) is the graph distance between supports, \(C\) and \(\mu > 0\)
+    are constants, and \(v_{\mathrm{LR}} \leq 2e\lambda/\mu\) is the
+    <em>Lieb–Robinson velocity</em>. For
+    \(d(X_A, X_B) \gg v_{\mathrm{LR}}\,|t|\), the commutator is exponentially suppressed:
+    operators at \(X_A\) have had negligible causal influence on operators at \(X_B\).
+  </p>
+
+<p>
+  Via a standard argument (see Bravyi, Hastings, and Verstraete, 2006), the bound implies
+  that the reduced density matrix of any system \(S_i\) outside the Lieb–Robinson
+  light cone of \(M\) is approximately unchanged from its free evolution. For the initial
+  product state \(|\Psi(0)\rangle = |\psi_M\rangle \otimes |E_0\rangle\):
+</p>
+
+<div class="math-block">
+  $$\bigl\|\,\rho_{S_i}(t) \;-\; \rho_{S_i}^{(0)}(t)\,\bigr\|_1
+  \;\lesssim\;
+  C'\exp\!\Bigl(-\,\mu\bigl(\,d(M,\, S_i) \;-\; v_{\mathrm{LR}}\,t\,\bigr)\Bigr)$$
+</div>
+
+<p>
+  where \(\rho_{S_i}^{(0)}(t)\) is the reduced state under free evolution of \(S_i\)
+  alone. For \(d(M, S_i) \gg v_{\mathrm{LR}}\,t\), the state of \(S_i\) is
+  essentially unperturbed by the measurement at \(M\), and
+  \(I(M : S_i)(t)\) is negligible. System \(S_i\) lies outside \(\mathcal{C}(t)\).
+</p>
+
+<h3>Consequence for Wigner's Friend</h3>
+
+<p>
+  This is the physical grounding of the claim through Schrödinger's Observer. At time \(t_0\), the
+  measurement event occurs at \(M\). The frontier \(\mathcal{F}(t)\) expands outward
+  from \(M\) at speed at most \(v_{\mathrm{LR}}\). For all \(t\) satisfying
+  \(d(M, \mathrm{Wigner}) \gg v_{\mathrm{LR}}\,t\):
+</p>
+
+<div class="math-block">
+  $$I(M : \mathrm{Wigner})(t) \;\approx\; 0$$
+</div>
+
+<p>
+  Wigner has acquired no correlations with the measurement outcome. His superposition
+  state assignment for the laboratory is the
+  correct quantum mechanical description for an observer outside \(\mathcal{C}(t)\).
+  The Friend's definite state assignment and Wigner's superposition assignment are
+  simultaneously accurate relative to their positions in the expanding entanglement
+  geometry. Their descriptions correspond to being inside versus
+  outside \(\mathcal{C}(t)\) at the relevant time.
+</p>
+
+
+<div class="note">
+  <span class="note-num">3.</span>
+  <strong>Scope of the Lieb–Robinson bound.</strong>
+  The theorem applies rigorously to quantum lattice systems with finite-range or
+  exponentially-decaying interactions but extending it to continuous systems requires care.
+  For the dominant decoherence channel in macroscopic laboratory settings, thermal photon
+  scattering (Joos &amp; Zeh 1985), relativistic causality in quantum field theory
+  bounds the frontier's propagation at \(c\). For phonon-mediated channels in solids,
+  the relevant speed is the speed of sound in the medium. In neither case is propagation
+  instantaneous or superluminal. The physically essential claim, that the frontier
+  expands at a finite, causal speed, so that Wigner is genuinely outside
+  \(\mathcal{C}(t)\) until the frontier reaches him, holds on both lattice
+  and realistic (continuous) grounds. \(v_{\mathrm{LR}}\) should not be read as
+  implying the frontier always travels at \(c\) and rather travels at the speed of whatever
+  local interaction mediates each step.
+</div>
+
+
+  <h2>5. Two Descriptions</h2>
 
   <p>
     The apparent contradiction rests on the assumption that both descriptions must
@@ -782,7 +973,7 @@
     participation in the measurement event and Wigner's reflects his epistemic situation that he
     knows the lab contains a friend who performed a measurement, but he has received no
     information about the outcome. These are descriptions from different observational
-    contexts and there is no requirement that they agree.
+    contexts and there is no requirement that they agree prior to comparison.
   </p>
 
   <p>
@@ -816,10 +1007,10 @@
     physical interaction.
   </p>
 
-  <h2>5. The Observer Chain</h2>
+  <h2>6. The Observer Chain</h2>
 
   <p>
-    Now, to see is another way, add a third observer to Schrödinger's cat experiment , Alice, watching Bob perform the Schrödinger experiment from
+    Now, to see this another way, add a third observer to Schrödinger's cat experiment , Alice, watching Bob perform the Schrödinger experiment from
     outside. Alice never opens the box and before she learns anything from Bob, standard quantum
     mechanics permits her to describe the composite system (Bob + box) as:
   </p>
@@ -863,8 +1054,19 @@
     earlier observers lack definite experiences.
   </p>
 
+  <p>
+  The physical basis for observer chain is such that each observer
+  enters \(\mathcal{C}(t)\) when the frontier reaches them, at times
+  \(t_0 + \tau_D \ll t_1 < t_2\). Because \(\mathcal{C}(t)\) is monotonically expanding
+  and irreversible, by the entropy argument of Section 3, recoherence has probability
+  \(\sim \exp(-10^{23})\), no later entry into \(\mathcal{C}\) can alter the status of
+  earlier systems. The Friend's position inside \(\mathcal{C}\) since
+  \(t_0 + \tau_D \sim 10^{-20}\,\text{s}\) is not revised when Wigner enters at \(t_1\).
+  Hence, the sequence runs in one direction only.
+</p>
+
   <div class="note">
-    <span class="note-num">3.</span>
+    <span class="note-num">4.</span>
     One might ask whether this generates an infinite regress. Could there be a fourth observer
     who describes Alice as in superposition, and so on? Yes, and the same logic applies at
     each level. The chain can extend indefinitely but what it never requires is a final observer
@@ -872,7 +1074,7 @@
     context. The regress does not demand a terminus.
   </div>
 
-  <h2>6. Implications </h2>
+  <h2>7. Implications </h2>
 
   <p>
     To separate what follows from the formalism and established physics from what requires
@@ -902,7 +1104,7 @@
       reasoning but whether this constitutes dissolution or reframing depends on what you think
       the paradox was originally asking.</li>
       <li>That all interpretations are equally tenable here. Consciousness-collapse
-      interpretations are in direct tension with this framework; Many-Worlds, Relational QM,
+      interpretations sit uneasily with this framework; Many-Worlds, Relational QM,
       and Quantum Darwinism are broadly compatible.</li>
     </ul>
   <p>
@@ -913,7 +1115,7 @@
     mechanics but not all. So claiming the framework is interpretation-neutral would be inaccurate.
   </p>
 
-  <h2>7. The Frauchiger–Renner Scenario</h2>
+  <h2>8. The Frauchiger–Renner Scenario</h2>
 
   <p>
     Frauchiger and Renner (2018) extended Wigner's scenario into a protocol involving nested
@@ -929,13 +1131,12 @@
     measurement. In physical terms, you must reverse the decoherence of a warm macroscopic
     system on a laboratory timescale. The probability of this scales as \(\exp(-10^{23})\),
     as computed above. The contradiction in Frauchiger–Renner requires, as one of its
-    operational steps, something thermodynamically not achievable.
+    operational steps, something thermodynamically improbable in the settings discussed here.
   </p>
 
   <p>
     Experiments by Proietti et al. (2019) and Bong et al. (2020) have tested related
-    scenarios using photonic qubits as stand-ins for observers. But, they do not imply
-    that macroscopic conscious observers experience superposition, because photonic qubits
+    scenarios using photonic qubits as stand-ins for observers. But, they do not show that macroscopic conscious observers can be maintained in coherent superposition under these ordinary conditions, because photonic qubits
     can be maintained in coherence precisely because they are not warm macroscopic objects
     interacting with \(\sim 10^{23}\) environmental degrees of freedom.
   </p>
