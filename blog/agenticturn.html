@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Agentic Turn</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', inline: true}
+      ]
+    });"></script>
+  <style>
+    /* ─── Base ─── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "KaTeX_Main", "Latin Modern Roman", "Georgia", serif;
+      color: #111;
+      background: #fff;
+      line-height: 1.65;
+    }
+
+    /* ─── Nav ─── */
+    .nav {
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #2563eb;
+      margin-right: 0.35rem;
+    }
+    .nav a:hover { text-decoration: underline; }
+    .nav a.active { color: #000; }
+
+    /* ─── Content ─── */
+    .content {
+      max-width: 660px;
+      padding: 1.5rem 1.25rem 4rem;
+      margin: 0 auto;
+    }
+
+    /* ─── Title & Meta ─── */
+    .title {
+      font-size: 2.1rem;
+      font-weight: normal;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .meta-top {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Typography ─── */
+    h2 {
+      margin-top: 2.8rem;
+      font-size: 1.35rem;
+      font-weight: normal;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 0.3rem;
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: bold;
+      margin-top: 2rem;
+      margin-bottom: 0.4rem;
+    }
+    p {
+      font-size: 1.04rem;
+      margin-top: 0;
+      margin-bottom: 1.1rem;
+    }
+    sup {
+      font-size: 0.72rem;
+      color: #2563eb;
+      vertical-align: super;
+      line-height: 0;
+    }
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+    ul, ol { padding-left: 1.6rem; margin-bottom: 1.1rem; }
+    li { margin-bottom: 0.4rem; font-size: 1.04rem; }
+
+    /* ─── Hero figure ─── */
+    .hero {
+      margin: 1.5rem 0 2rem;
+    }
+    .hero img {
+      width: 100%;
+      border-radius: 4px;
+      display: block;
+    }
+    .hero figcaption {
+      font-size: 0.87rem;
+      color: #555;
+      margin-top: 0.6rem;
+      line-height: 1.45;
+    }
+
+    /* ─── Sidenotes / footnote boxes ─── */
+    .note {
+      background: #f9f9f7;
+      padding: 0.75rem 1rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.55;
+      border-radius: 0 4px 4px 0;
+    }
+    .note-num {
+      font-weight: bold;
+      color: #2563eb;
+      margin-right: 0.4rem;
+    }
+
+    /* ─── Display math ─── */
+    .math-block {
+      overflow-x: auto;
+      margin: 1.4rem 0;
+      padding: 0.1rem 0;
+    }
+
+    /* ─── Highlight / callout ─── */
+    .highlight {
+      background: #f0f4ff;
+      border: 1px solid #c7d7f9;
+      border-radius: 5px;
+      padding: 0.9rem 1.1rem;
+      margin: 1.5rem 0;
+      font-size: 1.01rem;
+    }
+    .highlight p { margin: 0 0 0.5rem; }
+    .highlight p:last-child { margin: 0; }
+
+    /* ─── Claim / not-claim box ─── */
+    .claim-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .claim-box h4 {
+      margin: 0 0 0.5rem;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+    }
+    .claim-box ul { margin: 0; padding-left: 1.3rem; }
+    .claim-box li { font-size: 0.97rem; margin-bottom: 0.3rem; }
+
+    /* ─── Comparison table ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      margin: 1.5rem 0;
+    }
+    th {
+      text-align: left;
+      border-bottom: 2px solid #ccc;
+      padding: 0.4rem 0.6rem;
+      font-weight: bold;
+    }
+    td {
+      padding: 0.5rem 0.6rem;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* ─── Ending / thanks ─── */
+    .ending {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e8e8e8;
+      font-size: 0.97rem;
+      color: #444;
+      line-height: 1.65;
+    }
+    .ending a { color: #2563eb; text-decoration: none; }
+    .ending a:hover { text-decoration: underline; }
+
+    /* ─── Links ─── */
+    .inline-link { color: #2563eb; text-decoration: none; }
+    .inline-link:hover { text-decoration: underline; }
+
+    /* ─── Responsive math ─── */
+    .katex-display { overflow-x: auto; overflow-y: hidden; }
+  </style>
+</head>
+
+<body>
+<center>
+<nav class="nav">
+  <a href="../index.html">[Home]</a>
+  <a class="active">[Blog]</a>
+  <a href="../explore.html">[Explore]</a>
+  <a href="../papers.html">[Papers]</a>
+</nav>
+</center>
+<main class="content article">
+
+  <h1 class="title">The Agentic Turn</h1>
+  <div class="meta-top">Mar 2026</div>
+
+  <div class="note">
+    <span class="note-num">1.</span>
+    "Intelligence is the computational part of the ability to achieve goals." - John McCarthy,
+    What is AI?, Stanford, 2007. Here, the word "computational" is doing some real work because
+    McCarthy is talking about mechanism by which a system
+    moves from current state toward a target state and that mechanism is what distinguishes an agent
+    from a lookup table (a Turing Machine).
+  </div>
+
+  <p> For a lot of people who came into AI through ChatGPT, “agents” seem like a new category; as if models were one thing, and agents are something that only appeared once LLMs got good enough. But before ChatGPT was a thing, and before even the GPT-1 paper, DeepMind and other reinforcement learning researchers were building systems around the design where an entity observes a world, chooses actions, receives feedback, and repeats that loop in pursuit of a goal. </p>
+
+  <p>
+    And around the last two years, a shift happened that practitioners noticed before theorists named it.
+    Large language models had become extraordinarily capable (in the benchmark sense); fluent, knowledgeable, surprisingly good
+    at reasoning and yet they kept failing at tasks that seemed like they should be easy. If you ask a model
+    to book a flight and it would describe how to book a flight and sometimes even book it properly but if it to build a codebase and it would, on surface, do it but there would be large gaps between what it produced (by hardcoding edgecases, etc) and something doing what it is intended to do, in the abstract sense. The gap between knowing what to do and actually doing it turned
+    out to be enormous, and it wasn't a gap that would be closed if we continued what we were doing.
+  </p>
+
+  <p>
+    The field's "response", if you consider it that, was to wrap models in "loops" and the result is what we now call (or recall) AI agents. 
+    It is just the same model inside a structure that gives its outputs consequences,
+    feeds those consequences back as inputs, and keeps the whole thing running until a <em>goal</em> is met.
+    I want to try to explain what that structure is and how it probably would turn out into what Andrej Karpathy calls as the "Decade of   Agents" and what he argues as, instead of AI achieving fully autonomous, reliable "employee-level" agents in a single year, the industry is entering a 10-year transition period of building, refining, and integrating them.
+  </p>
+
+  <h2>1. Goals as Architecture</h2>
+
+  <p>
+    McCarthy's definition of intelligence captures a functional view of intelligence i.e. a system is intelligent
+    insofar as it can achieve goals. The important word here is <em>can</em> because system that pursues a goal and consistently fails is
+    not intelligent with respect to that goal. It is entirely outcome-oriented and is measured by how effectively an entity can navigate an environment to get what it wants.
+  </p>
+
+  <p>
+    What the definition implies formally is that intelligence requires "a criterion function". Without
+    one, there is no sense in which outputs are better or worse and no way to
+    distinguish progress from drift. An LLM at inference time, with a conditional probability distribution
+    over next tokens, mostly has no such criterion. Given a context window \(C\) containing a prompt, it
+    produces a distribution over continuations:
+  </p>
+
+  $$P(\text{token}_{t+1} \mid C) = \text{softmax}(W \cdot h_t)$$
+
+  <p>
+    where \(h_t\) is the final hidden state. The model is sampling from this distribution and it has no
+    knowledge of whether the sampled token was useful. It cannot observe downstream consequences as
+    each call is independent and the model does not accumulate state between them.<sup>2</sup>
+  </p>
+
+  <div class="note">
+    <span class="note-num">2.</span>
+    This is distinct from the model's internal attention over the context window, which does allow
+    it to use prior tokens in generating the next one. The independence claim is about calls to the
+    model. A model with a 200k token context window still
+    starts each new call from scratch where no hidden state persists.
+  </div>
+
+  <p>
+    An agent is kind a different thing. Formally, it is a policy \(\pi\) mapping observations to actions,
+    operating in an environment \(\mathcal{E}\) to maximize expected cumulative reward toward a goal \(G\):
+  </p>
+
+  $$\pi^* = \arg\max_\pi \; \mathbb{E}\left[\sum_{t=0}^{T} r(s_t, a_t) \;\middle|\; G\right]$$
+
+  <p>
+    In practice, the LLM agent loop is obviously much simpler than full RL because there is no explicit reward signal or all the other more complex stuff being optimized during execution but the structure is kind of the same. The loop is:
+  </p>
+
+  <pre><code>while not goal_achieved(state):
+    action = model.reason(state, goal, history)
+    state  = environment.execute(action)
+    history.append((action, state))</code></pre>
+
+  <p>
+    Three things this loop provides that the bare model cannot: <em>persistence</em> (state carries
+    forward across steps), <em>observation</em> (the model sees the consequences of its actions),
+    and <em>correction</em> (discrepancy between current state and goal can trigger replanning).
+    These are what McCarthy's goal-directedness requires.
+  </p>
+
+  <p>
+    The practical implication is that "a better model" is an incomplete unit of analysis for agent
+    systems. Consider two systems where a model \(M_A\) at 90th percentile on reasoning benchmarks embedded
+    in a harness with poor context management and a model \(M_B\) at 75th percentile in a well-engineered
+    harness. For multi-step production tasks, \(M_B\) will often outperform \(M_A\). Model capability
+    and harness quality multiply, and in 2026, harness quality is typically the binding constraint, which is rather observable from how good Claude Code and the new Hermes Agent, etc are.
+  </p>
+
+  <h2>2. The Harness</h2>
+
+  <h3>2.1 Context as Working Memory</h3>
+
+  <p>
+    An LLM agent's only access to state is its context window i.e. the system prompt, message history,
+    tool call records and their results, and retrieved memory. There is no other storage visible
+    to the model at inference time and therefore this is the complete cognitive workspace.
+  </p>
+
+  <p>
+    The effective capacity is rather substantially smaller than the nominal window size. Empirically, across
+    18 models in Chroma Research's 2025 study, accuracy degrades well before the context limit
+    is reached. This is due to the attention mechanism as transformers exhibit a U-shaped recall profile such that strong
+    attention at the beginning and end of context, weak in the middle. In multi-step tasks, an error
+    introduced at step \(k\) contaminates steps \(k{+}1\) through \(T\) because each subsequent step
+    conditions on the prior outputs. The compounding is multiplicative in the sense that if each step has error
+    probability \(\epsilon\), the probability of a clean \(T\)-step execution is roughly \((1-\epsilon)^T\),
+    which decays rapidly.<sup>3</sup>
+  </p>
+
+  <div class="note">
+    <span class="note-num">3.</span>
+    Sinha et al. (arXiv:2509.09677) give a tighter characterization they show that for a \(T\)-step task
+    with per-step failure probability \(\epsilon\), the expected number of steps before first failure is
+    \(1/\epsilon\), and the expected total task completion rate is \((1-\epsilon)^T\). For \(\epsilon = 0.05\)
+    and \(T = 50\), that is \((0.95)^{50} \approx 0.077\). A 7.7% completion rate on 50-step tasks from
+    a model with 95% per-step accuracy and hence the long-horizon reliability problem is kind of structural.
+  </div>
+
+  <p>
+    The design response is context engineering i.e. actively managing what is in the window at each step
+    rather than passively accumulating everything. Tool results should expire after they are no longer
+    relevant, errors should be compacted rather than preserved verbatim, goals should be periodically
+    re-injected at the tail of context to exploit recency bias, and sessions should be bounded. In
+    practice, context engineering has more leverage on task completion rates than model selection
+    for most production workloads.
+  </p>
+
+  <h3>2.2 Tool Use and the Action Space</h3>
+
+  <p>
+    The agent's ability to affect the world is mediated almost entirely by its tool set, which are defined interfaces
+    for file operations, command execution, API calls, browser automation, database access. The
+    structure of this action space is a surprisingly large determinant of reliability.
+  </p>
+
+  <p>
+    Tool ambiguity (multiple tools with overlapping capability) forces the model to select among
+    functionally degenerate options. The selection is often suboptimal, and because the failure mode
+    is inconsistency rather than hard error, it is difficult to debug systematically. <a href= "https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools"> The Vercel
+    engineering team found that removing 80% of their agent's tools improved reliability</a>, a result
+    that is counterintuitive until you reason about it, which is because a small, orthogonal action space means the
+    model rarely faces a real dispatch decision and when it does, the options are meaningfully distinct.
+  </p>
+
+  <p>
+    Tool result size is mostly a separate problem because a single file read can inject thousands of tokens and
+    retaining raw results throughout a session degrades signal-to-noise progressively. Effective
+    implementations expire tool results on a configurable step cycle, replacing them with compact
+    placeholders that preserve the fact of an action without its full output.
+  </p>
+
+  <h3>2.3 Memory: The Horizontal/Vertical Split</h3>
+
+  <p>
+    Cross-session memory requirements differ cleanly by application type. For <em>horizontal</em>
+    agents, whcih are general-purpose assistants handling diverse and uncorrelated tasks, cross-session memory
+    provides marginal benefit. Each new session has a sufficiently different context that prior
+    sessions carry little usable signal. For <em>vertical</em> agents, like a coding agent on a
+    persistent codebase, an operations agent managing a recurring environment, cross-session
+    memory is not optional because without it, the agent reconstitutes its model of the domain on every
+    invocation, which is both expensive and error-prone.
+  </p>
+
+  <p>
+    For vertical cases, persistent memory does not require a vector database and a structured key-value
+    store organized around semantic categories (user preferences, domain constraints, learned
+    procedures) is sufficient for most workloads, with retrieval via simple lookup. The harder
+    problem is the write side, deciding what to extract and persist from a completed session.
+    Heuristics driven by explicit corrections, repeated queries, and tool call patterns are more
+    reliable than indiscriminate logging. Hence, what to discard is as important as what to keep.
+  </p>
+
+  <h3>2.4 KV-Cache: an Economic Constraint</h3>
+
+  <p>
+    In production, cost and latency are difficult things. Cached tokens are approximately 10× cheaper than
+    uncached on current commercial APIs, roughly $0.30/MTok vs. $3.00/MTok on Sonnet-class models.
+    For an agent making hundreds of calls per session, cache hit rate is a first-order operational
+    metric but cache validity requires byte-identical prefix up to the cache boundary across requests.
+    Any dynamic content injected before that boundary, like timestamps, per-request session IDs, etc. breaks
+    the cache entirely. Hence, the practical rule is to keep the system prompt and stable context in a fixed
+    prefix, inject dynamic content only at the tail.
+  </p>
+
+  <h3>2.5 Subagent Isolation Semantics</h3>
+
+  <p>
+    Multi-agent architectures manage context complexity by delegating subtasks to specialized agents,
+    each in an isolated context window. The isolation prevents error compounding from propagating
+    across the full task but the constraint is that subtasks must be non-interdependent during execution.
+    Parallel subagents sharing state without a synchronization protocol diverge on different versions
+    of the artifact and they are well-suited to parallel information gathering and sequential decomposition but
+    are poorly suited to tasks requiring fine-grained read-write coordination over shared state,
+    where synchronization overhead typically exceeds the parallelism benefit.
+  </p>
+
+  <h2>3. Self-Improving Agents</h2>
+
+  <p>
+    Every agent described so far is stateless with respect to experience as each session begins from
+    the same prior regardless of how many tasks the agent has completed. But self-improving agents, which were popularized by
+    the Darwin Godel Machine (J Zhang, 2025), which was Sakana AI's massive, multi-agent evolutionary pipeline, is a different direction.
+  </p>
+
+  <p>
+    The Hermes Agent framework from Nous Research, is a current instantiation of this kind of paradigm i.e. agents whose
+    performance on a task class improves monotonically with exposure. Its learning loop has four
+    stages: task execution, outcome evaluation, skill abstraction, skill refinement and the
+    key artifact is the <em>skill document</em>.<sup>4</sup>
+  </p>
+
+  <div class="note">
+    <span class="note-num">4.</span>
+    A skill document is a structured artifact capturing: (a) the procedure followed, (b) failure
+    modes encountered and how they were resolved, (c) verification steps that confirmed completion,
+    and (d) conditions under which the skill should be retrieved. It is closer to a runbook than
+    a memory record because it is procedural rather than episodic.
+  </div>
+
+  <p>
+    After completing a task of sufficient complexity (typically ≥ 5 tool calls), the agent
+    autonomously generates and persists a skill document. When a similar task appears in a future
+    session, the agent retrieves the relevant skill. The architectural distinction from
+    retrieval-augmented generation is that RAG retrieves episodic records (what happened) vs
+    Skills encode procedural abstractions (what to do). The cognitive science analogy would be the
+    difference between episodic memory (I once solved this problem by doing X) and procedural
+    memory (to solve this class of problem, do X).
+  </p>
+
+  <p>
+    The quantitative implication is a performance trajectory. Let \(p_0\) be a naive agent's per-task
+    accuracy on some task class, and let \(\delta_k\) be the improvement from incorporating the
+    skill generated after the \(k\)-th exposure. Then accuracy after \(n\) exposures is:
+  </p>
+
+  $$p_n = p_0 + \sum_{k=1}^{n} \delta_k \cdot \mathbf{1}[\text{skill}_{k} \text{ retrieved}]$$
+
+  <p>
+    This grows until it hits the ceiling imposed by model capability and skill library quality.
+    The important property is that \(p_n > p_0\) for all \(n > 0\) under the assumption that skills
+    are net-positive, which requires the outcome evaluation step to accurately detect task failure.
+    That requirement is the architecture's principal vulnerability: current LLMs are overconfident
+    self-evaluators, and a skill built on a misattributed success is worse than no skill at all
+    (it will be retrieved and applied incorrectly on future tasks).<sup>5</sup>
+  </p>
+
+  <div class="note">
+    <span class="note-num">5.</span>
+    This is the negative transfer problem. A skill acquired for task class \(A\) that is incorrectly
+    retrieved for task class \(B\) does not just fail to help but also actively steers the agent toward
+    a wrong procedure. As the skill library grows and semantic overlap between task classes increases,
+    retrieval precision degrades. Skill staleness (a procedure that was correct at time \(t\) but
+    is wrong at \(t + \Delta t\) due to environmental change) is a related problem that current
+    implementations address only partially.
+  </div>
+
+  <p>
+    The second scaling problem is retrieval. A skill library of \(N\) documents requires the agent
+    to identify the \(k\) most relevant skills (\(k \ll N\)) before task execution. As \(N\) grows, the
+    semantic overlap between skills increases, and the retrieval task becomes harder. A naive
+    embedding-based retrieval degrades as \(\mathcal{O}(\log N)\) in recall quality under typical
+    skill distribution assumptions and this is an open engineering problem that no current
+    implementation has solved cleanly.
+  </p>
+
+  <p>
+    Hermes is, I think, just the beginning of this pattern. What it demonstrates is that the
+    architecture is tractable with maybe the four-stage self-improvement loop can be deployed at scale and
+    produces measurable improvement on repeated task classes. The open problems (self-evaluation
+    reliability, staleness detection, negative transfer prevention) are each non-trivial and each
+    the subject of active research.
+  </p>
+
+  <h2>4. Autonomous Operator Runtimes</h2>
+
+  <p>
+    Interactive agents, where a human defines a task, the agent executes it, the human reviews are
+    a real improvement over single-turn prompting, but they preserve the human as a synchronous
+    participant in every cycle. The architectural tier above this is what is called an
+    <em>autonomous operator runtime</em> i.e. a system that monitors a persistent operational domain,
+    initiates task sequences in response to environmental signals, and involves the human only
+    when an action's estimated risk exceeds the system's authorization policy.
+  </p>
+
+  <p>
+    In the interactive model, the human's scarce
+    attention is spent on coordination and deciding when to invoke the agent, reviewing all outputs,
+    in the operator model, the human's attention is reserved for decisions that genuinely require
+    it and the runtime handles the routine execution loop; the human mostly handles only the policy exceptions. For
+    domains with continuous signal streams like infrastructure monitoring, compliance checking, incident
+    response, this is the natural architecture.
+  </p>
+
+  <p>
+    The required components that distinguish operator runtimes from single-task agents:
+  </p>
+
+  <p>
+    <strong>Signal ingestion and event correlation:</strong> A runtime monitoring a production
+    environment receives a continuous stream of signals like webhook events, metric anomalies, log
+    patterns, scheduled checks, etc. Related signals must be correlated into coherent mission objects
+    rather than processed independently like, example, a latency spike, an error rate increase, and a deployment
+    event three minutes prior are causally related and the runtime must model that relationship to
+    construct a useful mission context, rather than opening three separate agent sessions.
+  </p>
+
+  <p>
+    <strong>Staged reasoning pipeline with defined exit criteria:</strong> Rather than a generic loop,
+    the operator runtime executes a structured pipeline: memory check → signal correlation → planning
+    → investigation (via specialized subagents) → verification → adaptive replanning (if confidence
+    is below threshold) → action synthesis → action publishing → final validation. Each stage has
+    defined inputs and exit criteria and the explicit staging makes failure modes locatable such that you can
+    tell which stage went wrong, rather than getting a diffuse failure from an undifferentiated loop.
+  </p>
+
+  <p>
+    <strong>Tiered authorization policy:</strong> Actions vary in reversibility and blast radius and
+    a hence policy engine applying uniform authorization is miscalibrated in both directions. A
+    well-designed engine distinguishes at minimum three tiers: read operations with no persistent
+    side effects (always-on), reversible state mutations within normal operating parameters
+    (auto-execute with audit trail), and high-risk irreversible operations (require explicit human
+    approval). The tier assignment of a given action is a function of the connector's declared
+    risk level, the investigation phase's confidence score \(\hat{c}\), and operator-configured
+    policy rules \(\Pi\):
+  </p>
+
+  $$\text{tier}(a) = \begin{cases} \text{auto} & \text{if } \hat{c} > \tau_{\text{high}} \text{ and } \text{risk}(a) < \rho_{\text{low}} \\ \text{audit} & \text{if } \hat{c} > \tau_{\text{low}} \text{ and } \text{risk}(a) < \rho_{\text{high}} \\ \text{human} & \text{otherwise} \end{cases}$$
+
+  <p>
+    where \(\tau\) and \(\rho\) are operator-configured confidence and risk thresholds. The thresholds
+    are the policy, and setting them appropriately for a given operational domain is a governance
+    problem, not a technical one.<sup>6</sup>
+  </p>
+
+  <div class="note">
+    <span class="note-num">6.</span>
+    OWASP's 2026 Top 10 for Agentic Applications lists goal hijacking, tool misuse, identity abuse,
+    memory poisoning, cascading failures, and rogue agents as the primary risk taxonomy. The
+    tiered authorization policy is a direct response to the cascading failure and rogue agent
+    risks, by requiring human approval for high-risk actions, it bounds the blast radius of any
+    single autonomous decision.
+  </div>
+
+  <p>
+    <strong>Durable trace persistence.</strong> Every reasoning transition, tool invocation, policy
+    evaluation, approval request, and action outcome must be recorded in a queryable trace store.
+    This is not optional for systems operating on production infrastructure as the trace store serves
+    post-mortems, compliance audits, and model improvement. A runtime without comprehensive tracing
+    is operationally blind to its own failure modes.
+  </p>
+
+  <p>
+    Forrester's 2026 analysis found that 88% of autonomous agent pilots fail before production rollout.
+    The failure mode is almost never model quality and almost always it is the governance gaps, insufficient observability,
+    and edge cases that controlled test environments do not surface. Malformed API responses,
+    adversarial inputs, rate limit collisions, and state corruption accumulating over weeks of
+    continuous operation are invisible in a demo and fatal in production. The operator runtime
+    architecture addresses this directly because the policy engine is a governance layer, the trace store
+    is an observability layer and adaptive replanning is a failure recovery layer. 
+  </p>
+
+  <h2>5. The Non-Human Internet</h2>
+
+  <p>
+    Now with the rise of AI Agents, a measurable change has come to the composition of internet traffic such that Wikipedia no
+    longer has the "Dead Internet Theory" as a conspiracy theory like before and is now the page's writings are: "Originally conceived as a conspiracy    theory...,  the concept is also employed colloquially to describe the impacts of generative AI, emphasizing only the core observations without speculating on the driving forces". With the rise in platforms like Moltbook (even if it was a "fraud"), the internet will never be like before.
+  </p>
+
+  <p>
+    The HUMAN Security's 2026 State of AI Traffic and Cyberthreat Benchmark Report is why I started writing this article. Based on analysis of over one quadrillion interactions on the HUMAN Defense Platform in 2025, reports three
+    numbers worth holding together, where auomated traffic grew 23.51% year-over-year against 3.10% for
+    human traffic where AI-driven traffic grew 187% across the calendar year and traffic specifically
+    attributable to agentic browsers and agent frameworks grew 7,851% year-over-year. These figures
+    represent HUMAN's customer base and are not a census of total internet traffic, but the
+    operator concentration is notable because OpenAI's bots alone (ChatGPT User, OAI-SearchBot, GPTBot,
+    ChatGPT Agent) account for approximately 69% of observed AI agent traffic.<sup>7</sup>
+  </p>
+
+  <div class="note">
+    <span class="note-num">7.</span>
+    Cloudflare CEO Matthew Prince has projected that AI bot traffic will exceed human traffic by
+    2027. This is an estimate from a company serving roughly 20% of websites globally and better
+    positioned than almost anyone to make such a projection, but still a forward-looking inference.
+    It is consistent with HUMAN's trajectory data. (Update from June 2026: per Cloudflare radar, 
+    agentic traffic has surpassed human traffic online, so it happened way faster than the CEO's prior 2027 forecast.)
+  </div>
+
+  <p>
+    With that caveat, the structural character of the growth is harder to dismiss than the specific
+    percentages. An 8× growth rate differential between automated and human traffic is self-compounding and
+    at that ratio, the automated share of traffic roughly doubles relative to human traffic every
+    four years. More consequentially, the nature of the automated traffic has changed qualitatively such that
+    prior generations of bots were primarily read operations because they were crawlers, indexers, scrapers but what
+    the 2025 data documents is transactional agentic traffic i.e. agents completing checkout flows,
+    submitting forms, calling APIs on behalf of users. The shift is from reading the web to
+    <em>acting on it</em> and it's probably not a distant future where the internet is only just agentic protocs and as Naval said, invite-only communities.
+  </p>
+
+  <p>
+    The infrastructure mismatch this creates is where human traffic is bursty and low-frequency from
+    a large population of distinct actors but agentic traffic is systematic and high-frequency from a
+    smaller number of actors. Rate limiting tuned for human sessions will spuriously throttle
+    legitimate agents and CAPTCHA systems designed to exclude bots will exclude legitimate agents.
+    Content negotiation built around browser rendering is irrelevant to agents that parse semantic
+    content directly. And so these are not edge cases to be patched and are fundamental mismatches
+    between infrastructure assumptions and the behavioral profile of "the new majority user.
+  </p>
+
+  <p>
+    The deeper problem is identity, because the behavioral gap between a legitimate purchasing agent and a
+    credential-stuffing bot is narrower than the gap between a human and either automated actor
+    HUMAN's data notes that the difference between benign and malicious automation in observed
+    traffic is approximately half a percentage point. At these volumes, false positive and false
+    negative costs are both consequential. Identity and intent verification for agentic actors is
+    an open engineering and policy problem, and current behavioral heuristics are not adequate
+    to it.
+  </p>
+
+  <h4> A Note on Meta</h4>
+
+  <p>
+    A short analysis by <a href="https://x.com/8teAPi/status/2031420366770549031?s=20">@8teAPi</a> on X on why Meta bought Moltbook makes a lot of sense. He essentially points out that Mark Zuckerberg believes there are “a finite number of different social mechanics to invent. Once someone wins at a specific mechanic, it’s  difficult for others to supplant them without doing something different” and moltbook, zuckerberg believes, has invented one of these social mechanics and the fact that large number of accounts were faked is irrelevant because even if 50% of moltbook was prompted by users, it is better for him because he’s more uncertain on AI agent attention value than human attention value and what matters is that every OpenClaw instance awakes knowing or finding out that moltbook is the social site for claws and in effect, the memetic gravity of moltbook has been established even though it might have been faked. I think this analysis, combined with Zuckerberg's previous successful aquisitions like Instagram, Whatsapp, Oculus, etc. tells something about how a man whose sites accounts for roughly 22% of all global mobile internet traffic sees the future of the Internet as.
+
+  </p>
+
+  <h2>7. What Is Actually Hard</h2>
+
+  <p>
+    It would be rather dishonest to describe the trajectory above without accounting for
+    where current systems genuinely fail.
+  </p>
+
+  <p><strong>Long-horizon reliability: </strong> As shown in footnote 3, the completion rate for a
+\(T\)-step task with per-step failure probability \(\epsilon\) is \((1-\epsilon)^T\). For
+\(T = 100\) and \(\epsilon = 0.02\), a very good per-step accuracy , that is
+\((0.98)^{100} \approx 0.13\). Thirteen percent. Long-horizon tasks remain deeply unreliable, and this is much of a context management problem.  State-of-the-art models make fewer early mistakes, but current harnesses manage the compounding of those mistakes imperfectly.
+  </p>
+
+  <p>
+    <strong>Production divergence: </strong> The gap between benchmark conditions and production
+    performance is consistently larger than it appears as APIs return malformed responses, rate limits
+    are hit unexpectedly, browser automation degrades on dynamically rendered pages, etc. and hence failure modes
+    that are rare enough not to surface in short evaluation runs are common enough to matter across
+    weeks of continuous operation as the demo works but the production deployment fails at 88%.
+  </p>
+
+  <p>
+    <strong>Evaluation methodology: </strong> Static benchmarks measure a model's performance on a
+    defined input-output pair but agent evaluation requires measuring tool call quality, error recovery
+    strategy, intermediate reasoning coherence, and task completion across non-deterministic,
+    environment-dependent execution. The field does not have agreed-upon benchmarks for agent
+    reliability in realistic operational conditions because tracking progress rigorously is rather harder than
+    it should be.
+  </p>
+
+
+  <h2>8. Three Generations? </h2>
+
+  <p>
+    Looking at the current state honestly, three generations of agent architecture are discernible,
+    though the second and third are not yet sharp and this is maybe what would be the shorter than a "Decade of Agents".
+  </p>
+
+  <p>
+    <em>First generation</em>: which is the mainstream today and implements the core loop, demonstrates
+    goal-directed behavior at production scale, and validates the architectural pattern. The systems
+    are unreliable over long horizons, expensive to operate, and difficult to evaluate.
+  </p>
+
+  <p>
+    <em>Second generation</em>: Hermes-style self-improving agents, operator runtimes with staged
+    pipelines and policy engines and introduces persistence, domain learning, and asynchronous
+    operation against environmental signals. These systems are begin to close the gap between
+    demonstration and production but the engineering overhead is high and the failure modes are not
+    yet well-characterized in the literature.
+  </p>
+
+  <p>
+    <em>Third generation</em>: which is not yet in production-ready form, would require recursive-self improvement and continual learning
+    for reliable long-horizon execution across 100+ step tasks, self-healing context management that recovers
+    from corruption without human intervention. Research threads pointing toward this like reinforcement
+    learning for context management, automated skill validation, formal verification of policy
+    engines are active but the timeline is genuinely uncertain in the sense that maybe it wouldn't take long.
+  </p>
+
+  <p>
+    I think that the thread connecting all three is McCarthy's formulation. Each generation is a more complete
+    instantiation of the same idea that intelligence as goal-directed computation, with a harness
+    that makes the direction real for these models. And also, I would probably consider something on the level of AGI if we
+    no longer have the need of agents or harnesses for goals and the models themselves are good enough to do it.
+  </p>
+
+
+  <p style="font-size: 0.85em; color: #666;">
+    <strong>References</strong> HUMAN Security, <em>2026 State of AI Traffic and Cyberthreat Benchmark Report</em>;
+    Chroma Research, "Context Rot: How Increasing Input Tokens Impacts LLM Performance" (2025);
+    Sinha et al., "The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs,"
+    arXiv:2509.09677 (2025); Liu et al., "Lost in the Middle: How Language Models Use Long Contexts,"
+    arXiv:2307.03172 (2024); Cemri et al., "Why Do Multi-Agent LLM Systems Fail?" arXiv:2503.13657 (2025);
+    OWASP Top 10 for Agentic Applications 2026; Forrester, <em>Autonomous Agent Pilot Failure Analysis</em> (2026);
+    Nous Research, Hermes Agent repository and release notes (v0.7.0, April 2026);
+    Meta Q1 2026 investor filings and shareholder meeting disclosures;
+    McCarthy, "What is AI?" Stanford University, 2007.
+  </p>
+
+</main>
+</body>
+</html>
