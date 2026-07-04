@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extended PT Phase Diagram</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --text: #111;
+      --muted: #555;
+      --accent: #2563eb;
+      --light: #f3f4f6;
+      --border: #eee;
+      --color-background-secondary: #f3f4f6;
+      --color-border-secondary: #eee;
+      --color-text-primary: #111;
+      --color-text-secondary: #555;
+      --border-radius-md: 14px;
+      --font-sans: monospace;
+    }
+
+    body {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 24px 32px 120px;
+    }
+
+    @media(max-width:600px) {
+      body {
+        padding: 20px 20px 80px;
+      }
+    }
+
+    header {
+      margin-top: 20px;
+      margin-bottom: 52px;
+    }
+
+    .kicker {
+      font-family: monospace;
+      font-size: 10.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 2.05rem;
+      font-weight: normal;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+      margin-bottom: 20px;
+    }
+
+    .byline {
+      color: var(--muted);
+    }
+
+    hr.div {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 42px 0;
+    }
+
+    p {
+      margin-bottom: 1.25em;
+      line-height: 1.75;
+    }
+
+    .pr {
+      cursor: pointer;
+      transition: opacity .13s
+    }
+
+    .pr:hover {
+      opacity: .75 !important
+    }
+
+    #info {
+      background: var(--color-background-secondary);
+      border: 1px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 14px 16px;
+      margin-top: 20px;
+      min-height: 72px;
+    }
+
+    #iname {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 5px
+    }
+
+    #idesc {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.55
+    }
+
+    .wl {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      fill: white
+    }
+
+    .wd {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      fill: #085041
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0
+    }
+  </style>
+</head>
+
+<body>
+
+  <center>
+    <nav class="nav">
+      <a href="../index.html">[Home]</a>
+      <a href="../blog.html">[Blog]</a>
+      <a class="active" href="../explore.html">[Explore]</a>
+      <a href="../papers.html">[Papers]</a>
+    </nav>
+  </center>
+
+  <header>
+    <div class="kicker">Interactive Diagram</div>
+    <h1>Extended Pressure-Temperature Phase Diagram</h1>
+    <div class="byline">June 2026</div>
+    <p> The Pressure vs Temperature phase diagram is one of the more popular physics-chemistry illustrations. Recently,
+      while I was thinking about
+      the melting point of silicon (which is very high), I went back to this diagram and after spending some time with
+      it, I got the doubt of what would happen if we extend the quadrants.
+    </p>
+    <img src="../assets/Phase-diag2.svg" alt="Extended PT Phase Diagram"
+      style="width:100%;margin-top:28px;border-radius:10px;">
+    <p style="margin-top:24px;">So I went and explored this on Claude. This diagram extends the classical
+      pressure-temperature chart into all four quadrants, including negative temperature (quantum population inversion)
+      and negative pressure (tensile stress) regimes. Click on any region to explore its corresponding phase.</p>
+  </header>
+
+  <main>
+    <style>
+      .pr {
+        cursor: pointer;
+        transition: opacity .13s
+      }
+
+      .pr:hover {
+        opacity: .73 !important
+      }
+
+      #info2 {
+        background: var(--color-background-secondary);
+        border: .5px solid var(--color-border-secondary);
+        border-radius: var(--border-radius-md);
+        padding: 14px 16px;
+        margin-top: 10px;
+        min-height: 76px;
+      }
+
+      #iname2 {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-text-primary);
+        margin-bottom: 3px
+      }
+
+      #idesc2 {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        line-height: 1.55
+      }
+    </style>
+    <h2 class="sr-only">Rigorous extended pressure-temperature phase diagram across four quadrants. Q1 shows standard
+      confirmed matter phases. Q2 shows population-inversion thermodynamics in bounded-spectrum systems. Q3 is marked
+      theoretical and uncharted. Q4 shows confirmed condensed-matter behaviour under tensile stress with spinodal limit.
+    </h2>
+    <svg width="100%" viewBox="0 0 680 710" role="img">
+      <title>Rigorous Extended P-T Phase Diagram</title>
+      <desc>Four-quadrant phase diagram. Q1 and Q4 are experimentally grounded. Q2 is partially confirmed but requires
+        bounded-spectrum quantum systems. Q3 is marked speculative with hatching.</desc>
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5"
+          orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </marker>
+        <pattern id="q3h" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="8" stroke="#5DCAA5" stroke-width="1.3" opacity=".48" />
+        </pattern>
+        <pattern id="cavh" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="6" stroke="white" stroke-width="1" opacity=".28" />
+        </pattern>
+        <pattern id="noph" width="7" height="7" patternTransform="rotate(90)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="7" stroke="#B4B2A9" stroke-width=".8" opacity=".4" />
+        </pattern>
+      </defs>
+
+      <!-- ===== Q1: +T +P  (all phases experimentally confirmed) ===== -->
+      <rect x="358" y="42" width="272" height="283" fill="#B4B2A9" opacity=".26" />
+      <polygon class="pr" onclick="show2('solid')" points="358,42 400,42 396,112 388,206 380,294 371,311 358,325"
+        fill="#E24B4A" opacity=".78" />
+      <polygon class="pr" onclick="show2('liquid')"
+        points="400,42 492,42 494,104 490,206 475,222 449,250 421,278 400,293 380,294 388,206 396,112 400,42"
+        fill="#378ADD" opacity=".68" />
+      <polygon class="pr" onclick="show2('gas')"
+        points="358,325 494,325 492,265 490,206 475,222 449,250 421,278 400,293 380,294 371,311 358,325" fill="#888780"
+        opacity=".36" />
+      <polygon class="pr" onclick="show2('plasma')"
+        points="492,42 630,42 630,325 494,325 492,265 490,206 494,104 492,42" fill="#EF9F27" opacity=".60" />
+      <polygon class="pr" onclick="show2('qgp')" points="578,42 630,42 630,158 595,180 560,156 566,76 578,42"
+        fill="#993C1D" opacity=".92" />
+
+      <!-- ===== Q2: −T +P  (2 bands, bounded-spectrum systems only) ===== -->
+      <polygon class="pr" onclick="show2('popinv')" points="248,42 358,42 358,325 218,325 248,42" fill="#AFA9EC"
+        opacity=".66" />
+      <polygon class="pr" onclick="show2('spinlat')" points="80,42 248,42 218,325 80,325 80,42" fill="#7F77DD"
+        opacity=".74" />
+      <text class="ts" x="219" y="63" text-anchor="middle" style="fill:white;opacity:.72">bounded-spectrum systems
+        only</text>
+      <text class="ts" x="219" y="297" text-anchor="middle" style="fill:white;opacity:.72">−T ≠ thermodynamic extension
+        of +T</text>
+      <text class="ts" x="219" y="311" text-anchor="middle" style="fill:white;opacity:.72">P ≡ effective coupling, not
+        mechanical</text>
+
+      <!-- ===== Q3: −T −P  (single hatched — theoretical, uncharted) ===== -->
+      <rect x="80" y="325" width="278" height="285" fill="#0F5A44" opacity=".28" />
+      <rect x="80" y="325" width="278" height="285" fill="url(#q3h)" />
+      <rect x="82" y="327" width="274" height="281" fill="none" stroke="var(--color-text-secondary)" stroke-width="1"
+        stroke-dasharray="5,3" opacity=".38" rx="2" />
+      <rect class="pr" onclick="show2('q3')" x="80" y="325" width="278" height="285" fill="transparent" />
+
+      <!-- ===== Q4: +T −P  (condensed phases only) ===== -->
+      <!-- Solid under tension: left strip -->
+      <polygon class="pr" onclick="show2('solidtension')" points="358,325 400,325 400,610 358,610" fill="#8B9DC3"
+        opacity=".58" />
+      <!-- Metastable liquid above spinodal -->
+      <polygon class="pr" onclick="show2('liquidtension')"
+        points="400,325 490,325 475,390 460,455 450,520 448,610 400,610" fill="#378ADD" opacity=".50" />
+      <!-- Cavitation zone below spinodal -->
+      <polygon class="pr" onclick="show2('cavitation')" points="490,325 475,390 460,455 450,520 448,610 490,610"
+        fill="#888780" opacity=".42" />
+      <polygon points="490,325 475,390 460,455 450,520 448,610 490,610" fill="url(#cavh)" pointer-events="none" />
+      <!-- No stable condensed phase (T > Tc at negative P) -->
+      <rect class="pr" onclick="show2('nostable')" x="490" y="325" width="140" height="285" fill="#B4B2A9"
+        opacity=".18" />
+      <rect x="490" y="325" width="140" height="285" fill="url(#noph)" pointer-events="none" />
+      <!-- Spinodal dashed curve -->
+      <path d="M490,325 L475,390 L460,455 L450,520 L448,610" stroke="var(--color-text-primary)" stroke-width="1.8"
+        stroke-dasharray="5,3" fill="none" opacity=".68" pointer-events="none" />
+      <!-- Dashed connector: critical point down to spinodal entry at P=0 -->
+      <line x1="490" y1="206" x2="490" y2="325" stroke="var(--color-text-secondary)" stroke-width=".9"
+        stroke-dasharray="3,2" opacity=".42" pointer-events="none" />
+
+      <!-- ===== AXES ===== -->
+      <line x1="75" y1="325" x2="636" y2="325" stroke="var(--color-text-primary)" stroke-width="1.5" opacity=".58"
+        marker-end="url(#ar2)" marker-start="url(#ar2)" />
+      <line x1="358" y1="36" x2="358" y2="626" stroke="var(--color-text-primary)" stroke-width="1.5" opacity=".58"
+        marker-end="url(#ar2)" marker-start="url(#ar2)" />
+      <!-- Tick marks -->
+      <line x1="440" y1="321" x2="440" y2="329" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="522" y1="321" x2="522" y2="329" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="604" y1="321" x2="604" y2="329" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="276" y1="321" x2="276" y2="329" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="194" y1="321" x2="194" y2="329" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="112" y1="321" x2="112" y2="329" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="354" y1="133" x2="362" y2="133" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="354" y1="229" x2="362" y2="229" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="354" y1="421" x2="362" y2="421" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+      <line x1="354" y1="517" x2="362" y2="517" stroke="var(--color-text-secondary)" stroke-width=".8" opacity=".5" />
+
+      <!-- ===== AXIS LABELS ===== -->
+      <text class="ts" x="632" y="315" text-anchor="end" style="fill:var(--color-text-primary);font-weight:500">+T
+        →</text>
+      <text class="ts" x="632" y="338" text-anchor="end" style="fill:var(--color-text-secondary)">temperature</text>
+      <text class="ts" x="82" y="315" text-anchor="start" style="fill:var(--color-text-primary);font-weight:500">←
+        −T</text>
+      <text class="ts" x="82" y="338" text-anchor="start" style="fill:var(--color-text-secondary)">inversion</text>
+      <text class="ts" x="362" y="28" style="fill:var(--color-text-secondary);font-weight:500">+P compression</text>
+      <text class="ts" x="362" y="642" style="fill:var(--color-text-secondary);font-weight:500">−P tension</text>
+
+      <!-- Corner labels -->
+      <text class="ts" x="626" y="57" text-anchor="end" style="fill:var(--color-text-secondary);opacity:.55">Q1 —
+        standard thermodynamics</text>
+      <text class="ts" x="84" y="57" text-anchor="start" style="fill:var(--color-text-secondary);opacity:.55">Q2 —
+        inversion thermodynamics</text>
+      <text class="ts" x="84" y="632" text-anchor="start" style="fill:var(--color-text-secondary);opacity:.55">Q3 —
+        theoretical (uncharted)</text>
+      <text class="ts" x="626" y="632" text-anchor="end" style="fill:var(--color-text-secondary);opacity:.55">Q4 —
+        condensed matter tension</text>
+
+      <!-- ===== PHASE LABELS Q1 ===== -->
+      <text class="ts" x="376" y="84" text-anchor="middle" style="fill:white;font-weight:500">Solid</text>
+      <text class="ts" x="432" y="162" text-anchor="middle" style="fill:white;font-weight:500">Liquid</text>
+      <text class="ts" x="438" y="307" text-anchor="middle" style="fill:white;font-weight:500">Gas</text>
+      <text class="ts" x="562" y="248" text-anchor="middle" style="fill:white;font-weight:500">Plasma</text>
+      <text class="ts" x="596" y="104" text-anchor="middle" style="fill:white;font-weight:500">QGP</text>
+
+      <!-- ===== PHASE LABELS Q2 ===== -->
+      <text class="ts" x="291" y="178" text-anchor="middle" style="fill:white;font-weight:500">Pop. Inversion</text>
+      <text class="ts" x="291" y="193" text-anchor="middle" style="fill:white;font-weight:500">laser / atomic</text>
+      <text class="ts" x="162" y="178" text-anchor="middle" style="fill:white;font-weight:500">Spin / Lattice</text>
+      <text class="ts" x="162" y="193" text-anchor="middle" style="fill:white;font-weight:500">Inversion</text>
+
+      <!-- ===== Q3 LABEL ===== -->
+      <text class="ts" x="219" y="443" text-anchor="middle"
+        style="fill:white;font-weight:500;font-size:13px">Theoretical:</text>
+      <text class="ts" x="219" y="460" text-anchor="middle" style="fill:white;font-weight:500">tension + inversion
+        coexistence</text>
+      <text class="ts" x="219" y="478" text-anchor="middle" style="fill:white;opacity:.72">no established phase
+        structure</text>
+      <text class="ts" x="219" y="494" text-anchor="middle" style="fill:white;opacity:.62">(decoupled degrees of
+        freedom)</text>
+
+      <!-- ===== PHASE LABELS Q4 ===== -->
+      <text class="ts" x="379" y="462" text-anchor="middle" style="fill:white;font-weight:500">Solid</text>
+      <text class="ts" x="379" y="476" text-anchor="middle" style="fill:white;font-weight:500">−P</text>
+      <text class="ts" x="437" y="384" text-anchor="middle" style="fill:white;font-weight:500">Metastable</text>
+      <text class="ts" x="437" y="398" text-anchor="middle" style="fill:white;font-weight:500">Liquid</text>
+      <!-- Spinodal label + leader -->
+      <text class="ts" x="494" y="449" text-anchor="start" style="fill:var(--color-text-secondary)">spinodal</text>
+      <line x1="492" y1="447" x2="462" y2="447" stroke="var(--color-text-secondary)" stroke-width=".7" opacity=".5" />
+      <!-- Cavitation label + leader -->
+      <text class="ts" x="494" y="546" text-anchor="start" style="fill:var(--color-text-secondary)">← cavitation</text>
+      <!-- No stable condensed phase note -->
+      <text class="ts" x="560" y="412" text-anchor="middle" style="fill:var(--color-text-secondary);opacity:.75">no
+        stable</text>
+      <text class="ts" x="560" y="426" text-anchor="middle"
+        style="fill:var(--color-text-secondary);opacity:.75">condensed phase</text>
+      <text class="ts" x="560" y="440" text-anchor="middle" style="fill:var(--color-text-secondary);opacity:.75">(T &gt;
+        T_c)</text>
+      <text class="ts" x="560" y="470" text-anchor="middle"
+        style="fill:var(--color-text-secondary);opacity:.62">gas/plasma cannot</text>
+      <text class="ts" x="560" y="484" text-anchor="middle" style="fill:var(--color-text-secondary);opacity:.62">sustain
+        −P</text>
+
+      <!-- ===== NOTABLE POINTS ===== -->
+      <circle cx="378" cy="294" r="4" fill="white" stroke="#E24B4A" stroke-width="1.5" />
+      <text class="ts" x="384" y="288" style="fill:var(--color-text-primary)">triple point</text>
+      <circle cx="490" cy="206" r="4" fill="var(--color-text-primary)" opacity=".8" />
+      <text class="ts" x="496" y="200" style="fill:var(--color-text-primary)">critical point</text>
+      <circle cx="490" cy="325" r="3" fill="var(--color-text-secondary)" opacity=".55" />
+      <circle cx="358" cy="325" r="2.5" fill="var(--color-text-secondary)" opacity=".45" />
+
+
+    </svg>
+
+    <div id="info2">
+      <div id="iname2">Click any region to explore</div>
+      <div id="idesc2">Hatched regions are speculative. The spinodal dashed curve in Q4 is a real, computable physical
+        boundary. Q3 is marked theoretical because negative T and negative P are decoupled degrees of freedom with no
+        established joint phase structure.</div>
+    </div>
+
+    <script>
+      const D2 = {
+        solid: { name: 'Solid  (+T, +P)', r: 'Experimentally confirmed', rc: '#166534', rb: '#dcfce7', c: '#E24B4A', desc: 'Atoms locked in periodic crystal lattice.' },
+        liquid: { name: 'Liquid  (+T, +P)', r: 'Experimentally confirmed', rc: '#166534', rb: '#dcfce7', c: '#378ADD', desc: 'Cohesive fluid phase. Key point: the liquid-vapour coexistence curve (binodal) extends continuously into negative pressure territory — making it the most rigorous bridge between Q1 and Q4. The critical point terminates the liquid-gas distinction. Above T_c, there is no separate liquid phase.' },
+        gas: { name: 'Gas  (+T, +P)', r: 'Experimentally confirmed', rc: '#166534', rb: '#dcfce7', c: '#888780', desc: 'Molecules in free thermal motion.' },
+        plasma: { name: 'Plasma  (+T, +P)', r: 'Experimentally confirmed', rc: '#166534', rb: '#dcfce7', c: '#EF9F27', desc: 'Electrons thermally stripped from atoms.' },
+        qgp: { name: 'Quark-Gluon Plasma  (+T, +P)', r: 'Experimentally confirmed (CERN LHC)', rc: '#166534', rb: '#dcfce7', c: '#993C1D', desc: 'Above ~150-200 MeV, quarks and gluons deconfine. Confirmed in Pb-Pb collisions at the LHC. At very high baryon density and lower T, colour superconductor phases (CSC) are predicted by QCD. These are not drawn separately because their boundaries in a P-T projection are not well-determined without specifying chemical potential.' },
+        popinv: { name: 'Pop. Inversion  (−T, +P)', r: 'Experimentally confirmed — constrained systems', rc: '#5b21b6', rb: '#ede9fe', c: '#AFA9EC', desc: 'Negative T by Boltzmann definition: more particles in high-energy states than ground state. Achieved in laser gain media and nuclear spin systems (Purcell & Pound, 1951). Hard constraint: requires a bounded (upper-limited) energy spectrum. The vertical axis in Q2 is NOT mechanical pressure — it represents effective coupling or field strength in the relevant quantum system. Crossing from Q2 to Q1 is not a physical process for the same material.' },
+        spinlat: { name: 'Spin / Lattice Inversion  (−T, +P)', r: 'Experimentally confirmed — optical lattices', rc: '#5b21b6', rb: '#ede9fe', c: '#7F77DD', desc: 'Braun et al. (2013, Science 339) achieved negative T for both kinetic and potential energy of ultracold bosons in an optical lattice. Phase structure mirrors positive-T Bose-Hubbard phases (Mott insulator, superfluid) but energy-inverted. The "pressure" analog is the tunnelling parameter J/U, not mechanical pressure. These systems are highly isolated and fragile — they equilibrate back to positive T extremely rapidly if coupled to a thermal bath.' },
+        q3: { name: 'Tension + Inversion Coexistence  (−T, −P)', r: 'Speculative — no established phase structure', rc: '#92400e', rb: '#fef3c7', c: '#1D9E75', desc: 'A system could in principle have both tensile stress (negative mechanical P) and population inversion (negative statistical T) simultaneously, since these involve largely decoupled degrees of freedom (mechanical vs. spin). However, no coherent thermodynamic phase structure has been established here. Marked theoretical and hatched accordingly.' },
+        solidtension: { name: 'Solid Under Tension  (+T, −P)', r: 'Experimentally confirmed — materials science', rc: '#166534', rb: '#dcfce7', c: '#8B9DC3', desc: 'Solids sustaining tensile stress (negative pressure). The ideal tensile strength — the theoretical limit before a perfect crystal fractures — is ~10 GPa for iron, ~100 GPa for diamond. Real materials fracture well below this due to defects. The solid-under-tension boundary extends directly from the solid-liquid curve in Q1. This is standard materials science, well established.' },
+        liquidtension: { name: 'Metastable Liquid Under Tension  (+T, −P)', r: 'Experimentally confirmed', rc: '#166534', rb: '#dcfce7', c: '#378ADD', desc: 'The most rigorously established region in Q4. Liquid water has been held at negative pressure experimentally: tree xylem operates at −15 to −100 bar. Stroock et al. (2014) measured −22 MPa (−220 bar) in hydrogel experiments. The theoretical spinodal for water at 298 K is ~−170 to −280 bar depending on the model (Caupin & Herbert, 2006). The liquid is metastable: it exists but is not the global free energy minimum. Any nucleation site triggers immediate phase separation.' },
+        cavitation: { name: 'Cavitation Zone  (+T, −P)', r: 'Experimentally confirmed', rc: '#166534', rb: '#dcfce7', c: '#888780', desc: 'Below the spinodal (the locus of ∂P/∂V|T = 0), the liquid is mechanically unstable — any infinitesimal fluctuation nucleates a vapour bubble. This is not a phase in the thermodynamic sense; it is the instantaneous collapse of the metastable liquid. Observed in hydraulic machinery erosion, ultrasonic cleaning, and sonoluminescence. The spinodal is a real, computable curve — not a schematic.' },
+        nostable: { name: 'No Stable Condensed Phase  (T > T_c, −P)', r: 'Thermodynamically established', rc: '#166534', rb: '#dcfce7', c: '#888780', desc: 'Above the critical temperature (T_c), the liquid-gas distinction vanishes — there is only a single fluid phase. A supercritical fluid cannot sustain negative pressure in the same way a liquid can, because there is no surface tension or cohesive liquid structure to maintain.' },
+      };
+      function show2(id) {
+        const d = D2[id];
+        if (!d) return;
+        document.getElementById('iname2').textContent = d.name;
+        document.getElementById('idesc2').textContent = d.desc;
+      }
+    </script>
+
+
+
+    </script>
+  </main>
+</body>
+
+</html>

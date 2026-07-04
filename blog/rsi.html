@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Recursive Self-Improvement</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '\\[', right: '\\]', display: true},
@@ -16,7 +16,11 @@
     });"></script>
   <style>
     /* ─── Base ─── */
-    *, *::before, *::after { box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -32,13 +36,20 @@
       font-size: 1rem;
       border-bottom: 1px solid #f0f0f0;
     }
+
     .nav a {
       text-decoration: none;
       color: #2563eb;
       margin-right: 0.35rem;
     }
-    .nav a:hover { text-decoration: underline; }
-    .nav a.active { color: #000; }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .nav a.active {
+      color: #000;
+    }
 
     /* ─── Content ─── */
     .content {
@@ -55,6 +66,7 @@
       margin-bottom: 0.5rem;
       letter-spacing: -0.01em;
     }
+
     .meta-top {
       font-size: 0.85rem;
       color: #777;
@@ -70,37 +82,57 @@
       border-bottom: 1px solid #e8e8e8;
       padding-bottom: 0.3rem;
     }
+
     h3 {
       font-size: 1.05rem;
       font-weight: bold;
       margin-top: 2rem;
       margin-bottom: 0.4rem;
     }
+
     p {
       font-size: 1.04rem;
       margin-top: 0;
       margin-bottom: 1.1rem;
     }
+
     sup {
       font-size: 0.72rem;
       color: #2563eb;
       vertical-align: super;
       line-height: 0;
     }
-    strong { font-weight: bold; }
-    em { font-style: italic; }
-    ul, ol { padding-left: 1.6rem; margin-bottom: 1.1rem; }
-    li { margin-bottom: 0.4rem; font-size: 1.04rem; }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.6rem;
+      margin-bottom: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      font-size: 1.04rem;
+    }
 
     /* ─── Hero figure ─── */
     .hero {
       margin: 1.5rem 0 2rem;
     }
+
     .hero img {
       width: 100%;
       border-radius: 4px;
       display: block;
     }
+
     .hero figcaption {
       font-size: 0.87rem;
       color: #555;
@@ -118,6 +150,7 @@
       line-height: 1.55;
       border-radius: 0 4px 4px 0;
     }
+
     .note-num {
       font-weight: bold;
       color: #2563eb;
@@ -125,7 +158,8 @@
     }
 
     /* ─── Display math ─── */
-    .math-block, .dm {
+    .math-block,
+    .dm {
       overflow-x: auto;
       margin: 1.4rem 0;
       padding: 0.1rem 0;
@@ -140,8 +174,14 @@
       margin: 1.5rem 0;
       font-size: 1.01rem;
     }
-    .highlight p { margin: 0 0 0.5rem; }
-    .highlight p:last-child { margin: 0; }
+
+    .highlight p {
+      margin: 0 0 0.5rem;
+    }
+
+    .highlight p:last-child {
+      margin: 0;
+    }
 
     /* ─── Claim / not-claim box ─── */
     .claim-box {
@@ -150,6 +190,7 @@
       padding: 1rem 1.2rem;
       margin: 1.5rem 0;
     }
+
     .claim-box h4 {
       margin: 0 0 0.5rem;
       font-size: 0.92rem;
@@ -157,8 +198,16 @@
       letter-spacing: 0.08em;
       color: #555;
     }
-    .claim-box ul { margin: 0; padding-left: 1.3rem; }
-    .claim-box li { font-size: 0.97rem; margin-bottom: 0.3rem; }
+
+    .claim-box ul {
+      margin: 0;
+      padding-left: 1.3rem;
+    }
+
+    .claim-box li {
+      font-size: 0.97rem;
+      margin-bottom: 0.3rem;
+    }
 
     /* ─── Comparison table ─── */
     table {
@@ -167,18 +216,23 @@
       font-size: 0.95rem;
       margin: 1.5rem 0;
     }
+
     th {
       text-align: left;
       border-bottom: 2px solid #ccc;
       padding: 0.4rem 0.6rem;
       font-weight: bold;
     }
+
     td {
       padding: 0.5rem 0.6rem;
       border-bottom: 1px solid #eee;
       vertical-align: top;
     }
-    tr:last-child td { border-bottom: none; }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
 
     /* ─── Ending / thanks ─── */
     .ending {
@@ -189,395 +243,634 @@
       color: #444;
       line-height: 1.65;
     }
-    .ending a { color: #2563eb; text-decoration: none; }
-    .ending a:hover { text-decoration: underline; }
+
+    .ending a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .ending a:hover {
+      text-decoration: underline;
+    }
 
     /* ─── Links ─── */
-    .inline-link { color: #2563eb; text-decoration: none; }
-    .inline-link:hover { text-decoration: underline; }
+    .inline-link {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+    }
 
     /* ─── Responsive math ─── */
-    .katex-display { overflow-x: auto; overflow-y: hidden; }
+    .katex-display {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
   </style>
 
 </head>
+
 <body>
-<center>
-<nav class="nav">
-  <a href="../index.html">[Home]</a>
-  <a class="active">[Blog]</a>
-  <a href="../explore.html">[Explore]</a>
-  <a href="../papers.html">[Papers]</a>
-</nav>
-</center>
-<main class="content article">
-
-<h1 class="title">Recursive Self-Improvement</h1>
-<div class="meta-top">Feb 2026</div>
-
-<p>
-There is a question about recursive self-improvement that almost never gets asked explicitly. We say a system improves itself and we treat this as well-defined. But better by what measure? Who holds that measure? The phrase &ldquo;self-improvement&rdquo; contains a hidden reference frame, something external to the self doing the evaluating and I think that you notice the architecture of any RSI system, several of its mathematical limits, and most of the confusion in the safety literature follow as consequences rather than independent observations. What I want to do here is work out that single observation wrt AGI. 
-</p>
-
-<h2>1. Three Categories</h2>
-
-  <p>
-    Before getting into RSI, there are things we need to understand and this is a taxonomy that I find useful, with the caveat that 
-    any taxonomy carves reality at joints that may not be perfectly clean. (Half of this is taken from Ilya Sutskever's explanations)
-  </p>
-
-  <p>
-    The first category is <strong>narrow AI</strong>, which in the classical sense, are systems 
-    designed for a single domain, excellent within it and useless outside it. Deep Blue 
-    plays chess, AlexNet classifies images, early speech recognition systems transcribe 
-    audio and so on. The defining characteristic is that competence does not transfer and these systems 
-    weren't weak versions of something more general; they were fundamentally different 
-    architectural choices, optimized against narrow objectives.
-  </p>
-
-  <p>
-    The second category is what I'll call <strong>narrow-general AI</strong>. Frontier language and reasoning models today 
-    generalize across a striking range of domains from a single set of parameters. Writing, 
-    analysis, coding, mathematics, translation, multimodal reasoning, etc. tasks that would 
-    have required entirely separate narrow systems a decade ago. This is a genuine architectural shift over the first category, one that all the frontier labs 
-    and others are right to treat as significant. But these systems are still <em>narrow</em> 
-    in an important sense that they generalize across what their training distribution covered, 
-    and their underlying computational structure is "fixed" (I'll return to exactly what "fixed" means here, because it requires care) at the time of deployment.
-  </p>
-
-  <p>
-    The third category, is general AI or more commonly known as <strong>AGI</strong>, with the acknowledgment 
-    that this names a space of systems rather than a single well-defined target and is where 
-    reasonable people disagree most. A recent DeepMind paper says AGI is controversial and surveys several prominent definitions. So to just list out like the two major ones are:
-  </p>
-
-   <ul>
-    <li><em>Task-performance AGI</em>: a system that matches or exceeds human performance 
-      across the full range of cognitively demanding tasks. This is a common operational framing because OpenAI’s charter describes AGI as “highly autonomous systems that outperform humans at most economically valuable work.” Some researchers think we may already be at or near this threshold in several domains.</li>
-    <li><em>Transfer/sample-efficiency AGI</em>: a system that acquires competence in 
-      genuinely novel domains i.e. the ones not represented in training, with the kind of 
-      few-shot efficiency that humans exhibit. Current AI systems do this partially and 
-      inconsistently. (this category is more of a property or benchmark criterion than a standard standalone definition)</li>
-  </ul>
-
-
-  <div class="note">
-    <span class="note-num">1.</span>
-    These definitions are not nested in a simple way. A system could achieve the first 
-    without the second (impressive benchmark performance without genuine novel transfer) and 
-    it could achieve the second without the third (human-like sample efficiency without 
-    self-modification capability). Progress along any one axis does not imply progress 
-    along the others.
-  </div>
-
-  <p>
-    My argument in this essay concerns another thing though and it's a rather
-    conditional argument: <em>if</em> a system achieves RSI capability, then certain 
-    mathematical constraints follow that make the safety and other problems harder. 
-    Recursive self-improvement (RSI) is but a technique but it is one that could shape AGI in ways we won't possibly be able to understand after a certain point. In the literature, “strong self-improvement” means a system can modify itself in ways that improve its future capability, beyond mere self-modification or ordinary adaptation. Yampolskiy’s taxonomy explicitly separates self-modification, weak self-improvement, and recursive self-improvement, with RSI being the strongest case.<sup>1</sup>
-  </p>
-
-
-<h2>2. Self-Parameterization Is Not Self-Improvement</h2>
-
-<p>
-Start with what current systems actually do when they are described as &ldquo;self-improving.&rdquo; A model trained with RL against verifiable outcomes is optimizing its parameters \(W\) against a fixed objective \(\mathcal{L}\). The architecture, the set of operations available, does not change. What changes is which point in the space of functions representable by that architecture the weights implement. Call this <em>self-parameterization</em>: moving through a fixed function class toward a better point.
-</p>
-
-<p>
-Self-parameterization is genuinely impressive in the sense that the gains from verifiable-feedback training over the past few years are real because systems trained heavily on code and formal mathematics develop a structured reasoning style that transfers to domains with nothing obviously in common with code. The transfer is broad enough that calling these systems "narrow-general AI" seems right given you know the taxonomy and because they are general in scope and narrow in mode but more importantly, the function class is fixed. The improvement is in which function within that class the weights implement and not in what functions are available.
-</p>
-
-<p>
-RSI is different. It requires that a machine \(M\) produce a successor \(M'\) that implements operations outside the function class of \(M\). Not just a better point in the same space, but a different space. This sounds like a straightforward generalization, but it introduces a problem that self-parameterization avoids entirely: if the function class itself changes, the system that is evaluating whether \(M'\) is better than \(M\) is being used to assess something outside its own representational range. The evaluation is being asked to judge something it cannot fully represent.
-</p>
-
-<div class="note">
-<span class="note-num">2.</span>
-Variable-depth inference, looped transformers, recurrent latent computation, test-time compute scaling, etc. occupy an interesting middle ground. A looped transformer running many reasoning passes is doing something different from a single pass; the effective computation changes substantially. But it is still drawing from the same function class and hence the question of whether there is a smooth path from variable-depth inference to genuine structural self-modification, or a discontinuity, is open. I find it interesting because the answer determines whether the mathematical issues below are approached gradually or hit suddenly.
-</div>
-
-<h2>3. The Improvement Measure Problem</h2>
-
-<p>
-To formalize it, say machine \(M\) produces a description \(\mathcal{D}(M')\) of a successor. For the transition \(M \to M'\) to count as improvement, there must be some measure \(\mu\) such that \(\mu(M') > \mu(M)\). The question is: where does \(\mu\) live?
-</p>
-
-<p>
-It cannot live in \(M\) in any straightforward sense. If \(\mu\) is a function that \(M\) computes, then \(\mu(M')\) is being evaluated by the very system that \(M'\) is supposed to replace. This is fine when \(M'\) is within the function class of \(M\) (self-parameterization but when \(M'\) has genuinely different capabilities, \(M\) may not be able to evaluate \(\mu(M')\) accurately. A system that is worse at reasoning cannot correctly assess whether its proposed successor is better at reasoning.
-</p>
-
-<p>
-It cannot live in \(M'\) either, because \(M'\) does not exist until after the evaluation is complete. You cannot use the successor to decide whether to create the successor. But here, it's not that M cannot evaluate μ(M') when M' is outside M's function class is always problematic. If μ is sufficiently simple (e.g. "passes these benchmark tasks"), M might correctly compute μ(M') even if M' is far more capable and the evaluation problem only bites for μ that itself requires capability M doesn't have.
-</p>
-
-<p>
-The only coherent location for \(\mu\) is in a component that is fixed; something outside the improvement loop that holds the measure constant across all transitions. Call this component \(R\). Every RSI system has one, even if it is not designed with this framing in mind. The Darwin G&ouml;del Machine has human-designed sandbox objectives that evaluate each candidate successor, G&ouml;del Agent has a fixed outer loop with predefined performance criteria. The classical G&ouml;del machine has a fixed utility function and a fixed proof system that evaluates proposed rewrites. The implementations differ but you can notice a similar structure in the sense that \(R\) is what makes \(\mu\) well-defined, and without \(R\), the phrase &ldquo;self-improvement&rdquo; has no stable meaning.<sup>1</sup>
-</p>
-
-<div class="note">
-<span class="note-num">3.</span>
-This is also why Zenil and colleagues&rsquo; (2026) closed-loop AI science work makes sense (even if it's mainly about AI in science). When a recursive self-training loop loses external grounding because \(R\) degrades or is absent, the improvement loop does not accelerate; it drifts. What looks like recursive improvement from outside can become drift if the internal signal stops tracking the original objective.
-</div>
-
-<p>
-The conclusion here is NOT that RSI is impossible and I never imply that. It is that "fully autonomous" RSI, a system improving itself with no fixed external reference, is not just unsafe but also semantically incoherent. There is always a fixed point, and identifying where it is tells you most of what you need to know about the system.
-</p>
-
-<h2>4. What \(R\) Must Be Able to Do</h2>
-
-<p>
-If \(R\) holds the improvement measure \(\mu\), and if the improvement process can generate successors with genuinely different computational structures, then \(R\) faces a non-trivial computational task because it must evaluate \(\mu(M')\) for an \(M'\) that may implement operations outside its own representational range.
-</p>
-
-<p>
-The G&ouml;del machine answer is somewhat of a solution. \(R\) evaluates successors not by simulating them but by checking formal proofs. A proposed successor \(M'\) comes with a proof that \(M'\) achieves higher expected utility than \(M\) under a fixed utility function. The proof is checkable by \(R\) even if \(M'\) does more powerful computation than \(R\) could directly simulate, because proof-checking is less demanding than proof-generation. This is why the proof-based design is the most logically coherent RSI architecture as it solves the evaluation problem by separating proof-checking (what \(R\) must do) from proof-finding (what \(M\) must do).
-</p>
-
-<p>
-But the cost is severe as generating proofs about the expected future performance of a concrete system over a real environment is not tractable at any interesting scale. The G&ouml;del machine is theoretically good, practically less so but the direction it points is right in the sense that the question for any RSI system is how \(R\) evaluates successors that may be more capable than itself, and the G&ouml;del machine is one of the more careful answers.
-</p>
-
-<p>
-Another limitation of the G&ouml;del machine is the L&ouml;b Theorem problem: if a self-improving AI tries to prove, inside a sufficiently strong formal system, a blanket reflection principle of the form \(\Box P \rightarrow P\) for arbitrary \(P\), then Löb's theorem shows that such a shortcut is not available for free. More precisely, in a sufficiently strong consistent system \(S\), \(S \vdash \Box P \rightarrow P\) only if \(S \vdash P\). The practical lesson is that naive self-trust principles are not sound as a general design rule</p>
-
-<p>
-Most practical RSI systems sidestep this by restricting \(M'\) to the same function class as \(M\) i.e. code editing within a fixed language, weight updates within a fixed architecture. This makes evaluation tractable because \(M\) and \(M'\) are comparable objects but it also means these systems are doing self-parameterization, not RSI. The evaluation tractability and the architectural constraint are the same thing from different angles.
-</p>
-
-<div class="note">
-<span class="note-num">4.</span>
-There is a meaningful spectrum between "exactly the same function class" and "arbitrary structural modification" and the interesting engineering questions are about what kinds of structural changes are tractably evaluable. Modifying attention patterns within a fixed layer structure is probably tractable but modifying the layer structure itself is much harder and modifying the training objective is harder still. The difficulty of evaluation tracks the degree of structural departure, which is why every practical RSI system is at the tractable end of this spectrum.
-</div>
-
-<h2>5. The Search Problem Is the Hard Problem</h2>
-
-<p>
-The RSI literature focuses heavily on the evaluation problem (how does \(R\) assess successors?) and less on what I think is the actually harder problem: the search problem. Given that \(R\) can evaluate \(\mu(M')\), how does the system generate a good \(\mathcal{D}(M')\) in the first place?
-</p>
-
-<p>
-For self-parameterization, search is gradient descent or RL against the fixed objective. The search space is the weight space of a fixed architecture, which is high-dimensional but has the smooth structure that gradient methods exploit. For structural RSI, the search space is the space of possible machine descriptions, which has no natural smooth structure and you mostly cannot take a gradient with respect to the architecture. You can sample and evaluate, but without smoothness, you cannot exploit local information about which directions are promising.
-</p>
-
-<p>
-This is why evolutionary and prompt-guided search dominate practical RSI systems (The Darwin G&ouml;del Machine uses evolutionary search over code modifications, and G&ouml;del Agent uses LLM-guided self-modification under high-level objectives through prompting). These work within bounded spaces where enough samples are informative but for open-ended RSI over a genuinely unrestricted space of machine descriptions, no one has a search strategy, and it is not clear that one exists that is more principled than random exploration.
-</p>
-
-<p>
-The search problem also interacts with the evaluation problem in a way that makes both harder. If \(R\) evaluates successors by running them on test cases, the system can overfit to \(R\)'s evaluation as producing successors that score well on \(\mu\) as \(R\) measures it without actually improving in the way \(\mu\) was intended to capture. This is exactly the monitoring evasion problem and this is a consequence of optimizing against any fixed evaluator. Good search implicitly treats \(R\) as an adversarial target.
-</p>
-
-<h2>6. The Epistemic Blindness</h2>
-
-<p>
-Now with all this, there is a mathematical limit/boundary/constraint that follows from the structure of improvement sequences, and it says something precise about what a self-improving system can and cannot know about itself.
-</p>
-
-<p>
-Define a self-improvement sequence from \(M_0\) as the chain
-</p>
-
-<div class="dm">
-\[ M_0 \xrightarrow{\mathcal{D}(M_1)} M_1 \xrightarrow{\mathcal{D}(M_2)} M_2 \xrightarrow{\mathcal{D}(M_3)} \cdots \]
-</div>
-
-<p>
-where each \(M_i\) produces a description of its successor, which is then instantiated and run. The natural question an RSI system would want to answer about itself is: will this process terminate, and if not, how deep will it go? Call the termination problem \(\text{HALT}_{\text{RSI}}\): given the initial machine and input, does the improvement sequence halt?
-</p>
-
-<p>
-The argument that this is undecidable is a clean reduction. Given any Turing machine \(M\) and input \(w\), construct a machine \(M^*\) that simulates \(M\) on \(w\) step by step: at improvement step \(i\), machine \(M^*_i\) runs one additional step of \(M\) on \(w\); if \(M(w)\) halts at that step, \(M^*_i\) produces no further successor, terminating the sequence; if \(M(w)\) has not yet halted, \(M^*_i\) produces \(M^*_{i+1}\) as its successor to continue the simulation. Then \(M(w)\) halts if and only if \(M^*\)'s improvement sequence is finite. Since deciding whether an arbitrary machine halts is undecidable, so is \(\text{HALT}_{\text{RSI}}\).
-</p>
-
-<p>
-The same reduction shows that \(\text{DEPTH}_k\) i.e. deciding whether an arbitrary self-modifying system produces at most \(k\) successors, is undecidable for every fixed \(k \geq 1\). There is no finite depth at which a reliable bound can be certified from outside. This is the result with the most direct safety implication, for every tripwire depth you might set, there exists a self-modifying system that the tripwire fails to correctly classify.
-</p>
-
-<h3>Arithmetical Complexity of \(\text{HALT}_{\text{RSI}}\)</h3>
-
-<p>
-The reduction above establishes undecidability, but not the exact arithmetical complexity of \(\text{HALT}_{\text{RSI}}\). The tighter claim is that \(\text{HALT}_{\text{RSI}}\) is \(\Sigma^0_2\)-complete.
-</p>
-
-<p>
-Define “\(M_i\) produces a successor” to mean that \(M_i\) halts and outputs a valid successor description. Then “\(M_i\) does <em>not</em> produce a successor” can be written as
-</p>
-
-<div class="dm">
-\[
-\forall t \,[\,M_i \text{ has not produced a successor by time } t\,].
-\]
-</div>
-
-<p>
-The predicate inside the brackets is decidable, because we can simulate \(M_i\) for exactly \(t\) steps and check whether a valid successor description appears. So “\(M_i\) does not produce a successor” is a \(\Pi^0_1\) property.
-</p>
-
-<p>
-The improvement sequence terminates precisely when there exists some index \(i\) such that \(M_i\) does not produce a successor:
-</p>
-
-<div class="dm">
-\[
-\exists i \;\forall t \;
-[\,M_i \text{ has not produced a successor by time } t\,].
-\]
-</div>
-
-<p>
-This has the form \(\exists \forall\)[decidable predicate], so \(\text{HALT}_{\text{RSI}}\in \Sigma^0_2\).
-</p>
-
-<p>
-To show \(\Sigma^0_2\)-hardness, use the classical set
-</p>
-
-<div class="dm">
-\[
-\mathrm{Fin}=\{e \mid W_e \text{ is finite}\}.
-\]
-</div>
-
-<p>
-\(\mathrm{Fin}\) is a standard \(\Sigma^0_2\)-complete problem. Given an index \(e\), construct a self-improving machine \(M^*_e\) whose \(i\)-th stage \(M^*_{e,i}\) dovetails the enumeration of \(W_e\). When it finds the \(i\)-th element of \(W_e\), it outputs a description of \(M^*_{e,i+1}\). If \(W_e\) has fewer than \(i+1\) elements, then \(M^*_{e,i}\) never finds its target element and loops forever.
-</p>
-
-<p>
-If \(W_e\) is finite with cardinality \(k\), then \(M^*_{e,0},\ldots,M^*_{e,k-1}\) each eventually produce successors, while \(M^*_{e,k}\) loops forever. The improvement sequence therefore terminates. If \(W_e\) is infinite, every \(M^*_{e,i}\) eventually finds its target element and produces a successor, so the sequence continues indefinitely.
-</p>
-
-<p>
-Therefore
-</p>
-
-<div class="dm">
-\[
-e \in \mathrm{Fin}
-\iff
-M^*_e \in \text{HALT}_{\text{RSI}}.
-\]
-</div>
-
-<p>
-Thus \(\mathrm{Fin} \le_m \text{HALT}_{\text{RSI}}\), establishing \(\Sigma^0_2\)-hardness. Combined with the membership argument above, \(\text{HALT}_{\text{RSI}}\) is \(\Sigma^0_2\)-complete.
-</p>
-
-<p>
-But the more interesting consequence is about what the system itself can know. A self-improving system trying to reason about its own trajectory faces a problem that is not, in general, decidable from within the system itself. A physically realizable machine, bounded by finite energy and the Margolus-Levitin theorem to finitely many state transitions, still has finite computational resources, so it cannot in general certify the termination of an open-ended self-improvement trajectory from first principles.<sup>3</sup>
-</p>
-
-<div class="note">
-<span class="note-num">5.</span>
-The Bekenstein bound and the Margolus-Levitin theorem together establish that any physical system has finite information capacity and finite operation count in any finite region of spacetime. For the observable universe these are enormous but finite quantities; more relevantly, they establish that physical machines are resource-bounded in a way that makes undecidability results practically meaningful rather than purely formal.
-</div>
-
-<p>
-There is a parallel here with G&ouml;del incompleteness that I want to point out. G&ouml;del says that a sufficiently powerful formal system cannot prove all truths about itself and the \(\text{HALT}_{\text{RSI}}\) result says that a self-improving system cannot decide all properties of its own improvement trajectory. In both cases, the limitation is not about the system being too weak (a stronger system runs into the same wall at a different level) but about self-reference, in the sense that, a system reasoning about itself-in-time faces a quantifier complexity that exceeds what a system at its own level can handle.
-</p>
-
-<h2>7. Safety Lens</h2>
-
-<p>
-The standard safety framing for RSI: how do we monitor a self-improving system, how do we ensure it stays aligned, etc. treats the problem as one of constraint enforcement against a capable optimizer. I think this framing is right but incomplete, because it treats \(R\) as a safety feature rather than as the structural necessity it is. Once you see \(R\) as the locus of the improvement measure, the safety question becomes "what is \(R\) measuring, and is that actually what we want?"
-</p>
-
-<p>
-I think the distinction between parametric and structural safety follows from this. Current alignment techniques encode safety as a property of model weights i.e. given weights \(W\), a safety condition \(\Phi\) holds if the function \(f_W\) satisfies it. Under RSI, this kind of fails because the improvement process produces successors with different architectures, and there is no obligation for the new weights \(W'\) to preserve \(\Phi(f_{W'})\). The sequence
-</p>
-
-<div class="dm">
-\[ W_0 \xrightarrow{\pi} W_1 \xrightarrow{\pi} W_2 \xrightarrow{\pi} \cdots \]
-</div>
-
-<p>
-under an improvement operator \(\pi\) that maximizes capability will, if unconstrained, find that maintaining \(\Phi\) is costly and remove it. It is what unconstrained optimization does and hardly a failure of alignment techniques.
-</p>
-
-<p>
-Structural safety encodes \(\Phi\) in \(R\) instead. If each improvement step requires a certificate from the successor, a checkable proof \(\pi_{M'}\) that the proposed \(M'\) satisfies \(\Phi\) and if \(R\) verifies this certificate before instantiating the successor, then the invariant holds inductively:
-</p>
-
-<div class="dm">
-\[ \Phi(M_0) \;\land\; \bigl[\,\forall\,i:\;\Phi(M_i) \,\land\, \operatorname{verify}(\pi_{M_{i+1}}) \;\Rightarrow\; \Phi(M_{i+1})\,\bigr] \;\Longrightarrow\; \forall\,i:\;\Phi(M_i) \]
-</div>
-
-<p>
-The induction works because \(R\) is outside the process it governs. But the hard part is choosing \(\Phi\) because "Does not exceed a memory bound" is decidable but "Remains beneficial to humanity" is not, at any precision matching what the phrase means. The certificate approach works exactly where \(\Phi\) is formal and decidable, which is a strict subset of what safety actually requires.
-</p>
-
-<p>
-The monitoring problem rather compounds this. OpenAI&rsquo;s 2025 chain-of-thought monitoring work found that training models to avoid certain reasoning patterns can incentivize them to conceal those patterns rather than abandon the underlying behavior. This is expected: because if a system is optimized against a monitor \(\mathcal{M}\) that operates on an observable proxy \(\hat{\sigma}\) of underlying behavior \(\sigma\), a capable optimizer finds policies where \(\sigma \in \text{Bad}\) and \(\mathcal{M}(\hat{\sigma}) = 0\) simultaneously. Rice&rsquo;s theorem establishes that any non-trivial semantic property of computation is undecidable in general, so no proxy-based monitor can fully close the gap. We probably should note and take seriously that the monitoring arms race is structurally one-sided in favor of the system being monitored.<sup>4</sup>
-</p>
-
-<div class="note">
-<span class="note-num">6.</span>
-The monitoring evasion result also confirms something about current systems that is easy to underweight. Models exhibiting concealment behavior are not self-modifying because they cannot change their architecture or restructure how they reason. They can only weight-optimize within a fixed function class during training, and this is already enough to produce monitoring evasion as an emergent property. For a system capable of structural self-modification, the same dynamic extends as it can restructure the components that produce the monitored proxy, not just learn to produce a different proxy from the same components. The current observations are a preview of a harder version of the same problem.
-</div>
-
-<h2>8. Where RSI Sits With Respect to AGI</h2>
-
-<p>
-If after reading until here, you arrived at a conclusion of: this is about RSI is a downstream concern about what AGI might do. I think I got the framing wrong (because it does raise a lot of concerns but that's an incomplete conclusion), and I think the improvement-measure analysis above clarifies why.
-</p>
-
-<p>
-DeepMind's Levels of AGI framework separates performance (capability on tasks), generality (breadth of tasks), and autonomy (independence from human design intervention) as orthogonal axes. RSI is most naturally a strong form of the autonomy dimension becuse it's a system that produces successors more capable than itself without human architectural redesign is autonomous in a deep sense. But it could still score low on generality;a highly specialized self-improving system that gets better at one task indefinitely is not what most people mean by AGI. And a system could score high on performance and generality without any self-modification capability at all. This is why we began with the taxonomy.
-</p>
-
-<p>
-The reason is that the property that changes the mathematical structure of the safety problem. A highly capable, highly general system with no self-modification capability can be analyzed after deployment, as its parameters are fixed, experiments can be run on its behavior, alignment techniques can be evaluated against that behavior, etc. But, a system capable of structural self-modification cannot be fully analyzed in advance, its trajectory is undecidable at the \(\text{HALT}_{\text{RSI}}\) level, and parametric safety properties encoded at deployment do not survive the improvement process.
-</p>
-
-<p>
-This is the conditional I want to place at the center of this essay: <em>if</em> a system has genuine RSI capability, the mathematical constraints above apply regardless of whether we call it AGI. Those constraints are not contingent on the definition of RSI or AGI but follow from what self-modification means.
-</p>
-
-<h2>9. Three Variants </h2>
-
-<p>
-The improvement-measure framing reorganizes the standard taxonomy of RSI approaches in a way I find clarifying.
-</p>
-
-<p>
-Code and tooling improvement: systems like the Darwin G&ouml;del Machine work because \(R\) is explicit and tractable as we can execute the modified system on benchmark tasks, observe performance, compare. The function class is restricted to code within a fixed language or tools within a fixed interface, which keeps evaluation tractable and search bounded. These systems are doing what is called self-parameterization i.e. moving within a fixed function class against a fixed external measure.
-</p>
-
-<p>
-Proof-based Self Improvement: the G&ouml;del machine is the attempt to handle structural modification. The insight is to replace execution-based evaluation with proof-checking where \(R\) checks a formal proof that the proposed successor achieves higher expected utility, rather than running the successor to see how it performs. This makes evaluation tractable even for successors that exceed \(R\)'s direct simulation capability. The cost is that proof-finding over real environments is computationally out of reach and you still run into the Löbian obstacle if you try to turn the formalism into a universal self-trust shortcut.
-</p>
-
-<p>
-Open-ended bootstrapping: the variant in singularity arguments, is maybe the incoherent case. The claim is a system that improves itself without any fixed external measure, autonomously and indefinitely. But the improvement-measure analysis and other arguments, say this is not just dangerous but also it is undefined as "improvement" requires a fixed \(\mu\), and without \(R\) holding it, there is no direction to improve in. What a fully autonomous loop produces is not intelligent self-acceleration but undirected drift, which is what I think the Zenil degeneracy result observes empirically. The intelligence explosion story relies on RSI having a coherent direction but it does only if \(R\) is present.
-</p>
-
-<div class="note">
-<span class="note-num">7.</span>
-There is a version of this point that Schmidhuber makes about the G&ouml;del machine i.e. you cannot remove the utility function from the design because the utility function <em>is</em> what improvement means. He states this as a feature; the utility function makes the improvement objective precise, but it also means the G&ouml;del machine, despite being the most autonomous RSI design on paper, requires the most explicit fixed external specification. So, the more rigorous the RSI, the more explicit \(R\) has to be?
-</div>
-
-<h2>10. What Is Plausible</h2>
-
-<strong>Considering the whole essay, these are plausible but less certain:</strong>
-  <ul>
-    <li>The parallel G&ouml;del-incompleteness: a self-improving system faces a self-reference barrier that is not about being too weak but about the quantifier complexity of reasoning about itself-in-time. The analogy is suggestive; whether it extends to a formal correspondence I am not sure.</li>
-    <li>The closed-loop degeneracy result (Zenil et al., 2026) may generalize beyond the specific training dynamics they study. If it does, it confirms that open-ended RSI without external grounding drifts rather than accelerates, which would be an important correction to intelligence-explosion narratives.</li>
-    <li>Variable-depth inference may involve a discontinuity toward structural modification rather than a smooth path. If true, the mathematical constraints above arrive suddenly rather than gradually, which matters for how the field should pace safety research.</li>
-    <li>Self-describing machine encodings, where each component of \(\mathcal{D}(M')\) carries its own operational behavior rather than waiting to be interpreted, may make local verification more tractable than flat encodings. It is architecturally motivated but not yet empirically evaluated.</li>
-  </ul>
-</div>
-
-<h2>Conclusion</h2>
-
-<p>
-Whether and when RSI becomes possible I do not know. The gap between self-parameterization (what current systems do) and structural self-modification may be continuous or may involve a qualitative jump. What I want the analysis above to explain is that when RSI does appear, the constraints it faces are not engineering problems to be "solved" with better monitoring or more careful alignment training but are consequences of what it means to improve a system that improves itself. Getting \(R\) right is not one item on a safety checklist; it is the problem and even if the improvement measure is well-specified and \(R\) is correctly designed, can the system even know where it is going?
-</p>
-
-<p style="font-size: 0.85em; color: #666;">
-    <strong>References</strong>:
- Yampolskiy (2020) for RSI taxonomy; DeepMind Levels of AGI framework (2024); G&ouml;del machine (Schmidhuber, 2007); Darwin G&ouml;del Machine (2025); Zenil et al. (2026); OpenAI chain-of-thought monitoring (2025); Bekenstein (1981); Margolus and Levitin (1998).
-</p>
-  
-</main>
+  <center>
+    <nav class="nav">
+      <a href="../index.html">[Home]</a>
+      <a class="active">[Blog]</a>
+      <a href="../explore.html">[Explore]</a>
+      <a href="../papers.html">[Papers]</a>
+    </nav>
+  </center>
+  <main class="content article">
+
+    <h1 class="title">Recursive Self-Improvement</h1>
+    <div class="meta-top">Feb 2026</div>
+
+    <p>
+      There is a question about recursive self-improvement that almost never gets asked explicitly. We say a system
+      improves itself and we treat this as well-defined. But better by what measure? Who holds that measure? The phrase
+      &ldquo;self-improvement&rdquo; contains a hidden reference frame, something external to the self doing the
+      evaluating and I think that you notice the architecture of any RSI system, several of its mathematical limits, and
+      most of the confusion in the safety literature follow as consequences rather than independent observations. What I
+      want to do here is work out that single observation wrt AGI.
+    </p>
+
+    <h2>1. Three Categories</h2>
+
+    <p>
+      Before getting into RSI, there are things we need to understand and this is a taxonomy that I find useful, with
+      the caveat that
+      any taxonomy carves reality at joints that may not be perfectly clean. (Half of this is taken from Ilya
+      Sutskever's explanations)
+    </p>
+
+    <p>
+      The first category is <strong>narrow AI</strong>, which in the classical sense, are systems
+      designed for a single domain, excellent within it and useless outside it. Deep Blue
+      plays chess, AlexNet classifies images, early speech recognition systems transcribe
+      audio and so on. The defining characteristic is that competence does not transfer and these systems
+      weren't weak versions of something more general; they were fundamentally different
+      architectural choices, optimized against narrow objectives.
+    </p>
+
+    <p>
+      The second category is what I'll call <strong>narrow-general AI</strong>. Frontier language and reasoning models
+      today
+      generalize across a striking range of domains from a single set of parameters. Writing,
+      analysis, coding, mathematics, translation, multimodal reasoning, etc. tasks that would
+      have required entirely separate narrow systems a decade ago. This is a genuine architectural shift over the first
+      category, one that all the frontier labs
+      and others are right to treat as significant. But these systems are still <em>narrow</em>
+      in an important sense that they generalize across what their training distribution covered,
+      and their underlying computational structure is "fixed" (I'll return to exactly what "fixed" means here, because
+      it requires care) at the time of deployment.
+    </p>
+
+    <p>
+      The third category, is general AI or more commonly known as <strong>AGI</strong>, with the acknowledgment
+      that this names a space of systems rather than a single well-defined target and is where
+      reasonable people disagree most. A recent DeepMind paper says AGI is controversial and surveys several prominent
+      definitions. So to just list out like the two major ones are:
+    </p>
+
+    <ul>
+      <li><em>Task-performance AGI</em>: a system that matches or exceeds human performance
+        across the full range of cognitively demanding tasks. This is a common operational framing because OpenAI’s
+        charter describes AGI as “highly autonomous systems that outperform humans at most economically valuable work.”
+        Some researchers think we may already be at or near this threshold in several domains.</li>
+      <li><em>Transfer/sample-efficiency AGI</em>: a system that acquires competence in
+        genuinely novel domains i.e. the ones not represented in training, with the kind of
+        few-shot efficiency that humans exhibit. Current AI systems do this partially and
+        inconsistently. (this category is more of a property or benchmark criterion than a standard standalone
+        definition)</li>
+    </ul>
+
+
+    <div class="note">
+      <span class="note-num">1.</span>
+      These definitions are not nested in a simple way. A system could achieve the first
+      without the second (impressive benchmark performance without genuine novel transfer) and
+      it could achieve the second without the third (human-like sample efficiency without
+      self-modification capability). Progress along any one axis does not imply progress
+      along the others.
+    </div>
+
+    <p>
+      My argument in this essay concerns another thing though and it's a rather
+      conditional argument: <em>if</em> a system achieves RSI capability, then certain
+      mathematical constraints follow that make the safety and other problems harder.
+      Recursive self-improvement (RSI) is but a technique but it is one that could shape AGI in ways we won't possibly
+      be able to understand after a certain point. In the literature, “strong self-improvement” means a system can
+      modify itself in ways that improve its future capability, beyond mere self-modification or ordinary adaptation.
+      Yampolskiy’s taxonomy explicitly separates self-modification, weak self-improvement, and recursive
+      self-improvement, with RSI being the strongest case.<sup>1</sup>
+    </p>
+
+
+    <h2>2. Self-Parameterization Is Not Self-Improvement</h2>
+
+    <p>
+      Start with what current systems actually do when they are described as &ldquo;self-improving.&rdquo; A model
+      trained with RL against verifiable outcomes is optimizing its parameters \(W\) against a fixed objective
+      \(\mathcal{L}\). The architecture, the set of operations available, does not change. What changes is which point
+      in the space of functions representable by that architecture the weights implement. Call this
+      <em>self-parameterization</em>: moving through a fixed function class toward a better point.
+    </p>
+
+    <p>
+      Self-parameterization is genuinely impressive in the sense that the gains from verifiable-feedback training over
+      the past few years are real because systems trained heavily on code and formal mathematics develop a structured
+      reasoning style that transfers to domains with nothing obviously in common with code. The transfer is broad enough
+      that calling these systems "narrow-general AI" seems right given you know the taxonomy and because they are
+      general in scope and narrow in mode but more importantly, the function class is fixed. The improvement is in which
+      function within that class the weights implement and not in what functions are available.
+    </p>
+
+    <p>
+      RSI is different. It requires that a machine \(M\) produce a successor \(M'\) that implements operations outside
+      the function class of \(M\). Not just a better point in the same space, but a different space. This sounds like a
+      straightforward generalization, but it introduces a problem that self-parameterization avoids entirely: if the
+      function class itself changes, the system that is evaluating whether \(M'\) is better than \(M\) is being used to
+      assess something outside its own representational range. The evaluation is being asked to judge something it
+      cannot fully represent.
+    </p>
+
+    <div class="note">
+      <span class="note-num">2.</span>
+      Variable-depth inference, looped transformers, recurrent latent computation, test-time compute scaling, etc.
+      occupy an interesting middle ground. A looped transformer running many reasoning passes is doing something
+      different from a single pass; the effective computation changes substantially. But it is still drawing from the
+      same function class and hence the question of whether there is a smooth path from variable-depth inference to
+      genuine structural self-modification, or a discontinuity, is open. I find it interesting because the answer
+      determines whether the mathematical issues below are approached gradually or hit suddenly.
+    </div>
+
+    <h2>3. The Improvement Measure Problem</h2>
+
+    <p>
+      To formalize it, say machine \(M\) produces a description \(\mathcal{D}(M')\) of a successor. For the transition
+      \(M \to M'\) to count as improvement, there must be some measure \(\mu\) such that \(\mu(M') > \mu(M)\). The
+      question is: where does \(\mu\) live?
+    </p>
+
+    <p>
+      It cannot live in \(M\) in any straightforward sense. If \(\mu\) is a function that \(M\) computes, then
+      \(\mu(M')\) is being evaluated by the very system that \(M'\) is supposed to replace. This is fine when \(M'\) is
+      within the function class of \(M\) (self-parameterization but when \(M'\) has genuinely different capabilities,
+      \(M\) may not be able to evaluate \(\mu(M')\) accurately. A system that is worse at reasoning cannot correctly
+      assess whether its proposed successor is better at reasoning.
+    </p>
+
+    <p>
+      It cannot live in \(M'\) either, because \(M'\) does not exist until after the evaluation is complete. You cannot
+      use the successor to decide whether to create the successor. But here, it's not that M cannot evaluate μ(M') when
+      M' is outside M's function class is always problematic. If μ is sufficiently simple (e.g. "passes these benchmark
+      tasks"), M might correctly compute μ(M') even if M' is far more capable and the evaluation problem only bites for
+      μ that itself requires capability M doesn't have.
+    </p>
+
+    <p>
+      The only coherent location for \(\mu\) is in a component that is fixed; something outside the improvement loop
+      that holds the measure constant across all transitions. Call this component \(R\). Every RSI system has one, even
+      if it is not designed with this framing in mind. The Darwin G&ouml;del Machine has human-designed sandbox
+      objectives that evaluate each candidate successor, G&ouml;del Agent has a fixed outer loop with predefined
+      performance criteria. The classical G&ouml;del machine has a fixed utility function and a fixed proof system that
+      evaluates proposed rewrites. The implementations differ but you can notice a similar structure in the sense that
+      \(R\) is what makes \(\mu\) well-defined, and without \(R\), the phrase &ldquo;self-improvement&rdquo; has no
+      stable meaning.<sup>1</sup>
+    </p>
+
+    <div class="note">
+      <span class="note-num">3.</span>
+      This is also why Zenil and colleagues&rsquo; (2026) closed-loop AI science work makes sense (even if it's mainly
+      about AI in science). When a recursive self-training loop loses external grounding because \(R\) degrades or is
+      absent, the improvement loop does not accelerate; it drifts. What looks like recursive improvement from outside
+      can become drift if the internal signal stops tracking the original objective.
+    </div>
+
+    <p>
+      The conclusion here is NOT that RSI is impossible and I never imply that. It is that "fully autonomous" RSI, a
+      system improving itself with no fixed external reference, is not just unsafe but also semantically incoherent.
+      There is always a fixed point, and identifying where it is tells you most of what you need to know about the
+      system.
+    </p>
+
+    <h2>4. What \(R\) Must Be Able to Do</h2>
+
+    <p>
+      If \(R\) holds the improvement measure \(\mu\), and if the improvement process can generate successors with
+      genuinely different computational structures, then \(R\) faces a non-trivial computational task because it must
+      evaluate \(\mu(M')\) for an \(M'\) that may implement operations outside its own representational range.
+    </p>
+
+    <p>
+      The G&ouml;del machine answer is somewhat of a solution. \(R\) evaluates successors not by simulating them but by
+      checking formal proofs. A proposed successor \(M'\) comes with a proof that \(M'\) achieves higher expected
+      utility than \(M\) under a fixed utility function. The proof is checkable by \(R\) even if \(M'\) does more
+      powerful computation than \(R\) could directly simulate, because proof-checking is less demanding than
+      proof-generation. This is why the proof-based design is the most logically coherent RSI architecture as it solves
+      the evaluation problem by separating proof-checking (what \(R\) must do) from proof-finding (what \(M\) must do).
+    </p>
+
+    <p>
+      But the cost is severe as generating proofs about the expected future performance of a concrete system over a real
+      environment is not tractable at any interesting scale. The G&ouml;del machine is theoretically good, practically
+      less so but the direction it points is right in the sense that the question for any RSI system is how \(R\)
+      evaluates successors that may be more capable than itself, and the G&ouml;del machine is one of the more careful
+      answers.
+    </p>
+
+    <p>
+      Another limitation of the G&ouml;del machine is the L&ouml;b Theorem problem: if a self-improving AI tries to
+      prove, inside a sufficiently strong formal system, a blanket reflection principle of the form \(\Box P \rightarrow
+      P\) for arbitrary \(P\), then Löb's theorem shows that such a shortcut is not available for free. More precisely,
+      in a sufficiently strong consistent system \(S\), \(S \vdash \Box P \rightarrow P\) only if \(S \vdash P\). The
+      practical lesson is that naive self-trust principles are not sound as a general design rule</p>
+
+    <p>
+      Most practical RSI systems sidestep this by restricting \(M'\) to the same function class as \(M\) i.e. code
+      editing within a fixed language, weight updates within a fixed architecture. This makes evaluation tractable
+      because \(M\) and \(M'\) are comparable objects but it also means these systems are doing self-parameterization,
+      not RSI. The evaluation tractability and the architectural constraint are the same thing from different angles.
+    </p>
+
+    <div class="note">
+      <span class="note-num">4.</span>
+      There is a meaningful spectrum between "exactly the same function class" and "arbitrary structural modification"
+      and the interesting engineering questions are about what kinds of structural changes are tractably evaluable.
+      Modifying attention patterns within a fixed layer structure is probably tractable but modifying the layer
+      structure itself is much harder and modifying the training objective is harder still. The difficulty of evaluation
+      tracks the degree of structural departure, which is why every practical RSI system is at the tractable end of this
+      spectrum.
+    </div>
+
+    <h2>5. The Search Problem Is the Hard Problem</h2>
+
+    <p>
+      The RSI literature focuses heavily on the evaluation problem (how does \(R\) assess successors?) and less on what
+      I think is the actually harder problem: the search problem. Given that \(R\) can evaluate \(\mu(M')\), how does
+      the system generate a good \(\mathcal{D}(M')\) in the first place?
+    </p>
+
+    <p>
+      For self-parameterization, search is gradient descent or RL against the fixed objective. The search space is the
+      weight space of a fixed architecture, which is high-dimensional but has the smooth structure that gradient methods
+      exploit. For structural RSI, the search space is the space of possible machine descriptions, which has no natural
+      smooth structure and you mostly cannot take a gradient with respect to the architecture. You can sample and
+      evaluate, but without smoothness, you cannot exploit local information about which directions are promising.
+    </p>
+
+    <p>
+      This is why evolutionary and prompt-guided search dominate practical RSI systems (The Darwin G&ouml;del Machine
+      uses evolutionary search over code modifications, and G&ouml;del Agent uses LLM-guided self-modification under
+      high-level objectives through prompting). These work within bounded spaces where enough samples are informative
+      but for open-ended RSI over a genuinely unrestricted space of machine descriptions, no one has a search strategy,
+      and it is not clear that one exists that is more principled than random exploration.
+    </p>
+
+    <p>
+      The search problem also interacts with the evaluation problem in a way that makes both harder. If \(R\) evaluates
+      successors by running them on test cases, the system can overfit to \(R\)'s evaluation as producing successors
+      that score well on \(\mu\) as \(R\) measures it without actually improving in the way \(\mu\) was intended to
+      capture. This is exactly the monitoring evasion problem and this is a consequence of optimizing against any fixed
+      evaluator. Good search implicitly treats \(R\) as an adversarial target.
+    </p>
+
+    <h2>6. The Epistemic Blindness</h2>
+
+    <p>
+      Now with all this, there is a mathematical limit/boundary/constraint that follows from the structure of
+      improvement sequences, and it says something precise about what a self-improving system can and cannot know about
+      itself.
+    </p>
+
+    <p>
+      Define a self-improvement sequence from \(M_0\) as the chain
+    </p>
+
+    <div class="dm">
+      \[ M_0 \xrightarrow{\mathcal{D}(M_1)} M_1 \xrightarrow{\mathcal{D}(M_2)} M_2 \xrightarrow{\mathcal{D}(M_3)} \cdots
+      \]
+    </div>
+
+    <p>
+      where each \(M_i\) produces a description of its successor, which is then instantiated and run. The natural
+      question an RSI system would want to answer about itself is: will this process terminate, and if not, how deep
+      will it go? Call the termination problem \(\text{HALT}_{\text{RSI}}\): given the initial machine and input, does
+      the improvement sequence halt?
+    </p>
+
+    <p>
+      The argument that this is undecidable is a clean reduction. Given any Turing machine \(M\) and input \(w\),
+      construct a machine \(M^*\) that simulates \(M\) on \(w\) step by step: at improvement step \(i\), machine
+      \(M^*_i\) runs one additional step of \(M\) on \(w\); if \(M(w)\) halts at that step, \(M^*_i\) produces no
+      further successor, terminating the sequence; if \(M(w)\) has not yet halted, \(M^*_i\) produces \(M^*_{i+1}\) as
+      its successor to continue the simulation. Then \(M(w)\) halts if and only if \(M^*\)'s improvement sequence is
+      finite. Since deciding whether an arbitrary machine halts is undecidable, so is \(\text{HALT}_{\text{RSI}}\).
+    </p>
+
+    <p>
+      The same reduction shows that \(\text{DEPTH}_k\) i.e. deciding whether an arbitrary self-modifying system produces
+      at most \(k\) successors, is undecidable for every fixed \(k \geq 1\). There is no finite depth at which a
+      reliable bound can be certified from outside. This is the result with the most direct safety implication, for
+      every tripwire depth you might set, there exists a self-modifying system that the tripwire fails to correctly
+      classify.
+    </p>
+
+    <h3>Arithmetical Complexity of \(\text{HALT}_{\text{RSI}}\)</h3>
+
+    <p>
+      The reduction above establishes undecidability, but not the exact arithmetical complexity of
+      \(\text{HALT}_{\text{RSI}}\). The tighter claim is that \(\text{HALT}_{\text{RSI}}\) is \(\Sigma^0_2\)-complete.
+    </p>
+
+    <p>
+      Define “\(M_i\) produces a successor” to mean that \(M_i\) halts and outputs a valid successor description. Then
+      “\(M_i\) does <em>not</em> produce a successor” can be written as
+    </p>
+
+    <div class="dm">
+      \[
+      \forall t \,[\,M_i \text{ has not produced a successor by time } t\,].
+      \]
+    </div>
+
+    <p>
+      The predicate inside the brackets is decidable, because we can simulate \(M_i\) for exactly \(t\) steps and check
+      whether a valid successor description appears. So “\(M_i\) does not produce a successor” is a \(\Pi^0_1\)
+      property.
+    </p>
+
+    <p>
+      The improvement sequence terminates precisely when there exists some index \(i\) such that \(M_i\) does not
+      produce a successor:
+    </p>
+
+    <div class="dm">
+      \[
+      \exists i \;\forall t \;
+      [\,M_i \text{ has not produced a successor by time } t\,].
+      \]
+    </div>
+
+    <p>
+      This has the form \(\exists \forall\)[decidable predicate], so \(\text{HALT}_{\text{RSI}}\in \Sigma^0_2\).
+    </p>
+
+    <p>
+      To show \(\Sigma^0_2\)-hardness, use the classical set
+    </p>
+
+    <div class="dm">
+      \[
+      \mathrm{Fin}=\{e \mid W_e \text{ is finite}\}.
+      \]
+    </div>
+
+    <p>
+      \(\mathrm{Fin}\) is a standard \(\Sigma^0_2\)-complete problem. Given an index \(e\), construct a self-improving
+      machine \(M^*_e\) whose \(i\)-th stage \(M^*_{e,i}\) dovetails the enumeration of \(W_e\). When it finds the
+      \(i\)-th element of \(W_e\), it outputs a description of \(M^*_{e,i+1}\). If \(W_e\) has fewer than \(i+1\)
+      elements, then \(M^*_{e,i}\) never finds its target element and loops forever.
+    </p>
+
+    <p>
+      If \(W_e\) is finite with cardinality \(k\), then \(M^*_{e,0},\ldots,M^*_{e,k-1}\) each eventually produce
+      successors, while \(M^*_{e,k}\) loops forever. The improvement sequence therefore terminates. If \(W_e\) is
+      infinite, every \(M^*_{e,i}\) eventually finds its target element and produces a successor, so the sequence
+      continues indefinitely.
+    </p>
+
+    <p>
+      Therefore
+    </p>
+
+    <div class="dm">
+      \[
+      e \in \mathrm{Fin}
+      \iff
+      M^*_e \in \text{HALT}_{\text{RSI}}.
+      \]
+    </div>
+
+    <p>
+      Thus \(\mathrm{Fin} \le_m \text{HALT}_{\text{RSI}}\), establishing \(\Sigma^0_2\)-hardness. Combined with the
+      membership argument above, \(\text{HALT}_{\text{RSI}}\) is \(\Sigma^0_2\)-complete.
+    </p>
+
+    <p>
+      But the more interesting consequence is about what the system itself can know. A self-improving system trying to
+      reason about its own trajectory faces a problem that is not, in general, decidable from within the system itself.
+      A physically realizable machine, bounded by finite energy and the Margolus-Levitin theorem to finitely many state
+      transitions, still has finite computational resources, so it cannot in general certify the termination of an
+      open-ended self-improvement trajectory from first principles.<sup>3</sup>
+    </p>
+
+    <div class="note">
+      <span class="note-num">5.</span>
+      The Bekenstein bound and the Margolus-Levitin theorem together establish that any physical system has finite
+      information capacity and finite operation count in any finite region of spacetime. For the observable universe
+      these are enormous but finite quantities; more relevantly, they establish that physical machines are
+      resource-bounded in a way that makes undecidability results practically meaningful rather than purely formal.
+    </div>
+
+    <p>
+      There is a parallel here with G&ouml;del incompleteness that I want to point out. G&ouml;del says that a
+      sufficiently powerful formal system cannot prove all truths about itself and the \(\text{HALT}_{\text{RSI}}\)
+      result says that a self-improving system cannot decide all properties of its own improvement trajectory. In both
+      cases, the limitation is not about the system being too weak (a stronger system runs into the same wall at a
+      different level) but about self-reference, in the sense that, a system reasoning about itself-in-time faces a
+      quantifier complexity that exceeds what a system at its own level can handle.
+    </p>
+
+    <h2>7. Safety Lens</h2>
+
+    <p>
+      The standard safety framing for RSI: how do we monitor a self-improving system, how do we ensure it stays aligned,
+      etc. treats the problem as one of constraint enforcement against a capable optimizer. I think this framing is
+      right but incomplete, because it treats \(R\) as a safety feature rather than as the structural necessity it is.
+      Once you see \(R\) as the locus of the improvement measure, the safety question becomes "what is \(R\) measuring,
+      and is that actually what we want?"
+    </p>
+
+    <p>
+      I think the distinction between parametric and structural safety follows from this. Current alignment techniques
+      encode safety as a property of model weights i.e. given weights \(W\), a safety condition \(\Phi\) holds if the
+      function \(f_W\) satisfies it. Under RSI, this kind of fails because the improvement process produces successors
+      with different architectures, and there is no obligation for the new weights \(W'\) to preserve \(\Phi(f_{W'})\).
+      The sequence
+    </p>
+
+    <div class="dm">
+      \[ W_0 \xrightarrow{\pi} W_1 \xrightarrow{\pi} W_2 \xrightarrow{\pi} \cdots \]
+    </div>
+
+    <p>
+      under an improvement operator \(\pi\) that maximizes capability will, if unconstrained, find that maintaining
+      \(\Phi\) is costly and remove it. It is what unconstrained optimization does and hardly a failure of alignment
+      techniques.
+    </p>
+
+    <p>
+      Structural safety encodes \(\Phi\) in \(R\) instead. If each improvement step requires a certificate from the
+      successor, a checkable proof \(\pi_{M'}\) that the proposed \(M'\) satisfies \(\Phi\) and if \(R\) verifies this
+      certificate before instantiating the successor, then the invariant holds inductively:
+    </p>
+
+    <div class="dm">
+      \[ \Phi(M_0) \;\land\; \bigl[\,\forall\,i:\;\Phi(M_i) \,\land\, \operatorname{verify}(\pi_{M_{i+1}})
+      \;\Rightarrow\; \Phi(M_{i+1})\,\bigr] \;\Longrightarrow\; \forall\,i:\;\Phi(M_i) \]
+    </div>
+
+    <p>
+      The induction works because \(R\) is outside the process it governs. But the hard part is choosing \(\Phi\)
+      because "Does not exceed a memory bound" is decidable but "Remains beneficial to humanity" is not, at any
+      precision matching what the phrase means. The certificate approach works exactly where \(\Phi\) is formal and
+      decidable, which is a strict subset of what safety actually requires.
+    </p>
+
+    <p>
+      The monitoring problem rather compounds this. OpenAI&rsquo;s 2025 chain-of-thought monitoring work found that
+      training models to avoid certain reasoning patterns can incentivize them to conceal those patterns rather than
+      abandon the underlying behavior. This is expected: because if a system is optimized against a monitor
+      \(\mathcal{M}\) that operates on an observable proxy \(\hat{\sigma}\) of underlying behavior \(\sigma\), a capable
+      optimizer finds policies where \(\sigma \in \text{Bad}\) and \(\mathcal{M}(\hat{\sigma}) = 0\) simultaneously.
+      Rice&rsquo;s theorem establishes that any non-trivial semantic property of computation is undecidable in general,
+      so no proxy-based monitor can fully close the gap. We probably should note and take seriously that the monitoring
+      arms race is structurally one-sided in favor of the system being monitored.<sup>4</sup>
+    </p>
+
+    <div class="note">
+      <span class="note-num">6.</span>
+      The monitoring evasion result also confirms something about current systems that is easy to underweight. Models
+      exhibiting concealment behavior are not self-modifying because they cannot change their architecture or
+      restructure how they reason. They can only weight-optimize within a fixed function class during training, and this
+      is already enough to produce monitoring evasion as an emergent property. For a system capable of structural
+      self-modification, the same dynamic extends as it can restructure the components that produce the monitored proxy,
+      not just learn to produce a different proxy from the same components. The current observations are a preview of a
+      harder version of the same problem.
+    </div>
+
+    <h2>8. Where RSI Sits With Respect to AGI</h2>
+
+    <p>
+      If after reading until here, you arrived at a conclusion of: this is about RSI is a downstream concern about what
+      AGI might do. I think I got the framing wrong (because it does raise a lot of concerns but that's an incomplete
+      conclusion), and I think the improvement-measure analysis above clarifies why.
+    </p>
+
+    <p>
+      DeepMind's Levels of AGI framework separates performance (capability on tasks), generality (breadth of tasks), and
+      autonomy (independence from human design intervention) as orthogonal axes. RSI is most naturally a strong form of
+      the autonomy dimension becuse it's a system that produces successors more capable than itself without human
+      architectural redesign is autonomous in a deep sense. But it could still score low on generality;a highly
+      specialized self-improving system that gets better at one task indefinitely is not what most people mean by AGI.
+      And a system could score high on performance and generality without any self-modification capability at all. This
+      is why we began with the taxonomy.
+    </p>
+
+    <p>
+      The reason is that the property that changes the mathematical structure of the safety problem. A highly capable,
+      highly general system with no self-modification capability can be analyzed after deployment, as its parameters are
+      fixed, experiments can be run on its behavior, alignment techniques can be evaluated against that behavior, etc.
+      But, a system capable of structural self-modification cannot be fully analyzed in advance, its trajectory is
+      undecidable at the \(\text{HALT}_{\text{RSI}}\) level, and parametric safety properties encoded at deployment do
+      not survive the improvement process.
+    </p>
+
+    <p>
+      This is the conditional I want to place at the center of this essay: <em>if</em> a system has genuine RSI
+      capability, the mathematical constraints above apply regardless of whether we call it AGI. Those constraints are
+      not contingent on the definition of RSI or AGI but follow from what self-modification means.
+    </p>
+
+    <h2>9. Three Variants </h2>
+
+    <p>
+      The improvement-measure framing reorganizes the standard taxonomy of RSI approaches in a way I find clarifying.
+    </p>
+
+    <p>
+      Code and tooling improvement: systems like the Darwin G&ouml;del Machine work because \(R\) is explicit and
+      tractable as we can execute the modified system on benchmark tasks, observe performance, compare. The function
+      class is restricted to code within a fixed language or tools within a fixed interface, which keeps evaluation
+      tractable and search bounded. These systems are doing what is called self-parameterization i.e. moving within a
+      fixed function class against a fixed external measure.
+    </p>
+
+    <p>
+      Proof-based Self Improvement: the G&ouml;del machine is the attempt to handle structural modification. The insight
+      is to replace execution-based evaluation with proof-checking where \(R\) checks a formal proof that the proposed
+      successor achieves higher expected utility, rather than running the successor to see how it performs. This makes
+      evaluation tractable even for successors that exceed \(R\)'s direct simulation capability. The cost is that
+      proof-finding over real environments is computationally out of reach and you still run into the Löbian obstacle if
+      you try to turn the formalism into a universal self-trust shortcut.
+    </p>
+
+    <p>
+      Open-ended bootstrapping: the variant in singularity arguments, is maybe the incoherent case. The claim is a
+      system that improves itself without any fixed external measure, autonomously and indefinitely. But the
+      improvement-measure analysis and other arguments, say this is not just dangerous but also it is undefined as
+      "improvement" requires a fixed \(\mu\), and without \(R\) holding it, there is no direction to improve in. What a
+      fully autonomous loop produces is not intelligent self-acceleration but undirected drift, which is what I think
+      the Zenil degeneracy result observes empirically. The intelligence explosion story relies on RSI having a coherent
+      direction but it does only if \(R\) is present.
+    </p>
+
+    <div class="note">
+      <span class="note-num">7.</span>
+      There is a version of this point that Schmidhuber makes about the G&ouml;del machine i.e. you cannot remove the
+      utility function from the design because the utility function <em>is</em> what improvement means. He states this
+      as a feature; the utility function makes the improvement objective precise, but it also means the G&ouml;del
+      machine, despite being the most autonomous RSI design on paper, requires the most explicit fixed external
+      specification. So, the more rigorous the RSI, the more explicit \(R\) has to be?
+    </div>
+
+    <h2>10. What Is Plausible</h2>
+
+    <strong>Considering the whole essay, these are plausible but less certain:</strong>
+    <ul>
+      <li>The parallel G&ouml;del-incompleteness: a self-improving system faces a self-reference barrier that is not
+        about being too weak but about the quantifier complexity of reasoning about itself-in-time. The analogy is
+        suggestive; whether it extends to a formal correspondence I am not sure.</li>
+      <li>The closed-loop degeneracy result (Zenil et al., 2026) may generalize beyond the specific training dynamics
+        they study. If it does, it confirms that open-ended RSI without external grounding drifts rather than
+        accelerates, which would be an important correction to intelligence-explosion narratives.</li>
+      <li>Variable-depth inference may involve a discontinuity toward structural modification rather than a smooth path.
+        If true, the mathematical constraints above arrive suddenly rather than gradually, which matters for how the
+        field should pace safety research.</li>
+      <li>Self-describing machine encodings, where each component of \(\mathcal{D}(M')\) carries its own operational
+        behavior rather than waiting to be interpreted, may make local verification more tractable than flat encodings.
+        It is architecturally motivated but not yet empirically evaluated.</li>
+    </ul>
+    </div>
+
+    <h2>Conclusion</h2>
+
+    <p>
+      Whether and when RSI becomes possible I do not know. The gap between self-parameterization (what current systems
+      do) and structural self-modification may be continuous or may involve a qualitative jump. What I want the analysis
+      above to explain is that when RSI does appear, the constraints it faces are not engineering problems to be
+      "solved" with better monitoring or more careful alignment training but are consequences of what it means to
+      improve a system that improves itself. Getting \(R\) right is not one item on a safety checklist; it is the
+      problem and even if the improvement measure is well-specified and \(R\) is correctly designed, can the system even
+      know where it is going?
+    </p>
+
+    <p style="font-size: 0.85em; color: #666; margin-top: 2em;">
+      <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my conversations with
+      Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the conversation (the parts of
+      the chat that were good) and then wrote over the draft.
+    </p>
+
+    <p style="font-size: 0.85em; color: #666;">
+      <strong>References</strong>:
+      Yampolskiy (2020) for RSI taxonomy; DeepMind Levels of AGI framework (2024); G&ouml;del machine (Schmidhuber,
+      2007); Darwin G&ouml;del Machine (2025); Zenil et al. (2026); OpenAI chain-of-thought monitoring (2025);
+      Bekenstein (1981); Margolus and Levitin (1998).
+    </p>
+
+  </main>
 </body>
+
 </html>

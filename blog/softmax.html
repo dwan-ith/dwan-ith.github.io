@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Why Softmax Lives in a Curved Space</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '\\[', right: '\\]', display: true},
@@ -16,7 +16,11 @@
     });"></script>
   <style>
     /* ─── Base ─── */
-    *, *::before, *::after { box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -32,13 +36,20 @@
       font-size: 1rem;
       border-bottom: 1px solid #f0f0f0;
     }
+
     .nav a {
       text-decoration: none;
       color: #2563eb;
       margin-right: 0.35rem;
     }
-    .nav a:hover { text-decoration: underline; }
-    .nav a.active { color: #000; }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .nav a.active {
+      color: #000;
+    }
 
     /* ─── Content ─── */
     .content {
@@ -55,6 +66,7 @@
       margin-bottom: 0.5rem;
       letter-spacing: -0.01em;
     }
+
     .meta-top {
       font-size: 0.85rem;
       color: #777;
@@ -70,37 +82,57 @@
       border-bottom: 1px solid #e8e8e8;
       padding-bottom: 0.3rem;
     }
+
     h3 {
       font-size: 1.05rem;
       font-weight: bold;
       margin-top: 2rem;
       margin-bottom: 0.4rem;
     }
+
     p {
       font-size: 1.04rem;
       margin-top: 0;
       margin-bottom: 1.1rem;
     }
+
     sup {
       font-size: 0.72rem;
       color: #2563eb;
       vertical-align: super;
       line-height: 0;
     }
-    strong { font-weight: bold; }
-    em { font-style: italic; }
-    ul, ol { padding-left: 1.6rem; margin-bottom: 1.1rem; }
-    li { margin-bottom: 0.4rem; font-size: 1.04rem; }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.6rem;
+      margin-bottom: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      font-size: 1.04rem;
+    }
 
     /* ─── Hero figure ─── */
     .hero {
       margin: 1.5rem 0 2rem;
     }
+
     .hero img {
       width: 100%;
       border-radius: 4px;
       display: block;
     }
+
     .hero figcaption {
       font-size: 0.87rem;
       color: #555;
@@ -118,6 +150,7 @@
       line-height: 1.55;
       border-radius: 0 4px 4px 0;
     }
+
     .note-num {
       font-weight: bold;
       color: #2563eb;
@@ -140,8 +173,14 @@
       margin: 1.5rem 0;
       font-size: 1.01rem;
     }
-    .highlight p { margin: 0 0 0.5rem; }
-    .highlight p:last-child { margin: 0; }
+
+    .highlight p {
+      margin: 0 0 0.5rem;
+    }
+
+    .highlight p:last-child {
+      margin: 0;
+    }
 
     /* ─── Claim / not-claim box ─── */
     .claim-box {
@@ -150,6 +189,7 @@
       padding: 1rem 1.2rem;
       margin: 1.5rem 0;
     }
+
     .claim-box h4 {
       margin: 0 0 0.5rem;
       font-size: 0.92rem;
@@ -157,8 +197,16 @@
       letter-spacing: 0.08em;
       color: #555;
     }
-    .claim-box ul { margin: 0; padding-left: 1.3rem; }
-    .claim-box li { font-size: 0.97rem; margin-bottom: 0.3rem; }
+
+    .claim-box ul {
+      margin: 0;
+      padding-left: 1.3rem;
+    }
+
+    .claim-box li {
+      font-size: 0.97rem;
+      margin-bottom: 0.3rem;
+    }
 
     /* ─── Comparison table ─── */
     table {
@@ -167,18 +215,23 @@
       font-size: 0.95rem;
       margin: 1.5rem 0;
     }
+
     th {
       text-align: left;
       border-bottom: 2px solid #ccc;
       padding: 0.4rem 0.6rem;
       font-weight: bold;
     }
+
     td {
       padding: 0.5rem 0.6rem;
       border-bottom: 1px solid #eee;
       vertical-align: top;
     }
-    tr:last-child td { border-bottom: none; }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
 
     /* ─── Ending / thanks ─── */
     .ending {
@@ -189,750 +242,929 @@
       color: #444;
       line-height: 1.65;
     }
-    .ending a { color: #2563eb; text-decoration: none; }
-    .ending a:hover { text-decoration: underline; }
+
+    .ending a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .ending a:hover {
+      text-decoration: underline;
+    }
 
     /* ─── Links ─── */
-    .inline-link { color: #2563eb; text-decoration: none; }
-    .inline-link:hover { text-decoration: underline; }
+    .inline-link {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+    }
 
     /* ─── Responsive math ─── */
-    .katex-display { overflow-x: auto; overflow-y: hidden; }
+    .katex-display {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
   </style>
 </head>
+
 <body>
 
-<center>
-<nav class="nav">
-  <a href="../index.html">[Home]</a>
-  <a class="active">[Blog]</a>
-  <a href="../explore.html">[Explore]</a>
-  <a href="../papers.html">[Papers]</a>
-</nav>
-</center>
+  <center>
+    <nav class="nav">
+      <a href="../index.html">[Home]</a>
+      <a class="active">[Blog]</a>
+      <a href="../explore.html">[Explore]</a>
+      <a href="../papers.html">[Papers]</a>
+    </nav>
+  </center>
 
-<main class="content">
+  <main class="content">
 
-  <h1 class="title">Why Softmax Lives in a Curved Space</h1>
-  <div class="meta-top">JAN 2026 </div>
-
-  
+    <h1 class="title">Why Softmax Lives in a Curved Space</h1>
+    <div class="meta-top">JAN 2026 </div>
 
 
-<style>
-  .fig-wrap { padding: 1.5rem 0 0.5rem; font-family: var(--font-sans); }
-  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
-  .panel-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 0.5rem; font-weight: 500; }
-  canvas { display: block; border-radius: 6px; }
-  .sliders { margin-top: 0.75rem; }
-  .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-  .slab { font-size: 12px; width: 16px; text-align: center; font-weight: 500; }
-  .slider-row input[type=range] { flex: 1; }
-  .val-out { font-size: 12px; color: var(--color-text-primary); width: 36px; text-align: right; font-family: var(--font-mono); }
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 1rem; }
-  .stat-card { background: var(--color-background-secondary); border-radius: 8px; padding: 8px 10px; }
-  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 2px; }
-  .stat-val { font-size: 15px; font-weight: 500; color: var(--color-text-primary); font-family: var(--font-mono); }
-  .legend { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
-  .legend-label { font-size: 10px; color: var(--color-text-secondary); }
-  .figcaption { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; margin-top: 1.25rem; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 0.75rem; }
-  .preset-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.75rem; }
-  .preset-btn { font-size: 11px; padding: 4px 10px; border-radius: 8px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; }
-  .preset-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
-</style>
 
-<div class="fig-wrap">
-  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Interactive Fisher information matrix heatmap for a 5-class categorical distribution.</h2>
-  <div class="panels">
-    <div>
-      <div class="panel-label">Fisher information matrix ℐ(η)</div>
-      <canvas id="heatmap" width="280" height="280"></canvas>
-      <div class="legend">
-        <span class="legend-label">0</span>
-        <canvas id="legbar" width="180" height="8" style="border-radius:3px; flex:1;"></canvas>
-        <span class="legend-label">0.25</span>
+
+    <style>
+      .fig-wrap {
+        padding: 1.5rem 0 0.5rem;
+        font-family: var(--font-sans);
+      }
+
+      .panels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      .panel-label {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      canvas {
+        display: block;
+        border-radius: 6px;
+      }
+
+      .sliders {
+        margin-top: 0.75rem;
+      }
+
+      .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .slab {
+        font-size: 12px;
+        width: 16px;
+        text-align: center;
+        font-weight: 500;
+      }
+
+      .slider-row input[type=range] {
+        flex: 1;
+      }
+
+      .val-out {
+        font-size: 12px;
+        color: var(--color-text-primary);
+        width: 36px;
+        text-align: right;
+        font-family: var(--font-mono);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 1rem;
+      }
+
+      .stat-card {
+        background: var(--color-background-secondary);
+        border-radius: 8px;
+        padding: 8px 10px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: var(--color-text-secondary);
+        margin-bottom: 2px;
+      }
+
+      .stat-val {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--color-text-primary);
+        font-family: var(--font-mono);
+      }
+
+      .legend {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .legend-label {
+        font-size: 10px;
+        color: var(--color-text-secondary);
+      }
+
+      .figcaption {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        line-height: 1.55;
+        margin-top: 1.25rem;
+        border-top: 0.5px solid var(--color-border-tertiary);
+        padding-top: 0.75rem;
+      }
+
+      .preset-row {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 0.75rem;
+      }
+
+      .preset-btn {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        border: 0.5px solid var(--color-border-secondary);
+        background: transparent;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+      }
+
+      .preset-btn:hover {
+        background: var(--color-background-secondary);
+        color: var(--color-text-primary);
+      }
+    </style>
+
+    <div class="fig-wrap">
+      <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Interactive
+        Fisher information matrix heatmap for a 5-class categorical distribution.</h2>
+      <div class="panels">
+        <div>
+          <div class="panel-label">Fisher information matrix ℐ(η)</div>
+          <canvas id="heatmap" width="280" height="280"></canvas>
+          <div class="legend">
+            <span class="legend-label">0</span>
+            <canvas id="legbar" width="180" height="8" style="border-radius:3px; flex:1;"></canvas>
+            <span class="legend-label">0.25</span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">λ<sub>min</sub><sup>+</sup></div>
+              <div class="stat-val" id="lmin">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">λ<sub>max</sub></div>
+              <div class="stat-val" id="lmax">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">condition κ</div>
+              <div class="stat-val" id="cond">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">entropy H(π)</div>
+              <div class="stat-val" id="ent">—</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel-label">Distribution π (5 classes)</div>
+          <div class="preset-row">
+            <button class="preset-btn" onclick="setPreset('uniform')">[uniform]</button>
+            <button class="preset-btn" onclick="setPreset('sharp')">[sharp]</button>
+            <button class="preset-btn" onclick="setPreset('skewed')">[skewed]</button>
+            <button class="preset-btn" onclick="setPreset('bimodal')">[bimodal]</button>
+          </div>
+          <div class="sliders" id="sliders"></div>
+          <canvas id="barplot" width="280" height="180" style="margin-top:0.75rem;"></canvas>
+        </div>
       </div>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-label">λ<sub>min</sub><sup>+</sup></div><div class="stat-val" id="lmin">—</div></div>
-        <div class="stat-card"><div class="stat-label">λ<sub>max</sub></div><div class="stat-val" id="lmax">—</div></div>
-        <div class="stat-card"><div class="stat-label">condition κ</div><div class="stat-val" id="cond">—</div></div>
-        <div class="stat-card"><div class="stat-label">entropy H(π)</div><div class="stat-val" id="ent">—</div></div>
+      <div class="figcaption">
+        <strong>Figure 1.</strong> The Fisher information matrix ℐ(η) = diag(π) − ππᵀ for a 5-class categorical
+        distribution. Near-uniform distributions yield a well-conditioned matrix with λ<sub>min</sub><sup>+</sup> close
+        to 0.25. As mass concentrates on one class, λ<sub>min</sub><sup>+</sup> → 0 and the PL condition fails. Adjust
+        the sliders to explore.
       </div>
     </div>
-    <div>
-      <div class="panel-label">Distribution π (5 classes)</div>
-      <div class="preset-row">
-        <button class="preset-btn" onclick="setPreset('uniform')">[uniform]</button>
-        <button class="preset-btn" onclick="setPreset('sharp')">[sharp]</button>
-        <button class="preset-btn" onclick="setPreset('skewed')">[skewed]</button>
-        <button class="preset-btn" onclick="setPreset('bimodal')">[bimodal]</button>
-      </div>
-      <div class="sliders" id="sliders"></div>
-      <canvas id="barplot" width="280" height="180" style="margin-top:0.75rem;"></canvas>
-    </div>
-  </div>
-  <div class="figcaption">
-    <strong>Figure 1.</strong> The Fisher information matrix ℐ(η) = diag(π) − ππᵀ for a 5-class categorical distribution. Near-uniform distributions yield a well-conditioned matrix with λ<sub>min</sub><sup>+</sup> close to 0.25. As mass concentrates on one class, λ<sub>min</sub><sup>+</sup> → 0 and the PL condition fails. Adjust the sliders to explore.
-  </div>
-</div>
 
-<script>
-const K = 5;
-let pi = [0.2,0.2,0.2,0.2,0.2];
-const BAR_COLORS = ['#378ADD','#1D9E75','#D85A30','#D4537E','#7F77DD'];
+    <script>
+      const K = 5;
+      let pi = [0.2, 0.2, 0.2, 0.2, 0.2];
+      const BAR_COLORS = ['#378ADD', '#1D9E75', '#D85A30', '#D4537E', '#7F77DD'];
 
-const isDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
-const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
-const normalize = arr => { const s=arr.reduce((a,b)=>a+b,0); return arr.map(v=>v/s); };
+      const isDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const normalize = arr => { const s = arr.reduce((a, b) => a + b, 0); return arr.map(v => v / s); };
 
-function fisherMatrix(p) {
-  return Array.from({length:K}, (_,i) =>
-    Array.from({length:K}, (_,j) => i===j ? p[i]*(1-p[i]) : -p[i]*p[j])
-  );
-}
+      function fisherMatrix(p) {
+        return Array.from({ length: K }, (_, i) =>
+          Array.from({ length: K }, (_, j) => i === j ? p[i] * (1 - p[i]) : -p[i] * p[j])
+        );
+      }
 
-function eigenvalues(F) {
-  let A = F.map(r=>[...r]);
-  for (let iter=0; iter<150; iter++) {
-    let off=0;
-    for (let i=0;i<K;i++) for (let j=i+1;j<K;j++) off+=A[i][j]*A[i][j];
-    if (off<1e-22) break;
-    for (let p=0;p<K-1;p++) for (let q=p+1;q<K;q++) {
-      const th=0.5*Math.atan2(2*A[p][q], A[p][p]-A[q][q]);
-      const c=Math.cos(th), s=Math.sin(th);
-      const B=A.map(r=>[...r]);
-      for (let r=0;r<K;r++){ B[r][p]=c*A[r][p]+s*A[r][q]; B[r][q]=-s*A[r][p]+c*A[r][q]; }
-      for (let r=0;r<K;r++){ B[p][r]=c*A[p][r]+s*A[q][r]; B[q][r]=-s*A[p][r]+c*A[q][r]; }
-      B[p][p]=c*c*A[p][p]+2*s*c*A[p][q]+s*s*A[q][q];
-      B[q][q]=s*s*A[p][p]-2*s*c*A[p][q]+c*c*A[q][q];
-      B[p][q]=0; B[q][p]=0; A=B;
-    }
-  }
-  return Array.from({length:K},(_,i)=>A[i][i]).sort((a,b)=>a-b);
-}
+      function eigenvalues(F) {
+        let A = F.map(r => [...r]);
+        for (let iter = 0; iter < 150; iter++) {
+          let off = 0;
+          for (let i = 0; i < K; i++) for (let j = i + 1; j < K; j++) off += A[i][j] * A[i][j];
+          if (off < 1e-22) break;
+          for (let p = 0; p < K - 1; p++) for (let q = p + 1; q < K; q++) {
+            const th = 0.5 * Math.atan2(2 * A[p][q], A[p][p] - A[q][q]);
+            const c = Math.cos(th), s = Math.sin(th);
+            const B = A.map(r => [...r]);
+            for (let r = 0; r < K; r++) { B[r][p] = c * A[r][p] + s * A[r][q]; B[r][q] = -s * A[r][p] + c * A[r][q]; }
+            for (let r = 0; r < K; r++) { B[p][r] = c * A[p][r] + s * A[q][r]; B[q][r] = -s * A[p][r] + c * A[q][r]; }
+            B[p][p] = c * c * A[p][p] + 2 * s * c * A[p][q] + s * s * A[q][q];
+            B[q][q] = s * s * A[p][p] - 2 * s * c * A[p][q] + c * c * A[q][q];
+            B[p][q] = 0; B[q][p] = 0; A = B;
+          }
+        }
+        return Array.from({ length: K }, (_, i) => A[i][i]).sort((a, b) => a - b);
+      }
 
-const entropy = p => -p.reduce((s,v)=>s+(v>1e-10?v*Math.log2(v):0), 0);
+      const entropy = p => -p.reduce((s, v) => s + (v > 1e-10 ? v * Math.log2(v) : 0), 0);
 
-function heatColor(t) {
-  t = clamp(t, 0, 1);
-  if (isDark()) return `rgb(${Math.round(4+t*52)},${Math.round(52+t*78)},${Math.round(80+t*110)})`;
-  return `rgb(${Math.round(230-t*218)},${Math.round(240-t*146)},${Math.round(250-t*29)})`;
-}
+      function heatColor(t) {
+        t = clamp(t, 0, 1);
+        if (isDark()) return `rgb(${Math.round(4 + t * 52)},${Math.round(52 + t * 78)},${Math.round(80 + t * 110)})`;
+        return `rgb(${Math.round(230 - t * 218)},${Math.round(240 - t * 146)},${Math.round(250 - t * 29)})`;
+      }
 
-function drawHeatmap() {
-  const cv = document.getElementById('heatmap');
-  const ctx = cv.getContext('2d');
-  const F = fisherMatrix(pi);
-  const cell = Math.floor(cv.width/K);
-  ctx.clearRect(0,0,cv.width,cv.height);
-  for (let i=0;i<K;i++) for (let j=0;j<K;j++) {
-    ctx.fillStyle = heatColor(Math.abs(F[i][j])/0.25);
-    ctx.fillRect(j*cell, i*cell, cell, cell);
-    ctx.fillStyle = isDark() ? 'rgba(255,255,255,0.85)' : '#1a1a1a';
-    ctx.font = '11px monospace';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(F[i][j].toFixed(3), j*cell+cell/2, i*cell+cell/2);
-  }
-  ctx.strokeStyle = isDark() ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
-  ctx.lineWidth = 0.5;
-  for (let i=1;i<K;i++) {
-    ctx.beginPath(); ctx.moveTo(i*cell,0); ctx.lineTo(i*cell,K*cell); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0,i*cell); ctx.lineTo(K*cell,i*cell); ctx.stroke();
-  }
-  ctx.strokeStyle = isDark() ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(0,0,K*cell,K*cell);
+      function drawHeatmap() {
+        const cv = document.getElementById('heatmap');
+        const ctx = cv.getContext('2d');
+        const F = fisherMatrix(pi);
+        const cell = Math.floor(cv.width / K);
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        for (let i = 0; i < K; i++) for (let j = 0; j < K; j++) {
+          ctx.fillStyle = heatColor(Math.abs(F[i][j]) / 0.25);
+          ctx.fillRect(j * cell, i * cell, cell, cell);
+          ctx.fillStyle = isDark() ? 'rgba(255,255,255,0.85)' : '#1a1a1a';
+          ctx.font = '11px monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(F[i][j].toFixed(3), j * cell + cell / 2, i * cell + cell / 2);
+        }
+        ctx.strokeStyle = isDark() ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
+        ctx.lineWidth = 0.5;
+        for (let i = 1; i < K; i++) {
+          ctx.beginPath(); ctx.moveTo(i * cell, 0); ctx.lineTo(i * cell, K * cell); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, i * cell); ctx.lineTo(K * cell, i * cell); ctx.stroke();
+        }
+        ctx.strokeStyle = isDark() ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(0, 0, K * cell, K * cell);
 
-  const lc = document.getElementById('legbar').getContext('2d');
-  const lw = document.getElementById('legbar').width;
-  for (let x=0;x<lw;x++) { lc.fillStyle=heatColor(x/lw); lc.fillRect(x,0,1,8); }
-}
+        const lc = document.getElementById('legbar').getContext('2d');
+        const lw = document.getElementById('legbar').width;
+        for (let x = 0; x < lw; x++) { lc.fillStyle = heatColor(x / lw); lc.fillRect(x, 0, 1, 8); }
+      }
 
-function drawBar() {
-  const cv = document.getElementById('barplot');
-  const ctx = cv.getContext('2d');
-  const W=cv.width, H=cv.height;
-  ctx.clearRect(0,0,W,H);
+      function drawBar() {
+        const cv = document.getElementById('barplot');
+        const ctx = cv.getContext('2d');
+        const W = cv.width, H = cv.height;
+        ctx.clearRect(0, 0, W, H);
 
-  const padLeft=32, padRight=8, padTop=10, padBottom=24;
-  const chartW = W - padLeft - padRight;
-  const chartH = H - padTop - padBottom;
+        const padLeft = 32, padRight = 8, padTop = 10, padBottom = 24;
+        const chartW = W - padLeft - padRight;
+        const chartH = H - padTop - padBottom;
 
-  const axisColor = isDark() ? '#aaa' : '#555';
-  const gridColor = isDark() ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+        const axisColor = isDark() ? '#aaa' : '#555';
+        const gridColor = isDark() ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
 
-  for (let g=0; g<=4; g++) {
-    const val = g/4;
-    const y = padTop + chartH - val*chartH;
-    ctx.strokeStyle = gridColor;
-    ctx.lineWidth = 0.5;
-    ctx.beginPath(); ctx.moveTo(padLeft, y); ctx.lineTo(padLeft+chartW, y); ctx.stroke();
-    ctx.fillStyle = axisColor;
-    ctx.font = '10px monospace';
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(val.toFixed(2), padLeft-4, y);
-  }
+        for (let g = 0; g <= 4; g++) {
+          const val = g / 4;
+          const y = padTop + chartH - val * chartH;
+          ctx.strokeStyle = gridColor;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath(); ctx.moveTo(padLeft, y); ctx.lineTo(padLeft + chartW, y); ctx.stroke();
+          ctx.fillStyle = axisColor;
+          ctx.font = '10px monospace';
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(val.toFixed(2), padLeft - 4, y);
+        }
 
-  ctx.strokeStyle = axisColor;
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(padLeft, padTop); ctx.lineTo(padLeft, padTop+chartH); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(padLeft, padTop+chartH); ctx.lineTo(padLeft+chartW, padTop+chartH); ctx.stroke();
+        ctx.strokeStyle = axisColor;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(padLeft, padTop); ctx.lineTo(padLeft, padTop + chartH); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(padLeft, padTop + chartH); ctx.lineTo(padLeft + chartW, padTop + chartH); ctx.stroke();
 
-  const barW = chartW / K;
-  for (let i=0;i<K;i++) {
-    const bh = pi[i] * chartH;
-    const x = padLeft + i*barW + barW*0.15;
-    const bw = barW*0.7;
-    const y = padTop + chartH - bh;
-    ctx.fillStyle = BAR_COLORS[i];
-    const rx = 3;
-    ctx.beginPath();
-    ctx.moveTo(x+rx, y);
-    ctx.lineTo(x+bw-rx, y);
-    ctx.quadraticCurveTo(x+bw, y, x+bw, y+rx);
-    ctx.lineTo(x+bw, padTop+chartH);
-    ctx.lineTo(x, padTop+chartH);
-    ctx.lineTo(x, y+rx);
-    ctx.quadraticCurveTo(x, y, x+rx, y);
-    ctx.fill();
-    ctx.fillStyle = axisColor;
-    ctx.font = '10px monospace';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.fillText('π'+(i+1), x+bw/2, padTop+chartH+5);
-  }
-}
+        const barW = chartW / K;
+        for (let i = 0; i < K; i++) {
+          const bh = pi[i] * chartH;
+          const x = padLeft + i * barW + barW * 0.15;
+          const bw = barW * 0.7;
+          const y = padTop + chartH - bh;
+          ctx.fillStyle = BAR_COLORS[i];
+          const rx = 3;
+          ctx.beginPath();
+          ctx.moveTo(x + rx, y);
+          ctx.lineTo(x + bw - rx, y);
+          ctx.quadraticCurveTo(x + bw, y, x + bw, y + rx);
+          ctx.lineTo(x + bw, padTop + chartH);
+          ctx.lineTo(x, padTop + chartH);
+          ctx.lineTo(x, y + rx);
+          ctx.quadraticCurveTo(x, y, x + rx, y);
+          ctx.fill();
+          ctx.fillStyle = axisColor;
+          ctx.font = '10px monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText('π' + (i + 1), x + bw / 2, padTop + chartH + 5);
+        }
+      }
 
-function updateStats() {
-  const evs = eigenvalues(fisherMatrix(pi));
-  const pos = evs.filter(e=>e>1e-6);
-  const lmin = pos.length ? Math.min(...pos) : 0;
-  const lmax = Math.max(...evs);
-  const kappa = lmin > 1e-10 ? lmax/lmin : Infinity;
-  document.getElementById('lmin').textContent = lmin.toFixed(4);
-  document.getElementById('lmax').textContent = lmax.toFixed(4);
-  document.getElementById('cond').textContent = isFinite(kappa) ? kappa.toFixed(1) : '∞';
-  document.getElementById('ent').textContent = entropy(pi).toFixed(3);
-}
+      function updateStats() {
+        const evs = eigenvalues(fisherMatrix(pi));
+        const pos = evs.filter(e => e > 1e-6);
+        const lmin = pos.length ? Math.min(...pos) : 0;
+        const lmax = Math.max(...evs);
+        const kappa = lmin > 1e-10 ? lmax / lmin : Infinity;
+        document.getElementById('lmin').textContent = lmin.toFixed(4);
+        document.getElementById('lmax').textContent = lmax.toFixed(4);
+        document.getElementById('cond').textContent = isFinite(kappa) ? kappa.toFixed(1) : '∞';
+        document.getElementById('ent').textContent = entropy(pi).toFixed(3);
+      }
 
-function render() { drawHeatmap(); drawBar(); updateStats(); }
+      function render() { drawHeatmap(); drawBar(); updateStats(); }
 
-function buildSliders() {
-  const container = document.getElementById('sliders');
-  container.innerHTML = '';
-  for (let i=0;i<K;i++) {
-    const row = document.createElement('div');
-    row.className = 'slider-row';
-    row.innerHTML = `<span class="slab" style="color:${BAR_COLORS[i]}">π${i+1}</span>
-      <input type="range" min="1" max="99" step="1" value="${Math.round(pi[i]*100)}" id="sl${i}">
+      function buildSliders() {
+        const container = document.getElementById('sliders');
+        container.innerHTML = '';
+        for (let i = 0; i < K; i++) {
+          const row = document.createElement('div');
+          row.className = 'slider-row';
+          row.innerHTML = `<span class="slab" style="color:${BAR_COLORS[i]}">π${i + 1}</span>
+      <input type="range" min="1" max="99" step="1" value="${Math.round(pi[i] * 100)}" id="sl${i}">
       <span class="val-out" id="ov${i}">${pi[i].toFixed(2)}</span>`;
-    container.appendChild(row);
-    document.getElementById('sl'+i).addEventListener('input', () => {
-      const raw = Array.from({length:K},(_,k)=>parseInt(document.getElementById('sl'+k).value));
-      pi = normalize(raw);
-      for (let k=0;k<K;k++) document.getElementById('ov'+k).textContent = pi[k].toFixed(2);
+          container.appendChild(row);
+          document.getElementById('sl' + i).addEventListener('input', () => {
+            const raw = Array.from({ length: K }, (_, k) => parseInt(document.getElementById('sl' + k).value));
+            pi = normalize(raw);
+            for (let k = 0; k < K; k++) document.getElementById('ov' + k).textContent = pi[k].toFixed(2);
+            render();
+          });
+        }
+      }
+
+      function setPreset(name) {
+        const p = { uniform: [20, 20, 20, 20, 20], sharp: [95, 1, 1, 1, 2], skewed: [50, 25, 12, 8, 5], bimodal: [45, 5, 5, 5, 40] }[name];
+        pi = normalize(p);
+        for (let k = 0; k < K; k++) {
+          document.getElementById('sl' + k).value = Math.round(pi[k] * 100);
+          document.getElementById('ov' + k).textContent = pi[k].toFixed(2);
+        }
+        render();
+      }
+
+      buildSliders();
       render();
-    });
-  }
-}
-
-function setPreset(name) {
-  const p = {uniform:[20,20,20,20,20],sharp:[95,1,1,1,2],skewed:[50,25,12,8,5],bimodal:[45,5,5,5,40]}[name];
-  pi = normalize(p);
-  for (let k=0;k<K;k++) {
-    document.getElementById('sl'+k).value = Math.round(pi[k]*100);
-    document.getElementById('ov'+k).textContent = pi[k].toFixed(2);
-  }
-  render();
-}
-
-buildSliders();
-render();
-</script>
-
-
-
-
-  <p>
-    There is a kind of conceptual mismatch that takes a while to notice because everything appears to be working. You train a model with cross-entropy loss, gradients flow, the loss goes down, the model gets better at predicting tokens and nothing obviously wrong. And yet the optimizer is navigating the weight space, a high-dimensional Euclidean manifold while the loss is measuring distance in an entirely different space, one with a non-Euclidean geometry that the optimizer never sees.
-  </p>
-
-  <p>
-    The mismatch between these two geometries shows up in attention entropy collapse, in the fragility of RLHF to the KL coefficient, in the gap between training-time calibration and deployment-time overconfidence, and in the empirical fact that Adam, which is not derived from any geometric principle works suspiciously well on problems where it has no business working well. The reason for all of these, I argue, is that softmax outputs live on a <em>curved statistical manifold</em>, and once you see that clearly, a number of training phenomena start to make sense.
-  </p>
-
-  <p>
-    What I try is an attempt to lay out the geometry carefully, derive the key results with some
-    precision, and then trace the implications through architectural decisions. I will try to
-    be honest about where the theory gives clean answers and where it mostly gives a useful lens.
-  </p>
-
-
-  <h2>1. The Simplex Is Not Flat</h2>
-
-  <p>
-    A softmax layer maps a vector of logits \(\eta \in \mathbb{R}^K\) to a probability distribution
-    \(\pi \in \Delta^{K-1}\), where \(\Delta^{K-1} = \{p \in \mathbb{R}^K : p_k \geq 0,\ \sum_k p_k = 1\}\)
-    is the probability simplex. This much is standard but what is less often emphasized is that the simplex is not just a constraint set, it is a geometric object in its own right, and the geometry it carries is not Euclidean.
-  </p>
-
-  <p>
-    To see why the Euclidean metric is the wrong choice, consider two distributions over a 3-class problem:
-    \(p = (0.50, 0.25, 0.25)\) and \(q = (0.51, 0.245, 0.245)\). Their Euclidean distance is
-    \(\|p - q\|_2 \approx 0.012\). Now compare \(p' = (0.99, 0.005, 0.005)\) and
-    \(q' = (0.98, 0.01, 0.01)\). Their Euclidean distance is comparable: \(\|p' - q'\|_2 \approx 0.014\).
-    But intuitively (and formally)  \((p', q')\) represents a much smaller change in predictive behavior
-    than \((p, q)\) does. Near certainty, small probability changes carry little information but near the center of the
-    simplex, they carry a great deal.
-  </p>
-
-  <p>
-    The correct notion of distance on a statistical manifold is the one induced by the <strong>Fisher information</strong>.
-    For a parametric family \(\{p(\cdot;\theta)\}\), the Fisher information matrix is defined as
-  </p>
-
-  <div class="math-block">
-    $$\mathcal{I}(\theta)_{ij} = \mathbb{E}_{x \sim p(\cdot;\theta)}\!\left[\frac{\partial \log p(x;\theta)}{\partial \theta_i} \cdot \frac{\partial \log p(x;\theta)}{\partial \theta_j}\right]$$
-  </div>
-
-  <p>
-    This is the Riemannian metric tensor on the statistical manifold. It is the unique (up to scaling) metric
-    that is invariant under reparameterization of \(\theta\), meaning the distance it assigns between two
-    distributions depends only on the distributions, not on the coordinate system used to represent them.
-    The Euclidean metric on \(\theta\)-space has no such invariance. When you update weights with vanilla
-    gradient descent, you are implicitly measuring distances in parameter space, and those distances change
-    meaning whenever you change how the model is parameterized.
-  </p>
-
-  <div class="note">
-    <span class="note-num">1.</span>
-    The invariance property was proved by Čencov (1972) and is sometimes called Čencov's theorem. It states
-    that the Fisher-Rao metric is the only Riemannian metric on the simplex that is invariant under
-    sufficient statistics (Markov morphisms). In that sense the Fisher metric is not one choice among many and rather
-    it is the canonical choice, forced by the structure of probability theory.
-  </div>
-
-  <h2>2. The Categorical Fisher Matrix</h2>
-
-  <p>
-    Softmax outputs are categorical distributions, and the categorical distribution is a member of the
-    <strong>exponential family</strong> and this fact is what makes the geometry tractable. Writing the
-    categorical probability mass function in its canonical form:
-  </p>
-
-  <div class="math-block">
-    $$p(y;\eta) = \exp\!\left(\eta^\top y - A(\eta)\right), \qquad A(\eta) = \log \sum_{k=1}^{K} e^{\eta_k}$$
-  </div>
-
-  <p>
-    Here \(\eta = (\eta_1, \ldots, \eta_K)\) are the <em>natural parameters</em> (the pre-softmax logits)
-    and \(A(\eta)\) is the log-partition function, the familiar log-sum-exp. The vector \(y\) is a one-hot
-    encoding of the observed class. Note that, here, two facts about exponential families are immediately useful.
-  </p>
-
-  <p>
-    First, the gradient of \(A\) with respect to \(\eta\) is the vector of mean parameters:
-    \(\nabla A(\eta) = \mathbb{E}[y] = \pi\), where \(\pi_k = e^{\eta_k} / \sum_j e^{\eta_j}\) is
-    the softmax. Second, the Hessian of \(A\) is the covariance matrix of the sufficient statistic
-    \(y\):
-  </p>
-
-  <div class="math-block">
-    $$\nabla^2 A(\eta) = \mathrm{Cov}(y) = \mathrm{diag}(\pi) - \pi\pi^\top$$
-  </div>
-
-  <p>
-    For exponential families, the Fisher information matrix in natural parameters equals the Hessian of the
-    log-partition function. So:
-  </p>
-
-  <div class="math-block">
-    $$\mathcal{I}(\eta) = \nabla^2 A(\eta) = \mathrm{diag}(\pi) - \pi\pi^\top$$
-  </div>
-
-  <p>
-    This is simultaneously the Fisher information matrix, the Jacobian of the softmax map, and the
-    covariance matrix of the one-hot label under the model. The fact that these three things are equal
-    is a consequence of the exponential family structure, and it is what makes
-    the geometry of softmax outputs exactly computable rather than merely approximable.
-  </p>
-
-  <p>
-    The eigenvalues of \(\mathcal{I}(\eta)\) are worth working out explicitly. The matrix
-    \(\mathrm{diag}(\pi) - \pi\pi^\top\) has one zero eigenvalue (corresponding to the all-ones vector,
-    since the simplex lives in a \((K-1)\)-dimensional affine subspace) and \(K-1\) positive eigenvalues,
-    all of the form \(\pi_k(1 - \pi_k)\) the Bernoulli variance of each marginal. The minimum positive
-    eigenvalue is:
-  </p>
-
-  <div class="math-block">
-    $$\lambda_{\min}^+(\mathcal{I}(\eta)) = \min_k \pi_k(1 - \pi_k)$$
-  </div>
-
-  <p>
-    which approaches zero as any \(\pi_k \to 0\) or \(\pi_k \to 1\). This is the geometric content of
-    "sharp distributions break optimization" i.e. when the model becomes very confident, the statistical
-    manifold becomes singular, and standard geometric tools, including gradient-based convergence theory,
-    fail.
-  </p>
-
-  <div class="note">
-    <span class="note-num">2.</span>
-    In practice, the zero eigenvalue is handled by working in the \((K-1)\)-dimensional tangent space to
-    the simplex, which removes the redundant degree of freedom. The natural parameterization typically
-    fixes \(\eta_K = 0\) (or equivalently, works with \(K-1\) free logits). The Fisher matrix on
-    this reduced parameterization has all positive eigenvalues, with the minimum still given by
-    \(\min_k \pi_k(1 - \pi_k)\).
-  </div>
-
-  <h2>3. KL Divergence Is an Exact Bregman Divergence</h2>
-
-  <p>
-    The KL
-    divergence between two categorical distributions with natural parameters \(\eta_p\) and \(\eta_q\)
-    is not merely approximated by the Fisher metric but it <em>is</em> a Bregman divergence, exactly,
-    without any approximation:
-  </p>
-
-  <div class="math-block">
-    $$\mathrm{KL}(p \| q) = A(\eta_q) - A(\eta_p) - \nabla A(\eta_p)^\top(\eta_q - \eta_p)$$
-  </div>
-
-  <p>
-    To verify this, recall that \(\mathrm{KL}(p\|q) = \sum_k \pi_k \log(\pi_k / \pi_k^q)\)
-    where \(\pi^q = \mathrm{softmax}(\eta_q)\). Substituting the exponential family form:
-  </p>
-
-  <div class="math-block">
-    $$\mathrm{KL}(p\|q) = \sum_k \pi_k \bigl[(\eta_k^p - \eta_k^q) - A(\eta_p) + A(\eta_q)\bigr] = A(\eta_q) - A(\eta_p) - \pi_p^\top(\eta_q - \eta_p)$$
-  </div>
-
-  <p>
-    Since \(\pi_p = \nabla A(\eta_p)\), this is the Bregman divergence of the strictly convex
-    function \(A\) evaluated at the pair \((\eta_q, \eta_p)\). The formula is exact with no Taylor
-    approximation and no "small perturbation" assumption.
-  </p>
-
-  <p>
-    The quadratic approximation \(\frac{1}{2}(\eta_q - \eta_p)^\top \mathcal{I}(\eta_p)(\eta_q - \eta_p)\)
-    is the <em>second-order expansion</em> of the Bregman divergence around \(\eta_p\), which holds
-    to leading order when \(\|\eta_q - \eta_p\|\) is small but the exact identity above holds everywhere.
-    This means the Fisher metric is the local form of an exact geometric structure.
-  </p>
-
-  <p>
-    One consequence worth noting here is that the set of distributions equidistant from a fixed \(p\) under KL is
-    not an Euclidean ball in \(\eta\)-space. It is the level set of the Bregman divergence of \(A\),
-    which is an ellipsoid shaped by \(\mathcal{I}(\eta_p)\). Near a sharp distribution, this ellipsoid
-    is long and thin and you can move far in logit space in most directions without changing the distribution
-    much, but small movements toward the high-probability token induce large KL shifts.
-  </p>
-
-  <h2>4. The Polyak–Łojasiewicz Condition</h2>
-
-  <p>
-    Convergence theory for non-convex optimization often relies on a condition weaker than convexity i.e.
-    the <strong>Polyak–Łojasiewicz (PL) condition</strong>, which requires that gradient norm controls
-    objective value. For a loss \(\mathcal{L}\), PL says that
-  </p>
-
-  <div class="math-block">
-    $$\mathcal{L}(\theta) - \mathcal{L}^* \leq \frac{1}{2\mu} \|\nabla_\theta \mathcal{L}(\theta)\|^2$$
-  </div>
-
-  <p>
-    for some \(\mu > 0\). When PL holds, gradient descent converges linearly to the global minimum even
-    without convexity, which is why it is such a useful condition for deep network analysis.
-  </p>
-
-  <p>
-    For the softmax manifold, a version of PL holds in KL divergence:
-  </p>
-
-  <div class="math-block">
-    $$\mathrm{KL}(p \| q(\eta)) \leq \frac{1}{2\lambda} \|\nabla_\eta \mathrm{KL}\|^2$$
-  </div>
-
-  <p>
-    where \(\lambda = \lambda_{\min}^+(\mathcal{I}(\eta))\) is the minimum positive eigenvalue computed above.
-    This follows from the Bregman identity combined with strong convexity of \(A\) on the interior of the
-    simplex: since \(\nabla^2 A = \mathcal{I} \succeq \lambda I\) (when the distribution is bounded away
-    from the boundary), the Bregman divergence satisfies \(D_A(\eta_q, \eta_p) \geq \frac{\lambda}{2}\|\eta_q - \eta_p\|^2\),
-    and dualizing gives the PL-type bound.
-  </p>
-
-  <p>
-    Observe that \(\lambda \to 0\) as any probability approaches zero or one. The
-    PL constant degrades proportionally, and in the limit the condition fails entirely. This is why attention entropy collapses, where attention probabilities concentrate on one or two
-    tokens and it is catastrophic for optimization. It is not only that the gradient landscape becomes difficult but also that the geometric condition that guarantees convergence disappears.
-  </p>
-
-  <div class="note">
-    <span class="note-num">3.</span>
-    Combining the PL condition with the chain rule through the network yields the bound
-    \(\mathrm{KL} \leq C_{\mathcal{I}} C_J^2 w_{l,k}^2 \lambda^{-2} \cdot 2L_s \mathcal{L}_{l,k}^*\)
-    for the KL drift at layer \(l\), head \(k\), where \(C_J\) bounds the spectral norm of the logit Jacobian,
-    \(w_{l,k}\) is the effective head weight, \(L_s\) is the Lipschitz constant of the gradient,
-    and \(\mathcal{L}^*\) is the residual loss. Notably, this is linear in the residual loss and contains
-    no spurious \(\theta_{\min}\) term which is a consequence of working in natural parameter space, where
-    the parameterization-distribution map is injective.
-  </div>
-
-  <h2>5. The Dually Flat Structure</h2>
-
-  <p>
-    The categorical manifold is richer than a Riemannian manifold with a single metric as it carries a
-    <strong>dually flat structure</strong> with two coordinate systems, related by a Legendre transform, each
-    of which is flat (zero curvature) in its own sense, and each natural for a different class of computations.
-  </p>
-
-  <p>
-    The first system is the <strong>\(\eta\)-parameterization</strong> (logits). Straight lines in \(\eta\)-space
-    are called e-geodesics (e for exponential family). Moving along an e-geodesic corresponds to tilting a
-    base distribution by an exponential family of perturbations and this is exactly what temperature scaling does.
-  </p>
-
-  <p>
-    The second system is the <strong>\(\mu\)-parameterization</strong> (softmax probabilities). Straight lines
-    in \(\mu\)-space are m-geodesics (m for mixture). A convex combination of two probability vectors gives
-    the mean parameters of a mixture distribution as mixture operations are natural in \(\mu\)-space.
-  </p>
-
-  <p>
-    The two systems are related by the Legendre pair \((A, H)\), where
-    \(H(\mu) = -\sum_k \mu_k \log \mu_k\) is the Shannon entropy:
-    \(\nabla A(\eta) = \mu\) and \(\nabla H(\mu) = -\eta\) (the inverse map is log-probabilities).
-    A remarkable consequence of this duality is the following theorem, which I think of as the "correct version"
-    of the Pythagorean theorem for information:
-  </p>
-
-  <div class="math-block">
-    $$\mathrm{KL}(p \| r) = \mathrm{KL}(p \| q) + \mathrm{KL}(q \| r)$$
-  </div>
-
-  <p>
-    whenever the e-geodesic from \(q\) to \(r\) and the m-geodesic from \(p\) to \(q\) are
-    orthogonal at \(q\) under the Fisher metric. It is a theorem
-    (Amari and Nagaoka, 2000, Chapter 1), and it explains the geometry of projections onto statistical
-    submanifolds. Maximum likelihood estimation is an m-projection of the empirical distribution onto
-    the model family. Variational inference with reverse KL is an m-projection of the posterior onto
-    the variational family. Forward KL (used in diffusion models and some distillation methods) is an
-    e-projection and the fact that these two operations have different mass-covering behavior (reverse KL
-    is mode-seeking and forward KL is mean-seeking) is a consequence of this duality and it is not an empirical
-    observation.
-  </p>
-
-  <h2>6. Mirror Descent</h2>
-
-  <p>
-    Natural gradient descent preconditions the update with \(\mathcal{I}^{-1}\), correcting for curvature
-    after the fact. There is a more elegant approach, as we can use an optimizer whose update rule is native to the
-    manifold from the beginning.
-  </p>
-
-  <p>
-    <strong>Mirror descent</strong> (Nemirovsky and Yudin, 1983) replaces the Euclidean proximity term in
-    gradient descent with a Bregman divergence:
-  </p>
-
-  <div class="math-block">
-    $$\eta_{t+1} = \arg\min_{\eta'} \left\{ \nabla_\eta \mathcal{L}(\eta_t)^\top \eta' + \frac{1}{\alpha} D_A(\eta', \eta_t) \right\}$$
-  </div>
-
-  <p>
-    When the mirror map is \(F = A\) (log-partition function), \(D_A\) is the KL divergence and the
-    closed-form update in mean (\(\mu\)) coordinates is:
-  </p>
-
-  <div class="math-block">
-    $$\pi_{t+1} \propto \pi_t \cdot \exp\!\left(-\alpha \nabla_\pi \mathcal{L}\right)$$
-  </div>
-
-  <p>
-    This is the <strong>exponentiated gradient</strong> algorithm. It operates multiplicatively in
-    probability space, automatically satisfying the simplex constraint without projection. But more
-    importantly, each step is penalized by KL divergence from the current iterate. When the current distribution is sharp (near the boundary), a unit multiplicative update
-    in probability space corresponds to a large logit movement and the algorithm, by measuring
-    progress in the right geometry, takes proportionally smaller effective steps and when the distribution
-    is diffuse, it moves more freely.
-  </p>
-
-  <p>
-    The relationship to Adam is instructive because Adam's update divides each gradient component by
-    \(\sqrt{v_t + \varepsilon}\), where \(v_t\) is a running average of squared gradients. For
-    cross-entropy loss, \(\partial \mathcal{L} / \partial \eta_k \approx \pi_k - \mathbf{1}[y=k]\),
-    and the squared gradient accumulates statistics proportional to \(\pi_k^2\). The diagonal of
-    \(\mathcal{I}(\eta)\) is \(\pi_k(1-\pi_k)\). Adam's \(1/\sqrt{v_t}\) scaling is therefore a
-    diagonal approximation to \(\mathcal{I}^{-1/2}\) i.e. a half-power natural gradient preconditioner,
-    implemented without any knowledge of differential geometry and it works because the geometry happened
-    to be compatible with per-coordinate scaling BUT it fails wherever off-diagonal curvature matters.
-  </p>
-
-  <div class="note">
-    <span class="note-num">4.</span>
-    K-FAC (Martens and Grosse, 2015) approximates the full Fisher as a Kronecker product of
-    layer-wise matrices, capturing the block structure that arises from conditional independence across
-    layers. Shampoo goes further with a matrix power approximation. These are (systematically) better approximations to the natural gradient, grounded in the geometry described here but the reason they are not universally used is computational cost.
-  </div>
-
-  <h2>7. Temperature Scaling and RLHF (Geometrically) </h2>
-
-  <h3>Temperature scaling is movement along an e-geodesic</h3>
-
-  <p>
-    Temperature scaling i.e. replacing \(\eta\) with \(\eta / T\) before softmax, is typically presented as
-    "sharpening" (\(T < 1\)) or "softening" (\(T > 1\)) the distribution. Geometrically, it is a
-    rescaling of the natural parameters along the ray from the origin through \(\eta\):
-    all points \(\{c\eta : c > 0\}\) define an e-geodesic through the uniform distribution (at \(c = 0\))
-    and toward the argmax vertex (as \(c \to \infty\)).
-  </p>
-
-  <p>
-    With this, when a model is overconfident i.e. output probabilities
-    are too sharp relative to empirical accuracy, the distributions sit too far along this geodesic toward
-    the boundary. Post-hoc temperature scaling corrects this by moving back toward the interior, where
-    \(\mathcal{I}\) is well-conditioned. The reason this works as well as it does is that overconfidence
-    is largely a <em>scalar</em> phenomenon along the geodesic, due to the relative order of logits is approximately
-    correct, and only the scale needs adjustment.
-  </p>
-
-  <h3>The RLHF KL penalty is a constraint on the Fisher ball</h3>
-
-  <p>
-    The standard RLHF objective in PPO-style training is:
-  </p>
-
-  <div class="math-block">
-    $$\mathcal{L}(\pi) = \mathbb{E}_{y \sim \pi}[r(y)] - \beta \cdot \mathrm{KL}(\pi \| \pi_{\mathrm{ref}})$$
-  </div>
-
-  <p>
-    The KL term is typically framed as "regularization preventing reward hacking." That is true, but I think
-    that is incomplete. Adding \(\beta \cdot \mathrm{KL}(\pi \| \pi_{\mathrm{ref}})\) is equivalent to
-    constraining optimization to a Fisher ball of radius \(\sim \beta^{-1}\) around \(\pi_{\mathrm{ref}}\)
-    on the statistical manifold and the shape of that ball is determined by \(\mathcal{I}(\eta_{\mathrm{ref}})\).
-  </p>
-
-  <p>
-    The closed-form optimal policy under this constraint is:
-  </p>
-
-  <div class="math-block">
-    $$\pi^*(y) \propto \pi_{\mathrm{ref}}(y) \cdot \exp\!\left(\frac{r(y)}{\beta}\right)$$
-  </div>
-
-  <p>
-    This is now an exponential tilting of the reference distribution by the reward, a one-parameter exponential
-    family with the reference as the base measure and the reward as the sufficient statistic. Every RLHF training
-    run is implicitly navigating toward this e-projection of the reward-tilted measure onto the model's
-    representable distributions. The instability of PPO to \(\beta\) reflects the sensitivity of the Fisher ball radius to \(\beta\) near a sharp reference model,
-    where \(\lambda_{\min}(\mathcal{I}(\eta_{\mathrm{ref}}))\) is small and the ball has an extreme aspect ratio.
-  </p>
-
-  <h2>8. Attention Entropy Collapse</h2>
-
-  <p>
-    Attention entropy collapse was documented in detail by Zhai et al. (2023) and analyzed further by
-    Hong and Lee (2025), who refers to a training failure mode where attention probability distributions
-    in some heads progressively concentrate on a single token, entropy approaches zero, and training
-    either becomes unstable or the gradient signal to those heads effectively vanishes.
-  </p>
-
-  <p>
-    From the geometry above, this is a known singularity. As an attention distribution \(\alpha\) approaches
-    a point mass at token \(j\):
-  </p>
-
-  <div class="math-block">
-    $$\lambda_{\min}^+\!\left(\mathcal{I}(\eta_\alpha)\right) = \min_k \alpha_k(1 - \alpha_k) \to 0$$
-  </div>
-
-  <p>
-    The Fisher metric degenerates and the PL condition fails. In this regime, a unit Euclidean gradient step in
-    logit space can correspond to an arbitrarily large KL shift in the direction of the already-dominant
-    token where the optimization landscape near the boundary of the simplex has extremely asymmetric curvature.
-    Large gradients appear in parameter space that correspond to almost no distributional change, while
-    small parameter changes in the direction of the boundary can cause massive distribution shifts. Standard
-    learning rate schedules, designed for well-conditioned regions of the manifold, have no mechanism to
-    adapt to this.
-  </p>
-
-  <p>
-    The fixes that have been proposed, like entropy regularization, softmax temperature warmup, QK-normalization,
-    attention with explicit maximum entropy constraints, are all, in different terms, attempts to keep
-    \(\lambda_{\min}(\mathcal{I})\) bounded away from zero. LayerNorm before the attention logit
-    computation works in part because it controls \(\|\eta\|\), preventing logits from growing large enough
-    to push probabilities close to the boundary. 
-  </p>
-
-  <div class="note">
-    <span class="note-num">5.</span>
-    An alternative proposed by Park et al. (2025) is to replace softmax with a function that maintains a
-    non-degenerate Fisher matrix regardless of logit magnitude, specifically, a hierarchical binary
-    partition scheme (catnat) whose Fisher information matrix is <em>diagonal</em> everywhere on the simplex.
-    Diagonal Fisher means mirror descent and natural gradient coincide, and the natural gradient is
-    trivially computable without any matrix inversion. Whether this is worth the architectural disruption
-    remains to be seen, but geometrically it is the clean solution.
-  </div>
-
-  <h2>9. Implications</h2>
-
-  <p>
-    I want to be careful here not to overstate what the geometry gives us. The theory tells you what
-    the right distances are and what conditions need to hold for optimization to work well but it does not
-    automatically tell you the best architecture, and some of the implications below are better described
-    as informed conjectures than as theorems.
-  </p>
+    </script>
+
+
+
+
+    <p>
+      There is a kind of conceptual mismatch that takes a while to notice because everything appears to be working. You
+      train a model with cross-entropy loss, gradients flow, the loss goes down, the model gets better at predicting
+      tokens and nothing obviously wrong. And yet the optimizer is navigating the weight space, a high-dimensional
+      Euclidean manifold while the loss is measuring distance in an entirely different space, one with a non-Euclidean
+      geometry that the optimizer never sees.
+    </p>
+
+    <p>
+      The mismatch between these two geometries shows up in attention entropy collapse, in the fragility of RLHF to the
+      KL coefficient, in the gap between training-time calibration and deployment-time overconfidence, and in the
+      empirical fact that Adam, which is not derived from any geometric principle works suspiciously well on problems
+      where it has no business working well. The reason for all of these, I argue, is that softmax outputs live on a
+      <em>curved statistical manifold</em>, and once you see that clearly, a number of training phenomena start to make
+      sense.
+    </p>
+
+    <p>
+      What I try is an attempt to lay out the geometry carefully, derive the key results with some
+      precision, and then trace the implications through architectural decisions. I will try to
+      be honest about where the theory gives clean answers and where it mostly gives a useful lens.
+    </p>
+
+
+    <h2>1. The Simplex Is Not Flat</h2>
+
+    <p>
+      A softmax layer maps a vector of logits \(\eta \in \mathbb{R}^K\) to a probability distribution
+      \(\pi \in \Delta^{K-1}\), where \(\Delta^{K-1} = \{p \in \mathbb{R}^K : p_k \geq 0,\ \sum_k p_k = 1\}\)
+      is the probability simplex. This much is standard but what is less often emphasized is that the simplex is not
+      just a constraint set, it is a geometric object in its own right, and the geometry it carries is not Euclidean.
+    </p>
+
+    <p>
+      To see why the Euclidean metric is the wrong choice, consider two distributions over a 3-class problem:
+      \(p = (0.50, 0.25, 0.25)\) and \(q = (0.51, 0.245, 0.245)\). Their Euclidean distance is
+      \(\|p - q\|_2 \approx 0.012\). Now compare \(p' = (0.99, 0.005, 0.005)\) and
+      \(q' = (0.98, 0.01, 0.01)\). Their Euclidean distance is comparable: \(\|p' - q'\|_2 \approx 0.014\).
+      But intuitively (and formally) \((p', q')\) represents a much smaller change in predictive behavior
+      than \((p, q)\) does. Near certainty, small probability changes carry little information but near the center of
+      the
+      simplex, they carry a great deal.
+    </p>
+
+    <p>
+      The correct notion of distance on a statistical manifold is the one induced by the <strong>Fisher
+        information</strong>.
+      For a parametric family \(\{p(\cdot;\theta)\}\), the Fisher information matrix is defined as
+    </p>
+
+    <div class="math-block">
+      $$\mathcal{I}(\theta)_{ij} = \mathbb{E}_{x \sim p(\cdot;\theta)}\!\left[\frac{\partial \log p(x;\theta)}{\partial
+      \theta_i} \cdot \frac{\partial \log p(x;\theta)}{\partial \theta_j}\right]$$
+    </div>
+
+    <p>
+      This is the Riemannian metric tensor on the statistical manifold. It is the unique (up to scaling) metric
+      that is invariant under reparameterization of \(\theta\), meaning the distance it assigns between two
+      distributions depends only on the distributions, not on the coordinate system used to represent them.
+      The Euclidean metric on \(\theta\)-space has no such invariance. When you update weights with vanilla
+      gradient descent, you are implicitly measuring distances in parameter space, and those distances change
+      meaning whenever you change how the model is parameterized.
+    </p>
+
+    <div class="note">
+      <span class="note-num">1.</span>
+      The invariance property was proved by Čencov (1972) and is sometimes called Čencov's theorem. It states
+      that the Fisher-Rao metric is the only Riemannian metric on the simplex that is invariant under
+      sufficient statistics (Markov morphisms). In that sense the Fisher metric is not one choice among many and rather
+      it is the canonical choice, forced by the structure of probability theory.
+    </div>
+
+    <h2>2. The Categorical Fisher Matrix</h2>
+
+    <p>
+      Softmax outputs are categorical distributions, and the categorical distribution is a member of the
+      <strong>exponential family</strong> and this fact is what makes the geometry tractable. Writing the
+      categorical probability mass function in its canonical form:
+    </p>
+
+    <div class="math-block">
+      $$p(y;\eta) = \exp\!\left(\eta^\top y - A(\eta)\right), \qquad A(\eta) = \log \sum_{k=1}^{K} e^{\eta_k}$$
+    </div>
+
+    <p>
+      Here \(\eta = (\eta_1, \ldots, \eta_K)\) are the <em>natural parameters</em> (the pre-softmax logits)
+      and \(A(\eta)\) is the log-partition function, the familiar log-sum-exp. The vector \(y\) is a one-hot
+      encoding of the observed class. Note that, here, two facts about exponential families are immediately useful.
+    </p>
+
+    <p>
+      First, the gradient of \(A\) with respect to \(\eta\) is the vector of mean parameters:
+      \(\nabla A(\eta) = \mathbb{E}[y] = \pi\), where \(\pi_k = e^{\eta_k} / \sum_j e^{\eta_j}\) is
+      the softmax. Second, the Hessian of \(A\) is the covariance matrix of the sufficient statistic
+      \(y\):
+    </p>
+
+    <div class="math-block">
+      $$\nabla^2 A(\eta) = \mathrm{Cov}(y) = \mathrm{diag}(\pi) - \pi\pi^\top$$
+    </div>
+
+    <p>
+      For exponential families, the Fisher information matrix in natural parameters equals the Hessian of the
+      log-partition function. So:
+    </p>
+
+    <div class="math-block">
+      $$\mathcal{I}(\eta) = \nabla^2 A(\eta) = \mathrm{diag}(\pi) - \pi\pi^\top$$
+    </div>
+
+    <p>
+      This is simultaneously the Fisher information matrix, the Jacobian of the softmax map, and the
+      covariance matrix of the one-hot label under the model. The fact that these three things are equal
+      is a consequence of the exponential family structure, and it is what makes
+      the geometry of softmax outputs exactly computable rather than merely approximable.
+    </p>
+
+    <p>
+      The eigenvalues of \(\mathcal{I}(\eta)\) are worth working out explicitly. The matrix
+      \(\mathrm{diag}(\pi) - \pi\pi^\top\) has one zero eigenvalue (corresponding to the all-ones vector,
+      since the simplex lives in a \((K-1)\)-dimensional affine subspace) and \(K-1\) positive eigenvalues,
+      all of the form \(\pi_k(1 - \pi_k)\) the Bernoulli variance of each marginal. The minimum positive
+      eigenvalue is:
+    </p>
+
+    <div class="math-block">
+      $$\lambda_{\min}^+(\mathcal{I}(\eta)) = \min_k \pi_k(1 - \pi_k)$$
+    </div>
+
+    <p>
+      which approaches zero as any \(\pi_k \to 0\) or \(\pi_k \to 1\). This is the geometric content of
+      "sharp distributions break optimization" i.e. when the model becomes very confident, the statistical
+      manifold becomes singular, and standard geometric tools, including gradient-based convergence theory,
+      fail.
+    </p>
+
+    <div class="note">
+      <span class="note-num">2.</span>
+      In practice, the zero eigenvalue is handled by working in the \((K-1)\)-dimensional tangent space to
+      the simplex, which removes the redundant degree of freedom. The natural parameterization typically
+      fixes \(\eta_K = 0\) (or equivalently, works with \(K-1\) free logits). The Fisher matrix on
+      this reduced parameterization has all positive eigenvalues, with the minimum still given by
+      \(\min_k \pi_k(1 - \pi_k)\).
+    </div>
+
+    <h2>3. KL Divergence Is an Exact Bregman Divergence</h2>
+
+    <p>
+      The KL
+      divergence between two categorical distributions with natural parameters \(\eta_p\) and \(\eta_q\)
+      is not merely approximated by the Fisher metric but it <em>is</em> a Bregman divergence, exactly,
+      without any approximation:
+    </p>
+
+    <div class="math-block">
+      $$\mathrm{KL}(p \| q) = A(\eta_q) - A(\eta_p) - \nabla A(\eta_p)^\top(\eta_q - \eta_p)$$
+    </div>
+
+    <p>
+      To verify this, recall that \(\mathrm{KL}(p\|q) = \sum_k \pi_k \log(\pi_k / \pi_k^q)\)
+      where \(\pi^q = \mathrm{softmax}(\eta_q)\). Substituting the exponential family form:
+    </p>
+
+    <div class="math-block">
+      $$\mathrm{KL}(p\|q) = \sum_k \pi_k \bigl[(\eta_k^p - \eta_k^q) - A(\eta_p) + A(\eta_q)\bigr] = A(\eta_q) -
+      A(\eta_p) - \pi_p^\top(\eta_q - \eta_p)$$
+    </div>
+
+    <p>
+      Since \(\pi_p = \nabla A(\eta_p)\), this is the Bregman divergence of the strictly convex
+      function \(A\) evaluated at the pair \((\eta_q, \eta_p)\). The formula is exact with no Taylor
+      approximation and no "small perturbation" assumption.
+    </p>
+
+    <p>
+      The quadratic approximation \(\frac{1}{2}(\eta_q - \eta_p)^\top \mathcal{I}(\eta_p)(\eta_q - \eta_p)\)
+      is the <em>second-order expansion</em> of the Bregman divergence around \(\eta_p\), which holds
+      to leading order when \(\|\eta_q - \eta_p\|\) is small but the exact identity above holds everywhere.
+      This means the Fisher metric is the local form of an exact geometric structure.
+    </p>
+
+    <p>
+      One consequence worth noting here is that the set of distributions equidistant from a fixed \(p\) under KL is
+      not an Euclidean ball in \(\eta\)-space. It is the level set of the Bregman divergence of \(A\),
+      which is an ellipsoid shaped by \(\mathcal{I}(\eta_p)\). Near a sharp distribution, this ellipsoid
+      is long and thin and you can move far in logit space in most directions without changing the distribution
+      much, but small movements toward the high-probability token induce large KL shifts.
+    </p>
+
+    <h2>4. The Polyak–Łojasiewicz Condition</h2>
+
+    <p>
+      Convergence theory for non-convex optimization often relies on a condition weaker than convexity i.e.
+      the <strong>Polyak–Łojasiewicz (PL) condition</strong>, which requires that gradient norm controls
+      objective value. For a loss \(\mathcal{L}\), PL says that
+    </p>
+
+    <div class="math-block">
+      $$\mathcal{L}(\theta) - \mathcal{L}^* \leq \frac{1}{2\mu} \|\nabla_\theta \mathcal{L}(\theta)\|^2$$
+    </div>
+
+    <p>
+      for some \(\mu > 0\). When PL holds, gradient descent converges linearly to the global minimum even
+      without convexity, which is why it is such a useful condition for deep network analysis.
+    </p>
+
+    <p>
+      For the softmax manifold, a version of PL holds in KL divergence:
+    </p>
+
+    <div class="math-block">
+      $$\mathrm{KL}(p \| q(\eta)) \leq \frac{1}{2\lambda} \|\nabla_\eta \mathrm{KL}\|^2$$
+    </div>
+
+    <p>
+      where \(\lambda = \lambda_{\min}^+(\mathcal{I}(\eta))\) is the minimum positive eigenvalue computed above.
+      This follows from the Bregman identity combined with strong convexity of \(A\) on the interior of the
+      simplex: since \(\nabla^2 A = \mathcal{I} \succeq \lambda I\) (when the distribution is bounded away
+      from the boundary), the Bregman divergence satisfies \(D_A(\eta_q, \eta_p) \geq \frac{\lambda}{2}\|\eta_q -
+      \eta_p\|^2\),
+      and dualizing gives the PL-type bound.
+    </p>
+
+    <p>
+      Observe that \(\lambda \to 0\) as any probability approaches zero or one. The
+      PL constant degrades proportionally, and in the limit the condition fails entirely. This is why attention entropy
+      collapses, where attention probabilities concentrate on one or two
+      tokens and it is catastrophic for optimization. It is not only that the gradient landscape becomes difficult but
+      also that the geometric condition that guarantees convergence disappears.
+    </p>
+
+    <div class="note">
+      <span class="note-num">3.</span>
+      Combining the PL condition with the chain rule through the network yields the bound
+      \(\mathrm{KL} \leq C_{\mathcal{I}} C_J^2 w_{l,k}^2 \lambda^{-2} \cdot 2L_s \mathcal{L}_{l,k}^*\)
+      for the KL drift at layer \(l\), head \(k\), where \(C_J\) bounds the spectral norm of the logit Jacobian,
+      \(w_{l,k}\) is the effective head weight, \(L_s\) is the Lipschitz constant of the gradient,
+      and \(\mathcal{L}^*\) is the residual loss. Notably, this is linear in the residual loss and contains
+      no spurious \(\theta_{\min}\) term which is a consequence of working in natural parameter space, where
+      the parameterization-distribution map is injective.
+    </div>
+
+    <h2>5. The Dually Flat Structure</h2>
+
+    <p>
+      The categorical manifold is richer than a Riemannian manifold with a single metric as it carries a
+      <strong>dually flat structure</strong> with two coordinate systems, related by a Legendre transform, each
+      of which is flat (zero curvature) in its own sense, and each natural for a different class of computations.
+    </p>
+
+    <p>
+      The first system is the <strong>\(\eta\)-parameterization</strong> (logits). Straight lines in \(\eta\)-space
+      are called e-geodesics (e for exponential family). Moving along an e-geodesic corresponds to tilting a
+      base distribution by an exponential family of perturbations and this is exactly what temperature scaling does.
+    </p>
+
+    <p>
+      The second system is the <strong>\(\mu\)-parameterization</strong> (softmax probabilities). Straight lines
+      in \(\mu\)-space are m-geodesics (m for mixture). A convex combination of two probability vectors gives
+      the mean parameters of a mixture distribution as mixture operations are natural in \(\mu\)-space.
+    </p>
+
+    <p>
+      The two systems are related by the Legendre pair \((A, H)\), where
+      \(H(\mu) = -\sum_k \mu_k \log \mu_k\) is the Shannon entropy:
+      \(\nabla A(\eta) = \mu\) and \(\nabla H(\mu) = -\eta\) (the inverse map is log-probabilities).
+      A remarkable consequence of this duality is the following theorem, which I think of as the "correct version"
+      of the Pythagorean theorem for information:
+    </p>
+
+    <div class="math-block">
+      $$\mathrm{KL}(p \| r) = \mathrm{KL}(p \| q) + \mathrm{KL}(q \| r)$$
+    </div>
+
+    <p>
+      whenever the e-geodesic from \(q\) to \(r\) and the m-geodesic from \(p\) to \(q\) are
+      orthogonal at \(q\) under the Fisher metric. It is a theorem
+      (Amari and Nagaoka, 2000, Chapter 1), and it explains the geometry of projections onto statistical
+      submanifolds. Maximum likelihood estimation is an m-projection of the empirical distribution onto
+      the model family. Variational inference with reverse KL is an m-projection of the posterior onto
+      the variational family. Forward KL (used in diffusion models and some distillation methods) is an
+      e-projection and the fact that these two operations have different mass-covering behavior (reverse KL
+      is mode-seeking and forward KL is mean-seeking) is a consequence of this duality and it is not an empirical
+      observation.
+    </p>
+
+    <h2>6. Mirror Descent</h2>
+
+    <p>
+      Natural gradient descent preconditions the update with \(\mathcal{I}^{-1}\), correcting for curvature
+      after the fact. There is a more elegant approach, as we can use an optimizer whose update rule is native to the
+      manifold from the beginning.
+    </p>
+
+    <p>
+      <strong>Mirror descent</strong> (Nemirovsky and Yudin, 1983) replaces the Euclidean proximity term in
+      gradient descent with a Bregman divergence:
+    </p>
+
+    <div class="math-block">
+      $$\eta_{t+1} = \arg\min_{\eta'} \left\{ \nabla_\eta \mathcal{L}(\eta_t)^\top \eta' + \frac{1}{\alpha} D_A(\eta',
+      \eta_t) \right\}$$
+    </div>
+
+    <p>
+      When the mirror map is \(F = A\) (log-partition function), \(D_A\) is the KL divergence and the
+      closed-form update in mean (\(\mu\)) coordinates is:
+    </p>
+
+    <div class="math-block">
+      $$\pi_{t+1} \propto \pi_t \cdot \exp\!\left(-\alpha \nabla_\pi \mathcal{L}\right)$$
+    </div>
+
+    <p>
+      This is the <strong>exponentiated gradient</strong> algorithm. It operates multiplicatively in
+      probability space, automatically satisfying the simplex constraint without projection. But more
+      importantly, each step is penalized by KL divergence from the current iterate. When the current distribution is
+      sharp (near the boundary), a unit multiplicative update
+      in probability space corresponds to a large logit movement and the algorithm, by measuring
+      progress in the right geometry, takes proportionally smaller effective steps and when the distribution
+      is diffuse, it moves more freely.
+    </p>
+
+    <p>
+      The relationship to Adam is instructive because Adam's update divides each gradient component by
+      \(\sqrt{v_t + \varepsilon}\), where \(v_t\) is a running average of squared gradients. For
+      cross-entropy loss, \(\partial \mathcal{L} / \partial \eta_k \approx \pi_k - \mathbf{1}[y=k]\),
+      and the squared gradient accumulates statistics proportional to \(\pi_k^2\). The diagonal of
+      \(\mathcal{I}(\eta)\) is \(\pi_k(1-\pi_k)\). Adam's \(1/\sqrt{v_t}\) scaling is therefore a
+      diagonal approximation to \(\mathcal{I}^{-1/2}\) i.e. a half-power natural gradient preconditioner,
+      implemented without any knowledge of differential geometry and it works because the geometry happened
+      to be compatible with per-coordinate scaling BUT it fails wherever off-diagonal curvature matters.
+    </p>
+
+    <div class="note">
+      <span class="note-num">4.</span>
+      K-FAC (Martens and Grosse, 2015) approximates the full Fisher as a Kronecker product of
+      layer-wise matrices, capturing the block structure that arises from conditional independence across
+      layers. Shampoo goes further with a matrix power approximation. These are (systematically) better approximations
+      to the natural gradient, grounded in the geometry described here but the reason they are not universally used is
+      computational cost.
+    </div>
+
+    <h2>7. Temperature Scaling and RLHF (Geometrically) </h2>
+
+    <h3>Temperature scaling is movement along an e-geodesic</h3>
+
+    <p>
+      Temperature scaling i.e. replacing \(\eta\) with \(\eta / T\) before softmax, is typically presented as
+      "sharpening" (\(T < 1\)) or "softening" (\(T> 1\)) the distribution. Geometrically, it is a
+        rescaling of the natural parameters along the ray from the origin through \(\eta\):
+        all points \(\{c\eta : c > 0\}\) define an e-geodesic through the uniform distribution (at \(c = 0\))
+        and toward the argmax vertex (as \(c \to \infty\)).
+    </p>
+
+    <p>
+      With this, when a model is overconfident i.e. output probabilities
+      are too sharp relative to empirical accuracy, the distributions sit too far along this geodesic toward
+      the boundary. Post-hoc temperature scaling corrects this by moving back toward the interior, where
+      \(\mathcal{I}\) is well-conditioned. The reason this works as well as it does is that overconfidence
+      is largely a <em>scalar</em> phenomenon along the geodesic, due to the relative order of logits is approximately
+      correct, and only the scale needs adjustment.
+    </p>
+
+    <h3>The RLHF KL penalty is a constraint on the Fisher ball</h3>
+
+    <p>
+      The standard RLHF objective in PPO-style training is:
+    </p>
+
+    <div class="math-block">
+      $$\mathcal{L}(\pi) = \mathbb{E}_{y \sim \pi}[r(y)] - \beta \cdot \mathrm{KL}(\pi \| \pi_{\mathrm{ref}})$$
+    </div>
+
+    <p>
+      The KL term is typically framed as "regularization preventing reward hacking." That is true, but I think
+      that is incomplete. Adding \(\beta \cdot \mathrm{KL}(\pi \| \pi_{\mathrm{ref}})\) is equivalent to
+      constraining optimization to a Fisher ball of radius \(\sim \beta^{-1}\) around \(\pi_{\mathrm{ref}}\)
+      on the statistical manifold and the shape of that ball is determined by \(\mathcal{I}(\eta_{\mathrm{ref}})\).
+    </p>
+
+    <p>
+      The closed-form optimal policy under this constraint is:
+    </p>
+
+    <div class="math-block">
+      $$\pi^*(y) \propto \pi_{\mathrm{ref}}(y) \cdot \exp\!\left(\frac{r(y)}{\beta}\right)$$
+    </div>
+
+    <p>
+      This is now an exponential tilting of the reference distribution by the reward, a one-parameter exponential
+      family with the reference as the base measure and the reward as the sufficient statistic. Every RLHF training
+      run is implicitly navigating toward this e-projection of the reward-tilted measure onto the model's
+      representable distributions. The instability of PPO to \(\beta\) reflects the sensitivity of the Fisher ball
+      radius to \(\beta\) near a sharp reference model,
+      where \(\lambda_{\min}(\mathcal{I}(\eta_{\mathrm{ref}}))\) is small and the ball has an extreme aspect ratio.
+    </p>
+
+    <h2>8. Attention Entropy Collapse</h2>
+
+    <p>
+      Attention entropy collapse was documented in detail by Zhai et al. (2023) and analyzed further by
+      Hong and Lee (2025), who refers to a training failure mode where attention probability distributions
+      in some heads progressively concentrate on a single token, entropy approaches zero, and training
+      either becomes unstable or the gradient signal to those heads effectively vanishes.
+    </p>
+
+    <p>
+      From the geometry above, this is a known singularity. As an attention distribution \(\alpha\) approaches
+      a point mass at token \(j\):
+    </p>
+
+    <div class="math-block">
+      $$\lambda_{\min}^+\!\left(\mathcal{I}(\eta_\alpha)\right) = \min_k \alpha_k(1 - \alpha_k) \to 0$$
+    </div>
+
+    <p>
+      The Fisher metric degenerates and the PL condition fails. In this regime, a unit Euclidean gradient step in
+      logit space can correspond to an arbitrarily large KL shift in the direction of the already-dominant
+      token where the optimization landscape near the boundary of the simplex has extremely asymmetric curvature.
+      Large gradients appear in parameter space that correspond to almost no distributional change, while
+      small parameter changes in the direction of the boundary can cause massive distribution shifts. Standard
+      learning rate schedules, designed for well-conditioned regions of the manifold, have no mechanism to
+      adapt to this.
+    </p>
+
+    <p>
+      The fixes that have been proposed, like entropy regularization, softmax temperature warmup, QK-normalization,
+      attention with explicit maximum entropy constraints, are all, in different terms, attempts to keep
+      \(\lambda_{\min}(\mathcal{I})\) bounded away from zero. LayerNorm before the attention logit
+      computation works in part because it controls \(\|\eta\|\), preventing logits from growing large enough
+      to push probabilities close to the boundary.
+    </p>
+
+    <div class="note">
+      <span class="note-num">5.</span>
+      An alternative proposed by Park et al. (2025) is to replace softmax with a function that maintains a
+      non-degenerate Fisher matrix regardless of logit magnitude, specifically, a hierarchical binary
+      partition scheme (catnat) whose Fisher information matrix is <em>diagonal</em> everywhere on the simplex.
+      Diagonal Fisher means mirror descent and natural gradient coincide, and the natural gradient is
+      trivially computable without any matrix inversion. Whether this is worth the architectural disruption
+      remains to be seen, but geometrically it is the clean solution.
+    </div>
+
+    <h2>9. Implications</h2>
+
+    <p>
+      I want to be careful here not to overstate what the geometry gives us. The theory tells you what
+      the right distances are and what conditions need to hold for optimization to work well but it does not
+      automatically tell you the best architecture, and some of the implications below are better described
+      as informed conjectures than as theorems.
+    </p>
 
     <h4>Implications that follow directly</h4>
     <ul>
-      <li><strong>Gradient norms are not optimization progress indicators</strong> without knowledge of the local \(\mathcal{I}\). Large gradient norms near the simplex boundary can mean almost nothing has changed distributionally.</li>
-      <li><strong>Entropy regularization has a precise motivation</strong>: adding \(+\gamma H(\pi)\) to the loss is equivalent to keeping \(\lambda_{\min}(\mathcal{I})\) above a floor proportional to \(\gamma\).</li>
-      <li><strong>Logit norm constraints are more principled than weight decay</strong> for controlling output distribution behavior. Bounding \(\|\eta\|\) keeps the softmax in the well-conditioned interior of the manifold.</li>
-      <li><strong>The KL coefficient \(\beta\) in RLHF controls the Fisher ball radius</strong>, as opposed to a vague regularization strength and therefore it should be tuned relative to \(\lambda_{\min}(\mathcal{I}(\eta_{\mathrm{ref}}))\).</li>
+      <li><strong>Gradient norms are not optimization progress indicators</strong> without knowledge of the local
+        \(\mathcal{I}\). Large gradient norms near the simplex boundary can mean almost nothing has changed
+        distributionally.</li>
+      <li><strong>Entropy regularization has a precise motivation</strong>: adding \(+\gamma H(\pi)\) to the loss is
+        equivalent to keeping \(\lambda_{\min}(\mathcal{I})\) above a floor proportional to \(\gamma\).</li>
+      <li><strong>Logit norm constraints are more principled than weight decay</strong> for controlling output
+        distribution behavior. Bounding \(\|\eta\|\) keeps the softmax in the well-conditioned interior of the manifold.
+      </li>
+      <li><strong>The KL coefficient \(\beta\) in RLHF controls the Fisher ball radius</strong>, as opposed to a vague
+        regularization strength and therefore it should be tuned relative to
+        \(\lambda_{\min}(\mathcal{I}(\eta_{\mathrm{ref}}))\).</li>
     </ul>
-  
 
-  
+
+
     <h4>Implications that are plausible</h4>
     <ul>
-      <li><strong>Per-component learning rate adaptation</strong> (Adam, Shampoo) is geometrically motivated. Whether more faithful Fisher approximations (K-FAC) consistently outperform Adam at scale is empirically unresolved.</li>
-      <li><strong>The natural gradient is the theoretically correct optimizer</strong>, but computing \(\mathcal{I}^{-1}\) at scale is expensive, and the approximations involved in K-FAC may introduce their own pathologies.</li>
-      <li><strong>Temperature scaling post-hoc calibration works because miscalibration is approximately a scalar on the e-geodesic</strong>. This is often but not always true and the severe distributional shift can require more than temperature adjustment.</li>
+      <li><strong>Per-component learning rate adaptation</strong> (Adam, Shampoo) is geometrically motivated. Whether
+        more faithful Fisher approximations (K-FAC) consistently outperform Adam at scale is empirically unresolved.
+      </li>
+      <li><strong>The natural gradient is the theoretically correct optimizer</strong>, but computing
+        \(\mathcal{I}^{-1}\) at scale is expensive, and the approximations involved in K-FAC may introduce their own
+        pathologies.</li>
+      <li><strong>Temperature scaling post-hoc calibration works because miscalibration is approximately a scalar on the
+          e-geodesic</strong>. This is often but not always true and the severe distributional shift can require more
+        than temperature adjustment.</li>
     </ul>
 
-  
 
-  <h2>Conclusion</h2>
 
-  <p>
-    Cross-entropy loss and the optimization objective of nearly every classification model and language model
-    trained in the last decade is most likely not defined on a flat space and is rather the Bregman divergence of the
-    log-sum-exp function, which is a strictly convex function that induces a Riemannian geometry on the categorical
-    manifold. The softmax is the gradient map of this function and the Fisher information is its Hessian and hence these are not separate objects that happen to be related and are possibly "three faces of the same structure".
-  </p>
+    <h2>Conclusion</h2>
 
-  <p>
-    I think that the geometry description is not just a hypothesis, because with the Fisher-Rao metric,
-    the Bregman structure of KL divergence, the PL condition and its failure at the boundary, the dually
-    flat structure, the mirror descent correspondence, which are all mathematically valid, gives me a strong argument but still, what is less certain
-    is the extent to which the practical pathologies I have discussed are primarily geometric in origin,
-    versus being symptoms of other problems (poor initialization, distribution shift, optimizer
-    hyperparameters) that the geometry happens to illuminate.
-  </p>
-
-  <div class="ending">
-    
     <p>
-      References: Amari (1998) for natural gradient; Amari and Nagaoka (2000) for the full
-      information geometry framework; Martens and Grosse (2015) for K-FAC and its relation to Fisher
-      approximation; Zhai et al. (2023) for attention entropy collapse; Hong and Lee (2025) for the
-      variance-sensitivity analysis; and Park et al. (2025, 2026) for the catnat alternative and information
-      geometry of softmax probing.
+      Cross-entropy loss and the optimization objective of nearly every classification model and language model
+      trained in the last decade is most likely not defined on a flat space and is rather the Bregman divergence of the
+      log-sum-exp function, which is a strictly convex function that induces a Riemannian geometry on the categorical
+      manifold. The softmax is the gradient map of this function and the Fisher information is its Hessian and hence
+      these are not separate objects that happen to be related and are possibly "three faces of the same structure".
     </p>
-    
-</main>
+
+    <p>
+      I think that the geometry description is not just a hypothesis, because with the Fisher-Rao metric,
+      the Bregman structure of KL divergence, the PL condition and its failure at the boundary, the dually
+      flat structure, the mirror descent correspondence, which are all mathematically valid, gives me a strong argument
+      but still, what is less certain
+      is the extent to which the practical pathologies I have discussed are primarily geometric in origin,
+      versus being symptoms of other problems (poor initialization, distribution shift, optimizer
+      hyperparameters) that the geometry happens to illuminate.
+    </p>
+
+    <div class="ending">
+      <p style="font-size: 0.85em; color: #666; margin-bottom: 1.5em;">
+        <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my conversations with
+        Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the conversation (the parts of
+        the chat that were good) and then wrote over the draft.
+      </p>
+
+      <p>
+        References: Amari (1998) for natural gradient; Amari and Nagaoka (2000) for the full
+        information geometry framework; Martens and Grosse (2015) for K-FAC and its relation to Fisher
+        approximation; Zhai et al. (2023) for attention entropy collapse; Hong and Lee (2025) for the
+        variance-sensitivity analysis; and Park et al. (2025, 2026) for the catnat alternative and information
+        geometry of softmax probing.
+      </p>
+
+  </main>
 </body>
+
 </html>

@@ -4,39 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computational Necessity as the Structural Basis of CoT Monitorability</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--text:#1a1a18;--muted:#6b6b60;--accent:#3d5a3e;--light:#f5f4ef;--border:#d8d5cb;--mono:#2d2d2b;}
-body{font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.75;color:var(--text);background:#fafaf6;max-width:720px;margin:0 auto;padding:64px 32px 120px;}
-@media(max-width:600px){body{padding:40px 20px 80px;font-size:17px;}}
-header{margin-bottom:56px;}
-.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
-h1{font-size:2.05rem;font-weight:500;line-height:1.25;letter-spacing:-.01em;margin-bottom:20px;}
-.byline{font-size:14.5px;color:var(--muted);font-style:italic;}
+:root{--text:#111;--muted:#555;--accent:#2563eb;--light:#f3f4f6;--border:#eee;--mono:#111;}
+body{max-width:720px;margin:0 auto;padding:24px 32px 120px;}
+@media(max-width:600px){body{padding:20px 20px 80px;}}
+header{margin-top:20px;margin-bottom:56px;}
+.kicker{font-family:monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+h1{font-size:2.05rem;font-weight:normal;line-height:1.25;letter-spacing:-.01em;margin-bottom:20px;}
+.byline{color:var(--muted);}
 .byline span{font-style:normal;color:var(--text);}
 hr.div{border:none;border-top:1px solid var(--border);margin:44px 0;}
 p{margin-bottom:1.2em;}
 p:last-child{margin-bottom:0;}
-h2{font-size:1.22rem;font-weight:500;margin-top:52px;margin-bottom:16px;letter-spacing:-.005em;}
-h3{font-size:1rem;font-weight:500;font-style:italic;margin-top:36px;margin-bottom:10px;color:var(--muted);}
+h2{font-size:1.22rem;font-weight:normal;margin-top:52px;margin-bottom:16px;letter-spacing:-.005em;}
+h3{font-size:1rem;font-weight:normal;font-style:italic;margin-top:36px;margin-bottom:10px;color:var(--muted);}
 .math-block{overflow-x:auto;margin:28px 0;padding:20px 24px;background:var(--light);border-radius:0 4px 4px 0;}
 blockquote{margin:28px 0;padding:4px 0 4px 24px;color:var(--muted);font-style:italic;}
-.footnote-marker{font-size:11px;vertical-align:super;font-family:'JetBrains Mono',monospace;color:var(--accent);cursor:default;line-height:0;}
+.footnote-marker{font-size:11px;vertical-align:super;font-family:monospace;color:var(--accent);cursor:default;line-height:0;}
 .footnotes{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);font-size:14.5px;color:var(--muted);line-height:1.65;}
 .footnotes ol{padding-left:20px;}
 .footnotes li{margin-bottom:10px;}
-.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--light);border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:2px;margin-right:6px;margin-bottom:6px;}
+.tag{display:inline-block;font-family:monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--light);border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:2px;margin-right:6px;margin-bottom:6px;}
 .tags{margin-bottom:0;margin-top:12px;}
-.abstract{background:var(--light);border:1px solid var(--border);padding:22px 26px;margin:40px 0;border-radius:3px;}
-.abstract-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+.abstract{background:var(--light);border:1px solid var(--border);padding:22px 26px;margin:40px 0;border-radius:14px;}
+.abstract-label{font-family:monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
 .df{font-style:italic;color:var(--mono);}
-.num{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--light);padding:1px 5px;border-radius:2px;white-space:nowrap;}
+.num{font-family:monospace;font-size:.85em;background:var(--light);padding:1px 5px;border-radius:2px;white-space:nowrap;}
 </style>
 </head>
 <body>
+<center>
+<nav class="nav">
+  <a href="../index.html">[Home]</a>
+  <a href="../blog.html">[Blog]</a>
+  <a class="active" href="../explore.html">[Explore]</a>
+  <a href="../papers.html">[Papers]</a>
+</nav>
+</center>
 <header>
   <div class="kicker">Hypothesis · Reasoning Systems</div>
   <h1>Computational Necessity as the Basis of Chain-of-Thought Monitorability</h1>
@@ -196,6 +204,10 @@ blockquote{margin:28px 0;padding:4px 0 4px 24px;color:var(--muted);font-style:it
 <p>This reframing could maybe havea a consequence such that rather than asking "is this model monitorable?", the question becomes "on what tasks, at what capability level, does monitorability hold for this model, and what is the trajectory of that set as the model improves?" These are harder questions but I think they are the right ones. They turn a binary safety claim into a measurable, continuously-tracked property, which is, in the end, how safety properties should work.</p>
 
 <p>The free-gift framing is appealing because it is optimistic and simple as RLVR happens to produce something we need, at no cost, with no deliberate effort whereas the reliance account is less comforting..</p>
+
+<p style="font-size: 0.85em; color: #666; margin-top: 2em;">
+  <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my conversations with Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the conversation (the parts of the chat that were good) and then wrote over the draft.
+</p>
 
 <hr class="div">
 

@@ -4,38 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Antithesis as Attractor</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--text:#1a1a18;--muted:#6b6b60;--accent:#3d5a3e;--light:#f5f4ef;--border:#d8d5cb;}
-body{font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.78;color:var(--text);background:#fafaf6;max-width:700px;margin:0 auto;padding:64px 32px 120px;}
-@media(max-width:600px){body{padding:40px 20px 80px;font-size:17px;}}
-header{margin-bottom:52px;}
-.kicker{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
-h1{font-size:1.95rem;font-weight:500;line-height:1.22;letter-spacing:-.01em;margin-bottom:18px;}
-.byline{font-size:14px;color:var(--muted);font-style:italic;}
+:root{--text:#111;--muted:#555;--accent:#2563eb;--light:#f3f4f6;--border:#eee;}
+body{max-width:700px;margin:0 auto;padding:24px 32px 120px;}
+@media(max-width:600px){body{padding:20px 20px 80px;}}
+header{margin-top:20px;margin-bottom:52px;}
+.kicker{font-family:monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+h1{font-size:1.95rem;font-weight:normal;line-height:1.22;letter-spacing:-.01em;margin-bottom:18px;}
+.byline{color:var(--muted);}
 hr.div{border:none;border-top:1px solid var(--border);margin:42px 0;}
 p{margin-bottom:1.25em;}
 p:last-child{margin-bottom:0;}
-h2{font-size:1.18rem;font-weight:500;margin-top:48px;margin-bottom:14px;letter-spacing:-.005em;}
-h3{font-size:1rem;font-weight:400;font-style:italic;margin-top:32px;margin-bottom:8px;color:var(--muted);}
+h2{font-size:1.18rem;font-weight:normal;margin-top:48px;margin-bottom:14px;letter-spacing:-.005em;}
+h3{font-size:1rem;font-weight:normal;font-style:italic;margin-top:32px;margin-bottom:8px;color:var(--muted);}
 .math-block{overflow-x:auto;margin:24px 0;padding:18px 22px;background:var(--light);border-radius:0 3px 3px 0;font-size:.92em;}
 blockquote{margin:26px 0;padding:4px 0 4px 22px;color:var(--muted);font-style:italic;}
-.fn{font-size:10.5px;vertical-align:super;font-family:'JetBrains Mono',monospace;color:var(--accent);line-height:0;}
+.fn{font-size:10.5px;vertical-align:super;font-family:monospace;color:var(--accent);line-height:0;}
 .footnotes{margin-top:60px;padding-top:22px;border-top:1px solid var(--border);font-size:14px;color:var(--muted);line-height:1.65;}
 .footnotes ol{padding-left:18px;}
 .footnotes li{margin-bottom:10px;}
-.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--light);border:1px solid var(--border);color:var(--muted);padding:3px 7px;border-radius:2px;margin-right:5px;margin-bottom:5px;}
+.tag{display:inline-block;font-family:monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--light);border:1px solid var(--border);color:var(--muted);padding:3px 7px;border-radius:2px;margin-right:5px;margin-bottom:5px;}
 .tags{margin-top:14px;}
-.lede{font-size:1.08em;color:#3a3a36;line-height:1.7;margin:32px 0 0;padding:0 0 0 0;font-style:italic;}
-em.df{font-style:italic;color:#2d2d2b;}
-.aside{background:var(--light);border:1px solid var(--border);padding:18px 22px;margin:28px 0;border-radius:3px;font-size:.93em;color:var(--muted);line-height:1.65;}
-.aside-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;color:#999;}
+.lede{font-size:1.08em;color:#111;line-height:1.7;margin:32px 0 0;padding:0 0 0 0;font-style:italic;}
+em.df{font-style:italic;color:#111;}
+.aside{background:var(--light);border:1px solid var(--border);padding:18px 22px;margin:28px 0;border-radius:14px;font-size:.93em;color:var(--muted);line-height:1.65;}
+.aside-label{font-family:monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;color:#999;}
 </style>
 </head>
 <body>
+
+<center>
+<nav class="nav">
+  <a href="../index.html">[Home]</a>
+  <a href="../blog.html">[Blog]</a>
+  <a class="active" href="../explore.html">[Explore]</a>
+  <a href="../papers.html">[Papers]</a>
+</nav>
+</center>
 
 <header>
   <div class="kicker">Hypothesis · Machine Learning</div>
@@ -186,6 +195,10 @@ em.df{font-style:italic;color:#2d2d2b;}
 <p> The argument is that it's <em>plausible</em> that the dialectical tendency in LLMs emerges from the intersection of pretraining corpus structure, RLHF reward shaping, and quality filtering dynamics and that these mechanisms may interact in a self-reinforcing way across model generations. I think the PAA is the most underexplored piece and we probably should study all these things more to understand, atleast the outputs, to try and predict the internals and workings.</p>
 
 <p>Be careful with the fact that the cited studies support individual mechanisms and none of them directly tests the hypothesis and nome of the statistics I've cited are probably overstated or come from studies I haven't been able to fully evaluate.</p>
+
+<p style="font-size: 0.85em; color: #666; margin-top: 2em;">
+  <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my conversations with Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the conversation (the parts of the chat that were good) and then wrote over the draft.
+</p>
 
 <hr class="div">
 

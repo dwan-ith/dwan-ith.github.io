@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,8 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '\\(', right: '\\)', inline: true}
@@ -16,1171 +16,1401 @@
     });"></script>
 </head>
 <style>
-    /* ─── Base ─── */
-    *, *::before, *::after { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: "KaTeX_Main", "Latin Modern Roman", "Georgia", serif;
-      color: #111;
-      background: #fff;
-      line-height: 1.65;
-    }
-
-    /* ─── Nav ─── */
-    .nav {
-      padding: 1rem 1.25rem;
-      font-size: 1rem;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .nav a {
-      text-decoration: none;
-      color: #2563eb;
-      margin-right: 0.35rem;
-    }
-    .nav a:hover { text-decoration: underline; }
-    .nav a.active { color: #000; }
-
-    /* ─── Content ─── */
-    .content {
-      max-width: 660px;
-      padding: 1.5rem 1.25rem 4rem;
-      margin: 0 auto;
-    }
-
-    /* ─── Title & Meta ─── */
-    .title {
-      font-size: 2.1rem;
-      font-weight: normal;
-      line-height: 1.25;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-    }
-    .meta-top {
-      font-size: 0.85rem;
-      color: #777;
-      margin-bottom: 2rem;
-      letter-spacing: 0.04em;
-    }
-
-    /* ─── Typography ─── */
-    h2 {
-      margin-top: 2.8rem;
-      font-size: 1.35rem;
-      font-weight: normal;
-      border-bottom: 1px solid #e8e8e8;
-      padding-bottom: 0.3rem;
-    }
-    h3 {
-      font-size: 1.05rem;
-      font-weight: bold;
-      margin-top: 2rem;
-      margin-bottom: 0.4rem;
-    }
-    p {
-      font-size: 1.04rem;
-      margin-top: 0;
-      margin-bottom: 1.1rem;
-    }
-    sup {
-      font-size: 0.72rem;
-      color: #2563eb;
-      vertical-align: super;
-      line-height: 0;
-    }
-    strong { font-weight: bold; }
-    em { font-style: italic; }
-    ul, ol { padding-left: 1.6rem; margin-bottom: 1.1rem; }
-    li { margin-bottom: 0.4rem; font-size: 1.04rem; }
-
-    /* ─── Hero figure ─── */
-    .hero {
-      margin: 1.5rem 0 2rem;
-    }
-    .hero img {
-      width: 100%;
-      border-radius: 4px;
-      display: block;
-    }
-    .hero figcaption {
-      font-size: 0.87rem;
-      color: #555;
-      margin-top: 0.6rem;
-      line-height: 1.45;
-    }
-
-    /* ─── Sidenotes / footnote boxes ─── */
-    .note {
-      background: #f9f9f7;
-      padding: 0.75rem 1rem;
-      margin: 1.5rem 0;
-      font-size: 0.92rem;
-      color: #444;
-      line-height: 1.55;
-      border-radius: 0 4px 4px 0;
-    }
-    .note-num {
-      font-weight: bold;
-      color: #2563eb;
-      margin-right: 0.4rem;
-    }
-
-    /* ─── Display math ─── */
-    .math-block {
-      overflow-x: auto;
-      margin: 1.4rem 0;
-      padding: 0.1rem 0;
-    }
-
-    /* ─── Highlight / callout ─── */
-    .highlight {
-      background: #f0f4ff;
-      border: 1px solid #c7d7f9;
-      border-radius: 5px;
-      padding: 0.9rem 1.1rem;
-      margin: 1.5rem 0;
-      font-size: 1.01rem;
-    }
-    .highlight p { margin: 0 0 0.5rem; }
-    .highlight p:last-child { margin: 0; }
-
-    /* ─── Claim / not-claim box ─── */
-    .claim-box {
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 1rem 1.2rem;
-      margin: 1.5rem 0;
-    }
-    .claim-box h4 {
-      margin: 0 0 0.5rem;
-      font-size: 0.92rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #555;
-    }
-    .claim-box ul { margin: 0; padding-left: 1.3rem; }
-    .claim-box li { font-size: 0.97rem; margin-bottom: 0.3rem; }
-
-    /* ─── Comparison table ─── */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-      margin: 1.5rem 0;
-    }
-    th {
-      text-align: left;
-      border-bottom: 2px solid #ccc;
-      padding: 0.4rem 0.6rem;
-      font-weight: bold;
-    }
-    td {
-      padding: 0.5rem 0.6rem;
-      border-bottom: 1px solid #eee;
-      vertical-align: top;
-    }
-    tr:last-child td { border-bottom: none; }
-
-    /* ─── Ending / thanks ─── */
-    .ending {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e8e8e8;
-      font-size: 0.97rem;
-      color: #444;
-      line-height: 1.65;
-    }
-    .ending a { color: #2563eb; text-decoration: none; }
-    .ending a:hover { text-decoration: underline; }
-
-    /* ─── Links ─── */
-    .inline-link { color: #2563eb; text-decoration: none; }
-    .inline-link:hover { text-decoration: underline; }
-
-    /* ─── Responsive math ─── */
-    .katex-display { overflow-x: auto; overflow-y: hidden; }
-  </style>
-</head>
-<body>
-
-<center>
-<nav class="nav">
-  <a href="../index.html">[Home]</a>
-  <a class="active">[Blog]</a>
-  <a href="../explore.html">[Explore]</a>
-  <a href="../papers.html">[Papers]</a>
-</nav>
-</center>
-
-<main class="content">
-
-  <h1 class="title">Wigner's Friend and Schrödinger's Observer</h1>
-  <div class="meta-top">May 2026</div>
-
- <style>
-  .fig1 {
-    border: 1px solid #e4e4e4;
-    border-radius: 3px;
-    padding: 1.8rem 1.8rem 1.2rem;
-    background: #fafafa;
-    margin: 1.5rem 0 2rem;
-    font-family: "KaTeX_Main", "Latin Modern Roman", Georgia, serif;
+  /* ─── Base ─── */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
-  .fig1 .col-headers {
-    display: grid;
-    grid-template-columns: 1fr 64px 1fr 64px 1fr;
-    margin-bottom: 0.6rem;
-  }
-  .fig1 .col-header {
-    text-align: center;
-    font-size: 0.78rem;
-    letter-spacing: 0.07em;
-    color: #888;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .fig1 .col-gap { border-bottom: 1px solid #e0e0e0; }
-  .fig1 .stage {
-    display: grid;
-    grid-template-columns: 1fr 64px 1fr 64px 1fr;
-    align-items: center;
-    margin: 0.9rem 0;
-  }
-  .fig1 .state-box {
-    border: 1px solid #ccc;
-    border-radius: 3px;
+
+  body {
+    margin: 0;
+    font-family: "KaTeX_Main", "Latin Modern Roman", "Georgia", serif;
+    color: #111;
     background: #fff;
-    text-align: center;
-    padding: 0.55rem 0.6rem 0.5rem;
-    line-height: 1.5;
-    min-width: 0;
-    overflow: visible;
+    line-height: 1.65;
   }
-  .fig1 .state-box .lbl {
-    font-size: 0.7rem;
-    color: #999;
-    letter-spacing: 0.05em;
-    display: block;
-    margin-bottom: 0.2rem;
-  }
-  .fig1 .state-box .ket {
-    display: block;
+
+  /* ─── Nav ─── */
+  .nav {
+    padding: 1rem 1.25rem;
     font-size: 1rem;
-    white-space: nowrap;
+    border-bottom: 1px solid #f0f0f0;
   }
-  .fig1 .state-box.up       { border-color: #7ba7c7; background: #f0f6fb; }
-  .fig1 .state-box.down     { border-color: #b89a7a; background: #fdf8f3; }
-  .fig1 .state-box.env-up   { border-color: #7ba7c7; background: #f0f6fb; border-style: dashed; }
-  .fig1 .state-box.env-down { border-color: #b89a7a; background: #fdf8f3; border-style: dashed; }
-  .fig1 .state-box.dimmed   { border-color: #e0e0e0; background: #fafafa; color: #bbb; }
 
-  /* Arrow column — label sits above the line */
-  .fig1 .arr {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 100%;
-    padding: 0 4px;
+  .nav a {
+    text-decoration: none;
+    color: #2563eb;
+    margin-right: 0.35rem;
   }
-  .fig1 .arr .arr-label {
-    font-size: 0.7rem;
-    color: #aaa;
+
+  .nav a:hover {
+    text-decoration: underline;
+  }
+
+  .nav a.active {
+    color: #000;
+  }
+
+  /* ─── Content ─── */
+  .content {
+    max-width: 660px;
+    padding: 1.5rem 1.25rem 4rem;
+    margin: 0 auto;
+  }
+
+  /* ─── Title & Meta ─── */
+  .title {
+    font-size: 2.1rem;
+    font-weight: normal;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .meta-top {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── Typography ─── */
+  h2 {
+    margin-top: 2.8rem;
+    font-size: 1.35rem;
+    font-weight: normal;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 0.3rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: 1.04rem;
+    margin-top: 0;
+    margin-bottom: 1.1rem;
+  }
+
+  sup {
+    font-size: 0.72rem;
+    color: #2563eb;
+    vertical-align: super;
+    line-height: 0;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
     font-style: italic;
-    margin-bottom: 3px;
-    white-space: nowrap;
-    position: relative;
-    z-index: 1;
-    background: #fafafa;
-    padding: 0 2px;
-  }
-  .fig1 .arr .arr-line {
-    width: 100%;
-    height: 1px;
-    background: #ccc;
-    position: relative;
-  }
-  .fig1 .arr .arr-line::after {
-    content: '▶';
-    font-size: 0.45rem;
-    color: #aaa;
-    position: absolute;
-    right: -1px;
-    top: 50%;
-    transform: translateY(-50%);
   }
 
-  /* Separator */
-  .fig1 .sep {
-    display: flex; align-items: center; gap: 0.75rem;
-    margin: 0.2rem 0;
-  }
-  .fig1 .sep-line { flex: 1; height: 1px; background: #e0e0e0; }
-  .fig1 .sep-label {
-    font-size: 0.7rem; color: #aaa;
-    letter-spacing: 0.06em; font-style: italic; white-space: nowrap;
-  }
-
-  /* Branch block */
-  .fig1 .branch-block {
-    position: relative;
-    margin: 0.8rem 0 0.6rem;
+  ul,
+  ol {
     padding-left: 1.6rem;
-  }
-  .fig1 .branch-brace {
-    position: absolute; left: 0.2rem; top: 0; bottom: 0; width: 6px;
-    border-top: 1px solid #bbb;
-    border-bottom: 1px solid #bbb;
-    border-left: 1px solid #bbb;
-  }
-  .fig1 .branch-brace::before {
-    content: '½';
-    position: absolute; left: -1.1rem; top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.9rem; color: #888;
-  }
-  .fig1 .branch-row {
-    display: grid;
-    grid-template-columns: 1fr 64px 1fr 64px 1fr;
-    align-items: center;
-    padding: 0.45rem 0;
-  }
-  .fig1 .branch-row + .branch-row { border-top: 1px dashed #e8e8e8; }
-  .fig1 .branch-plus {
-    text-align: center; font-size: 1rem; color: #aaa;
-    margin: 0.05rem 0; padding-left: 0.5rem;
+    margin-bottom: 1.1rem;
   }
 
-  /* Orthogonality box */
-  .fig1 .ortho {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 0 3px 3px 0;
-    padding: 0.5rem 0.8rem 0.45rem;
-    margin: 0.6rem 0 0.8rem;
-    font-size: 0.84rem; color: #555; line-height: 1.6;
-  }
-  .fig1 .ortho .om { color: #222; margin-bottom: 0.2rem; }
-  .fig1 .ortho .oe { color: #777; font-size: 0.79rem; }
-
-  /* Result block */
-  .fig1 .result-block {
-    background: #fff;
-    border: 1px solid #d8d8d8;
-    border-radius: 3px;
-    padding: 0.75rem 1rem 0.7rem;
-    margin-top: 0.7rem;
-    font-size: 0.84rem; line-height: 1.7; color: #333;
-  }
-  .fig1 .result-block .rl {
-    font-size: 0.68rem; letter-spacing: 0.07em;
-    color: #999; display: block; margin-bottom: 0.4rem;
-  }
-  .fig1 .result-block .rm {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-  .fig1 .result-block .rn {
-    font-size: 0.78rem; color: #888; font-style: italic;
-    border-top: 1px solid #efefef;
-    padding-top: 0.4rem; margin-top: 0.45rem;
+  li {
+    margin-bottom: 0.4rem;
+    font-size: 1.04rem;
   }
 
-  /* Density matrix grid */
-  .fig1 .dm {
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    flex-shrink: 0;
+  /* ─── Hero figure ─── */
+  .hero {
+    margin: 1.5rem 0 2rem;
   }
-  .fig1 .dm-cell {
-    width: 24px; height: 24px;
-    border: 1px solid #ccc; border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.6rem; color: #555;
-    background: #fff; position: relative; overflow: hidden;
-  }
-  .fig1 .dm-cell.u { background: #eaf3fb; border-color: #7ba7c7; }
-  .fig1 .dm-cell.d { background: #fdf4ec; border-color: #b89a7a; }
-  .fig1 .dm-cell.x::before, .fig1 .dm-cell.x::after {
-    content: ''; position: absolute;
-    width: 140%; height: 1px; background: #bbb;
-    top: 50%; left: -20%; transform-origin: center;
-  }
-  .fig1 .dm-cell.x::before { transform: rotate(45deg); }
-  .fig1 .dm-cell.x::after  { transform: rotate(-45deg); }
 
-  /* Figcaption */
-  .fig1 figcaption {
-    font-size: 0.84rem; color: #555;
-    margin-top: 1.1rem; line-height: 1.5;
-    border-top: 1px solid #e8e8e8; padding-top: 0.75rem;
+  .hero img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
   }
-  .fig1 figcaption strong { color: #333; }
 
-  @media (max-width: 540px) {
-    .fig1 { padding: 1.1rem 0.8rem 1rem; }
-    .fig1 .col-headers,
-    .fig1 .stage,
-    .fig1 .branch-row {
-      grid-template-columns: 1fr 44px 1fr 44px 1fr;
-    }
-    .fig1 .state-box { padding: 0.4rem 0.3rem; }
-    .fig1 .state-box .ket { font-size: 0.85rem; }
+  .hero figcaption {
+    font-size: 0.87rem;
+    color: #555;
+    margin-top: 0.6rem;
+    line-height: 1.45;
+  }
+
+  /* ─── Sidenotes / footnote boxes ─── */
+  .note {
+    background: #f9f9f7;
+    padding: 0.75rem 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+    color: #444;
+    line-height: 1.55;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .note-num {
+    font-weight: bold;
+    color: #2563eb;
+    margin-right: 0.4rem;
+  }
+
+  /* ─── Display math ─── */
+  .math-block {
+    overflow-x: auto;
+    margin: 1.4rem 0;
+    padding: 0.1rem 0;
+  }
+
+  /* ─── Highlight / callout ─── */
+  .highlight {
+    background: #f0f4ff;
+    border: 1px solid #c7d7f9;
+    border-radius: 5px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.5rem 0;
+    font-size: 1.01rem;
+  }
+
+  .highlight p {
+    margin: 0 0 0.5rem;
+  }
+
+  .highlight p:last-child {
+    margin: 0;
+  }
+
+  /* ─── Claim / not-claim box ─── */
+  .claim-box {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .claim-box h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #555;
+  }
+
+  .claim-box ul {
+    margin: 0;
+    padding-left: 1.3rem;
+  }
+
+  .claim-box li {
+    font-size: 0.97rem;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ─── Comparison table ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    margin: 1.5rem 0;
+  }
+
+  th {
+    text-align: left;
+    border-bottom: 2px solid #ccc;
+    padding: 0.4rem 0.6rem;
+    font-weight: bold;
+  }
+
+  td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ─── Ending / thanks ─── */
+  .ending {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e8e8e8;
+    font-size: 0.97rem;
+    color: #444;
+    line-height: 1.65;
+  }
+
+  .ending a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .ending a:hover {
+    text-decoration: underline;
+  }
+
+  /* ─── Links ─── */
+  .inline-link {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .inline-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ─── Responsive math ─── */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 </style>
+</head>
 
-<figure class="fig1">
+<body>
 
-  <div class="col-headers">
-    <div class="col-header">System \(\mathcal{S}\)</div>
-    <div class="col-gap"></div>
-    <div class="col-header">Apparatus \(\mathcal{A}\)</div>
-    <div class="col-gap"></div>
-    <div class="col-header">Environment \(\mathcal{E}\)</div>
-  </div>
+  <center>
+    <nav class="nav">
+      <a href="../index.html">[Home]</a>
+      <a class="active">[Blog]</a>
+      <a href="../explore.html">[Explore]</a>
+      <a href="../papers.html">[Papers]</a>
+    </nav>
+  </center>
 
-  <div class="stage">
-    <div class="state-box">
-      <span class="lbl">initial state</span>
-      <span class="ket">\(\tfrac{1}{\sqrt{2}}\bigl(|\!\uparrow\rangle + |\!\downarrow\rangle\bigr)\)</span>
-    </div>
-    <div class="arr">
-      <span class="arr-label">U<sub>int</sub></span>
-      <span class="arr-line"></span>
-    </div>
-    <div class="state-box">
-      <span class="lbl">ready</span>
-      <span class="ket">\(|A_0\rangle\)</span>
-    </div>
-    <div class="arr">
-      <span class="arr-label">U<sub>SE</sub></span>
-      <span class="arr-line"></span>
-    </div>
-    <div class="state-box dimmed">
-      <span class="lbl">not yet coupled</span>
-      <span class="ket">\(|E_0\rangle\)</span>
-    </div>
-  </div>
+  <main class="content">
 
-  <div class="sep">
-    <div class="sep-line"></div>
-    <div class="sep-label">unitary evolution → global entangled state</div>
-    <div class="sep-line"></div>
-  </div>
+    <h1 class="title">Wigner's Friend and Schrödinger's Observer</h1>
+    <div class="meta-top">May 2026</div>
 
-  <div class="branch-block">
-    <div class="branch-brace"></div>
+    <style>
+      .fig1 {
+        border: 1px solid #e4e4e4;
+        border-radius: 3px;
+        padding: 1.8rem 1.8rem 1.2rem;
+        background: #fafafa;
+        margin: 1.5rem 0 2rem;
+        font-family: "KaTeX_Main", "Latin Modern Roman", Georgia, serif;
+      }
 
-    <div class="branch-row">
-      <div class="state-box up">
-        <span class="lbl">spin-up branch</span>
-        <span class="ket">\(|\!\uparrow\rangle\)</span>
+      .fig1 .col-headers {
+        display: grid;
+        grid-template-columns: 1fr 64px 1fr 64px 1fr;
+        margin-bottom: 0.6rem;
+      }
+
+      .fig1 .col-header {
+        text-align: center;
+        font-size: 0.78rem;
+        letter-spacing: 0.07em;
+        color: #888;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .fig1 .col-gap {
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .fig1 .stage {
+        display: grid;
+        grid-template-columns: 1fr 64px 1fr 64px 1fr;
+        align-items: center;
+        margin: 0.9rem 0;
+      }
+
+      .fig1 .state-box {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background: #fff;
+        text-align: center;
+        padding: 0.55rem 0.6rem 0.5rem;
+        line-height: 1.5;
+        min-width: 0;
+        overflow: visible;
+      }
+
+      .fig1 .state-box .lbl {
+        font-size: 0.7rem;
+        color: #999;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+
+      .fig1 .state-box .ket {
+        display: block;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+
+      .fig1 .state-box.up {
+        border-color: #7ba7c7;
+        background: #f0f6fb;
+      }
+
+      .fig1 .state-box.down {
+        border-color: #b89a7a;
+        background: #fdf8f3;
+      }
+
+      .fig1 .state-box.env-up {
+        border-color: #7ba7c7;
+        background: #f0f6fb;
+        border-style: dashed;
+      }
+
+      .fig1 .state-box.env-down {
+        border-color: #b89a7a;
+        background: #fdf8f3;
+        border-style: dashed;
+      }
+
+      .fig1 .state-box.dimmed {
+        border-color: #e0e0e0;
+        background: #fafafa;
+        color: #bbb;
+      }
+
+      /* Arrow column — label sits above the line */
+      .fig1 .arr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 100%;
+        padding: 0 4px;
+      }
+
+      .fig1 .arr .arr-label {
+        font-size: 0.7rem;
+        color: #aaa;
+        font-style: italic;
+        margin-bottom: 3px;
+        white-space: nowrap;
+        position: relative;
+        z-index: 1;
+        background: #fafafa;
+        padding: 0 2px;
+      }
+
+      .fig1 .arr .arr-line {
+        width: 100%;
+        height: 1px;
+        background: #ccc;
+        position: relative;
+      }
+
+      .fig1 .arr .arr-line::after {
+        content: '▶';
+        font-size: 0.45rem;
+        color: #aaa;
+        position: absolute;
+        right: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      /* Separator */
+      .fig1 .sep {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0.2rem 0;
+      }
+
+      .fig1 .sep-line {
+        flex: 1;
+        height: 1px;
+        background: #e0e0e0;
+      }
+
+      .fig1 .sep-label {
+        font-size: 0.7rem;
+        color: #aaa;
+        letter-spacing: 0.06em;
+        font-style: italic;
+        white-space: nowrap;
+      }
+
+      /* Branch block */
+      .fig1 .branch-block {
+        position: relative;
+        margin: 0.8rem 0 0.6rem;
+        padding-left: 1.6rem;
+      }
+
+      .fig1 .branch-brace {
+        position: absolute;
+        left: 0.2rem;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        border-top: 1px solid #bbb;
+        border-bottom: 1px solid #bbb;
+        border-left: 1px solid #bbb;
+      }
+
+      .fig1 .branch-brace::before {
+        content: '½';
+        position: absolute;
+        left: -1.1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.9rem;
+        color: #888;
+      }
+
+      .fig1 .branch-row {
+        display: grid;
+        grid-template-columns: 1fr 64px 1fr 64px 1fr;
+        align-items: center;
+        padding: 0.45rem 0;
+      }
+
+      .fig1 .branch-row+.branch-row {
+        border-top: 1px dashed #e8e8e8;
+      }
+
+      .fig1 .branch-plus {
+        text-align: center;
+        font-size: 1rem;
+        color: #aaa;
+        margin: 0.05rem 0;
+        padding-left: 0.5rem;
+      }
+
+      /* Orthogonality box */
+      .fig1 .ortho {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 0 3px 3px 0;
+        padding: 0.5rem 0.8rem 0.45rem;
+        margin: 0.6rem 0 0.8rem;
+        font-size: 0.84rem;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .fig1 .ortho .om {
+        color: #222;
+        margin-bottom: 0.2rem;
+      }
+
+      .fig1 .ortho .oe {
+        color: #777;
+        font-size: 0.79rem;
+      }
+
+      /* Result block */
+      .fig1 .result-block {
+        background: #fff;
+        border: 1px solid #d8d8d8;
+        border-radius: 3px;
+        padding: 0.75rem 1rem 0.7rem;
+        margin-top: 0.7rem;
+        font-size: 0.84rem;
+        line-height: 1.7;
+        color: #333;
+      }
+
+      .fig1 .result-block .rl {
+        font-size: 0.68rem;
+        letter-spacing: 0.07em;
+        color: #999;
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+
+      .fig1 .result-block .rm {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .fig1 .result-block .rn {
+        font-size: 0.78rem;
+        color: #888;
+        font-style: italic;
+        border-top: 1px solid #efefef;
+        padding-top: 0.4rem;
+        margin-top: 0.45rem;
+      }
+
+      /* Density matrix grid */
+      .fig1 .dm {
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .fig1 .dm-cell {
+        width: 24px;
+        height: 24px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6rem;
+        color: #555;
+        background: #fff;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .fig1 .dm-cell.u {
+        background: #eaf3fb;
+        border-color: #7ba7c7;
+      }
+
+      .fig1 .dm-cell.d {
+        background: #fdf4ec;
+        border-color: #b89a7a;
+      }
+
+      .fig1 .dm-cell.x::before,
+      .fig1 .dm-cell.x::after {
+        content: '';
+        position: absolute;
+        width: 140%;
+        height: 1px;
+        background: #bbb;
+        top: 50%;
+        left: -20%;
+        transform-origin: center;
+      }
+
+      .fig1 .dm-cell.x::before {
+        transform: rotate(45deg);
+      }
+
+      .fig1 .dm-cell.x::after {
+        transform: rotate(-45deg);
+      }
+
+      /* Figcaption */
+      .fig1 figcaption {
+        font-size: 0.84rem;
+        color: #555;
+        margin-top: 1.1rem;
+        line-height: 1.5;
+        border-top: 1px solid #e8e8e8;
+        padding-top: 0.75rem;
+      }
+
+      .fig1 figcaption strong {
+        color: #333;
+      }
+
+      @media (max-width: 540px) {
+        .fig1 {
+          padding: 1.1rem 0.8rem 1rem;
+        }
+
+        .fig1 .col-headers,
+        .fig1 .stage,
+        .fig1 .branch-row {
+          grid-template-columns: 1fr 44px 1fr 44px 1fr;
+        }
+
+        .fig1 .state-box {
+          padding: 0.4rem 0.3rem;
+        }
+
+        .fig1 .state-box .ket {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+
+    <figure class="fig1">
+
+      <div class="col-headers">
+        <div class="col-header">System \(\mathcal{S}\)</div>
+        <div class="col-gap"></div>
+        <div class="col-header">Apparatus \(\mathcal{A}\)</div>
+        <div class="col-gap"></div>
+        <div class="col-header">Environment \(\mathcal{E}\)</div>
       </div>
-      <div class="arr"><span class="arr-line"></span></div>
-      <div class="state-box up">
-        <span class="lbl">apparatus record</span>
-        <span class="ket">\(|A_{\uparrow}\rangle\)</span>
+
+      <div class="stage">
+        <div class="state-box">
+          <span class="lbl">initial state</span>
+          <span class="ket">\(\tfrac{1}{\sqrt{2}}\bigl(|\!\uparrow\rangle + |\!\downarrow\rangle\bigr)\)</span>
+        </div>
+        <div class="arr">
+          <span class="arr-label">U<sub>int</sub></span>
+          <span class="arr-line"></span>
+        </div>
+        <div class="state-box">
+          <span class="lbl">ready</span>
+          <span class="ket">\(|A_0\rangle\)</span>
+        </div>
+        <div class="arr">
+          <span class="arr-label">U<sub>SE</sub></span>
+          <span class="arr-line"></span>
+        </div>
+        <div class="state-box dimmed">
+          <span class="lbl">not yet coupled</span>
+          <span class="ket">\(|E_0\rangle\)</span>
+        </div>
       </div>
-      <div class="arr"><span class="arr-line"></span></div>
-      <div class="state-box env-up">
-        <span class="lbl">env. state</span>
-        <span class="ket">\(|E_{\uparrow}\rangle\)</span>
+
+      <div class="sep">
+        <div class="sep-line"></div>
+        <div class="sep-label">unitary evolution → global entangled state</div>
+        <div class="sep-line"></div>
       </div>
-    </div>
 
-    <div class="branch-plus">+</div>
+      <div class="branch-block">
+        <div class="branch-brace"></div>
 
-    <div class="branch-row">
-      <div class="state-box down">
-        <span class="lbl">spin-down branch</span>
-        <span class="ket">\(|\!\downarrow\rangle\)</span>
+        <div class="branch-row">
+          <div class="state-box up">
+            <span class="lbl">spin-up branch</span>
+            <span class="ket">\(|\!\uparrow\rangle\)</span>
+          </div>
+          <div class="arr"><span class="arr-line"></span></div>
+          <div class="state-box up">
+            <span class="lbl">apparatus record</span>
+            <span class="ket">\(|A_{\uparrow}\rangle\)</span>
+          </div>
+          <div class="arr"><span class="arr-line"></span></div>
+          <div class="state-box env-up">
+            <span class="lbl">env. state</span>
+            <span class="ket">\(|E_{\uparrow}\rangle\)</span>
+          </div>
+        </div>
+
+        <div class="branch-plus">+</div>
+
+        <div class="branch-row">
+          <div class="state-box down">
+            <span class="lbl">spin-down branch</span>
+            <span class="ket">\(|\!\downarrow\rangle\)</span>
+          </div>
+          <div class="arr"><span class="arr-line"></span></div>
+          <div class="state-box down">
+            <span class="lbl">apparatus record</span>
+            <span class="ket">\(|A_{\downarrow}\rangle\)</span>
+          </div>
+          <div class="arr"><span class="arr-line"></span></div>
+          <div class="state-box env-down">
+            <span class="lbl">env. state</span>
+            <span class="ket">\(|E_{\downarrow}\rangle\)</span>
+          </div>
+        </div>
       </div>
-      <div class="arr"><span class="arr-line"></span></div>
-      <div class="state-box down">
-        <span class="lbl">apparatus record</span>
-        <span class="ket">\(|A_{\downarrow}\rangle\)</span>
+
+      <div class="ortho">
+        <div class="om">\(\langle E_{\uparrow} | E_{\downarrow} \rangle \approx 0\)</div>
+        <div class="oe">
+          Each environmental state encodes macroscopically distinct configurations of
+          \(\sim\!10^{23}\) degrees of freedom. Orthogonality is reached on timescale
+          \(\tau_D \lesssim 10^{-20}\,\text{s}\), long before any observation occurs.
+        </div>
       </div>
-      <div class="arr"><span class="arr-line"></span></div>
-      <div class="state-box env-down">
-        <span class="lbl">env. state</span>
-        <span class="ket">\(|E_{\downarrow}\rangle\)</span>
+
+      <div class="result-block">
+        <span class="rl">CONSEQUENCE: tracing out \(\mathcal{E}\)</span>
+        <div class="rm">
+          <span class="dm">
+            <span class="dm-cell u">↑↑</span>
+            <span class="dm-cell x"></span>
+            <span class="dm-cell x"></span>
+            <span class="dm-cell d">↓↓</span>
+          </span>
+          <span>
+            \(\rho_{\mathcal{SA}} \approx
+            \tfrac{1}{2}|\!\uparrow\rangle\langle\uparrow\!| \otimes |A_{\uparrow}\rangle\langle A_{\uparrow}|
+            \;+\;
+            \tfrac{1}{2}|\!\downarrow\rangle\langle\downarrow\!| \otimes |A_{\downarrow}\rangle\langle A_{\downarrow}|\)
+          </span>
+        </div>
+        <div class="rn">
+          Off-diagonal coherences (crossed) are suppressed by
+          entanglement with the environment. The global state remains pure;
+          interference becomes unmeasurable in practice.
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="ortho">
-    <div class="om">\(\langle E_{\uparrow} | E_{\downarrow} \rangle \approx 0\)</div>
-    <div class="oe">
-      Each environmental state encodes macroscopically distinct configurations of
-      \(\sim\!10^{23}\) degrees of freedom. Orthogonality is reached on timescale
-      \(\tau_D \lesssim 10^{-20}\,\text{s}\), long before any observation occurs.
-    </div>
-  </div>
-
-  <div class="result-block">
-    <span class="rl">CONSEQUENCE: tracing out \(\mathcal{E}\)</span>
-    <div class="rm">
-      <span class="dm">
-        <span class="dm-cell u">↑↑</span>
-        <span class="dm-cell x"></span>
-        <span class="dm-cell x"></span>
-        <span class="dm-cell d">↓↓</span>
-      </span>
-      <span>
-        \(\rho_{\mathcal{SA}} \approx
-        \tfrac{1}{2}|\!\uparrow\rangle\langle\uparrow\!| \otimes |A_{\uparrow}\rangle\langle A_{\uparrow}|
-        \;+\;
-        \tfrac{1}{2}|\!\downarrow\rangle\langle\downarrow\!| \otimes |A_{\downarrow}\rangle\langle A_{\downarrow}|\)
-      </span>
-    </div>
-    <div class="rn">
-      Off-diagonal coherences (crossed) are suppressed by
-      entanglement with the environment. The global state remains pure;
-      interference becomes unmeasurable in practice.
-    </div>
-  </div>
-
-  <figcaption>
-    <strong>Figure 1.</strong> Schematic of environmental decoherence. A quantum system
-    in superposition couples to an apparatus via U<sub>int</sub>, which entangles with
-    environmental degrees of freedom via U<sub>SE</sub>, producing a global state
-    \(\tfrac{1}{\sqrt{2}}\bigl(|\!\uparrow\rangle|A_\uparrow\rangle|E_\uparrow\rangle
-    + |\!\downarrow\rangle|A_\downarrow\rangle|E_\downarrow\rangle\bigr)\).
-    Once \(\langle E_\uparrow|E_\downarrow\rangle \approx 0\), interference between
-    branches is suppressed regardless of what any subsequent external observer does.
-  </figcaption>
-
-</figure>
-
-
-  <p>
-    The standard telling of Schrödinger's cat, in pop science and in a lot of textbooks as well, goes roughly like,
-    a cat is placed in a
-    sealed box with a quantum device, and until you open the box, the cat is simultaneously
-    alive and dead in superposition. Observation collapses the wavefunction into one definite
-    outcome.
-  </p>
-
-  <p>But this is almost exactly backwards from what Schrödinger intended.</p>
-
-  <p>
-    In his 1935 paper in <em>Naturwissenschaften</em>, Schrödinger was constructing a reductio ad absurdum.
-    He devised the cat in 1935 as a thought experiment to expose what he viewed as the utter absurdity and flaws of the    prevailing "Copenhagen interpretation" of quantum mechanics 
-    If you apply the superposition principle to macroscopic systems without restriction, you arrive at a
-    conclusion he described as "quite ridiculous" such as a cat simultaneously alive and dead. His
-    point was NOT as seen as it is today on "look how strange quantum mechanics is" but something closer to "this cannot
-    be right and the theory, as stated, does not match what any observer actually experiences."
-    The cat was rather a symptom of an unresolved foundational problem.
-  </p>
-
-  <p>
-    That original concern was about the experience of an observer <em>inside</em> a quantum
-    process and not outside it, but this turns out to be exactly the right thread to pull on when
-    thinking about Wigner's Friend. And the direction it leads, I think, is more clarifying
-    than most of the existing treatments suggest.
-  </p>
-
-  <h2>1. Wigner's Friend</h2>
-
-  <p>
-    In 1961, Eugene Wigner formalized the tension Schrödinger had identified. Consider a
-    friend who performs a quantum measurement inside a sealed laboratory. The system being
-    measured is a spin-\(\frac{1}{2}\) particle prepared in an equal superposition of up
-    and down:
-  </p>
-
-  <div class="math-block">
-    $$|\psi\rangle_\mathcal{S} = \frac{1}{\sqrt{2}}\bigl(|\uparrow\rangle + |\downarrow\rangle\bigr)$$
-  </div>
-
-  <p>
-    The friend interacts with this system via a measurement apparatus. Under the von Neumann
-    model, unitary evolution maps the initial product state to an entangled state:
-  </p>
-
-  <div class="math-block">
-    $$|\psi\rangle_\mathcal{S} \otimes |A_0\rangle \;\xrightarrow{U_{\mathrm{int}}}\;
-    \frac{1}{\sqrt{2}}\!\left(|\uparrow\rangle|\text{friend sees }\uparrow\rangle
-    + |\downarrow\rangle|\text{friend sees }\downarrow\rangle\right)$$
-  </div>
-
-  <p>
-    From the friend's position, she observes one definite outcome, say, spin-up. So she knows
-    the result. But now from Wigner's position, standing outside the sealed laboratory, the formalism
-    permits him to describe the entire lab, with his friend included, as remaining in the entangled
-    superposition above. He has not interacted with the lab and has received no information
-    about the outcome. Standard quantum mechanics does not instruct him to assign a definite
-    value to the friend's measurement record.
-  </p>
-
-  <p>
-    The apparent contradiction here is that the friend reports a definite experience, and Wigner's
-    description shows no definite outcome. If quantum mechanics applies universally to all
-    physical systems, including friends in laboratories, these two descriptions seem to be
-    in tension and that is why this is a paradox.
-  </p>
-
-  <div class="note">
-    <span class="note-num">1.</span>
-    Frauchiger and Renner (2018) converted this tension into a formal theorem where a specific set
-    of assumptions about quantum universality, consistency of agent reasoning, and single-world
-    outcomes leads to a logical contradiction in a carefully constructed nested scenario. Bong
-    et al. (2020) derived a "no-go theorem for local friendliness" from similar premises, with
-    photonic experimental tests. The present discussion
-    addresses the original Wigner scenario; the Frauchiger–Renner extension is addressed in
-    Section 7.
-  </div>
-
-  <h2>2. The Inside View</h2>
-
-  <p>
-    Here is a different way to enter the problem, a nested thought experiment (nested inside Schrödinger's Cat experiment). Forget, for a moment, the external view.
-    Set aside Wigner standing outside and imagine you are the friend, inside the sealed
-    laboratory, and you have just made the measurement. Now, what do you experience?</p>
-
-  <p>
-    You experience one definite outcome which is not a superposition and not "both simultaneously" or
-    "neither until observed." One result, immediately, without ambiguity from your position and
-    Your stream of experience is continuous and definite.</p>
-
-<p>
-    This is the starting observation of what I want to call the <strong>Schrödinger's Observer</strong>: Consider the cat's perspective.
-    If you are Schrödinger's cat, you are not suspended in some blurred superposition of alive and dead, waiting for a human to open the box and decide your fate. From inside the box, the cat is a macroscopic system embedded in an environment, coupled to air molecules and thermal radiation and its own biochemistry at every moment. The instant the quantum event occurs, the atom decays or it doesn't, the cat's state becomes entangled with that outcome through a cascade of irreversible physical processes. On this view, the cat experiences one definite reality. If it is alive, it is alive continuously, long before anyone outside touches the latch. The external observer's uncertainty about the outcome is real, and the quantum formalism permits them to write a superposition but that is a description of their non-definitiveness. The cat was never waiting for permission to be one thing or the other.
-  </p>
-
-  <p>
-    This is something you need to consider when people speak about superposition of anything. Qubit are superposition of 0 and 1? It is the gap between non-definitiveness of an unmeasured state and the definitiveness of a measured state and this gap is called the "measurement problem". It asks how a quantum system that exists in a probabilistic state of multiple possibilities (a superposition) instantaneously "collapses" into a single, definite reality when it is observed or measured What the Schrödinger's Observer framing does is make this the <em>starting point</em> rather
-    than "the explanandum". You do not need to derive that you will have a definite experience from
-    some more fundamental principle because you observe, immediately, that you do. The question then
-    becomes "what does the quantum formalism say from this position, and how does it relate to what
-    Wigner can consistently say from outside?"
-  </p>
-
-  <h2>3. Decoherence and the Internal Observer</h2>
-
-  <p>
-    Any realistic measurement involves more than a system and an apparatus. It involves an
-    environment i.e. the thermal photons in the lab, the air molecules around the apparatus, the
-    molecular collisions inside any warm material object. Including the environment
-    \(\mathcal{E}\), the post-measurement state extends to:
-  </p>
-
-  <div class="math-block">
-    $$\frac{1}{\sqrt{2}}\!\left(|\uparrow\rangle|A_\uparrow\rangle
-    + |\downarrow\rangle|A_\downarrow\rangle\right)\!\otimes|E_0\rangle
-    \;\xrightarrow{U_{\mathrm{SE}}}\;
-    \frac{1}{\sqrt{2}}\!\left(|\uparrow\rangle|A_\uparrow\rangle|E_\uparrow\rangle
-    + |\downarrow\rangle|A_\downarrow\rangle|E_\downarrow\rangle\right)$$
-  </div>
-
-  <p>
-    This is still unitary evolution with no interpretational assumption. The
-    environmental states \(|E_\uparrow\rangle\) and \(|E_\downarrow\rangle\) become rapidly
-    orthogonal because each involves macroscopically distinct configurations of enormously
-    many degrees of freedom. Once \(\langle E_\uparrow | E_\downarrow \rangle \approx 0\),
-    the reduced density matrix of system and apparatus, obtained by tracing out the
-    environment, becomes:
-  </p>
-
-  <div class="math-block">
-    $$\rho_{\mathcal{SA}} = \mathrm{Tr}_{\mathcal{E}}\!\left[|\Psi\rangle\langle\Psi|\right]
-    \approx \frac{1}{2}\!\left(|\uparrow\rangle\langle\uparrow|\otimes|A_\uparrow\rangle\langle A_\uparrow|
-    + |\downarrow\rangle\langle\downarrow|\otimes|A_\downarrow\rangle\langle A_\downarrow|\right)$$
-  </div>
-
-  <p>
-    The off-diagonal coherence terms have gone, the global state remains pure and
-    entangled and the local state of system and apparatus becomes effectively mixed. This is what is called
-    environmental decoherence, a direct consequence of unitary evolution applied to a system
-    that cannot be isolated from its surroundings.
-  </p>
-
-  <p>
-    Decoherence shows
-    that interference between macroscopically distinct outcomes becomes negligibly small in
-    practice, immeasurably so; but it does not, without further interpretational commitments,
-    select one outcome over another or resolve the question of whether both outcomes persist
-    in some sense. Decoherence is not the same thing as collapse, and conflating them obscures
-    the structure of what remains unsolved.
-  </p>
-
-  <h3>Timescales</h3>
-
-  <p>
-    The decoherence timescale can be estimated from the rate of environmental scattering.
-    For thermal photon scattering from an object of size \(a\) at temperature \(T\), with
-    distinguishable states separated by \(\Delta x\), the characteristic decoherence time
-    is of order (Joos &amp; Zeh 1985; Schlosshauer 2007):
-  </p>
-
-  <div class="math-block">
-    $$\tau_D \;\sim\; \frac{\hbar^2}{m\,\sigma\,k_B T\,\Delta x^2 \cdot n_{\mathrm{photon}}}$$
-  </div>
-
-  <p>
-    where \(\sigma \sim \pi a^2\) is the scattering cross-section and
-    \(n_{\mathrm{photon}} \sim (k_BT/\hbar c)^3\) is the thermal photon number density.
-    For a macroscopic object at room temperature, \(T = 300\) K, \(m \sim 1\) kg,
-    \(a \sim 10\) cm, \(\Delta x \sim 1\) cm, substituting standard constants gives:
-  </p>
-
-  <div class="math-block">
-    $$\tau_D \;\sim\;
-    \frac{(10^{-34})^2}{(1)(10^{-2})(1.4\times10^{-23})(300)(10^{-2})^2\cdot10^{13}}
-    \;\sim\; 10^{-40}\;\text{s}$$
-  </div>
-
-  <p>
-    With partial shielding and more conservative parameters, Schlosshauer (2007) and Joos
-    &amp; Zeh (1985) obtain \(\tau_D \lesssim 10^{-20}\) s as a realistic upper bound for
-    macroscopic superpositions. The shortest neural timescale relevant to perception is of
-    order milliseconds and the gap between decoherence timescale and perceptual timescale is
-    approximately twenty orders of magnitude. The exact number depends on the model, but the point is robust that the decoherence timescale is astronomically shorter than any perceptual timescale.
-  </p>
-
-  <p>
-    The probability of spontaneous recoherence, of the environmental entanglement reversing
-    itself, scales as:
-  </p>
-
-  <div class="math-block">
-    $$P_{\mathrm{recoh}} \;\sim\; \exp\!\left(-\frac{\Delta S}{k_B}\right)
-    \;\sim\; \exp\!\left(-10^{23}\right)$$
-  </div>
-
-  <p>
-    where \(\Delta S \sim k_B \times 10^{23}\) is the entropy increase from encoding the
-    outcome into \(\sim 10^{23}\) environmental degrees of freedom. This is not "extremely
-    unlikely" in the ordinary sense — it is thermodynamically prohibited by the second law.
-  </p>
-
-  <div class="note">
-    <span class="note-num">2.</span>
-    Wigner's superposition description of the lab is formally permitted by the quantum
-    formalism because it represents his epistemic state about a system he has not observed. But it
-    cannot be operationally tested through interference experiments on the laboratory because doing
-    so would require reversing the environmental entanglement accumulated over the decoherence
-    timescale, which is thermodynamically not acheiveable.
-  </div>
-
-<h2>4. Causal Entanglement</h2>
-
-<p>
-  But, describing Wigner's superposition state assignment as reflecting "epistemic ignorance" i.e.
-  his lack of information about a pre-existing definite fact, is not quite right, and I think it
-  leaves the argument weaker than it needs to be. It is better not to call this merely “ignorance” and the more precise claim is that Wigner’s state assignment is relative to his causal and informational position. The stronger claim is that
-  within the relational picture developed here, Wigner’s description is the appropriate quantum description for an observer at his location and stage in the causal chain. But the entanglement carrying the measurement outcome
-  has not yet propagated to him, making this precise requires examining the locality
-  structure of quantum evolution. This, framed as the as a continuation
-  of the thought experiment of Schrödinger's Observer's causal picture is the more useful description.
-</p>
-
-<h3>Locality of the Hamiltonian</h3>
-
-<p>
-  Physical Hamiltonians are sums of local interaction terms. For a system on a lattice
-  \(\Lambda\):
-</p>
-
-<div class="math-block">
-  $$H = \sum_{X \,\subset\, \Lambda} h_X$$
-</div>
-
-<p>
-  where each \(h_X\) acts non-trivially only on the finite region \(X \subset \Lambda\).
-  Interactions may be nearest-neighbor, finite-range, or exponentially decaying but the
-  essential physical requirement is that no single term directly couples arbitrarily
-  distant regions. All long-range influences must propagate through intermediate degrees
-  of freedom.
-</p>
-
-<p>
-  This has an immediate and exact consequence. If two systems \(\mathcal{A}\) and
-  \(\mathcal{B}\) share no interaction term in \(H\),
-</p>
-
-<div class="math-block">
-  $$H = H_\mathcal{A} \otimes \mathbb{I}_\mathcal{B}
-  \;+\; \mathbb{I}_\mathcal{A} \otimes H_\mathcal{B}$$
-</div>
-
-<p>
-  and the initial state is a product
-  \(|\Psi(0)\rangle = |\psi_\mathcal{A}\rangle \otimes |\psi_\mathcal{B}\rangle\),
-  then unitary evolution preserves the product structure for all time:
-</p>
-
-<div class="math-block">
-  $$|\Psi(t)\rangle
-  = U_\mathcal{A}(t)\,|\psi_\mathcal{A}\rangle
-  \otimes U_\mathcal{B}(t)\,|\psi_\mathcal{B}\rangle$$
-</div>
-
-<p>
-  Entanglement between \(\mathcal{A}\) and \(\mathcal{B}\) is impossible without a
-  cross-term \(H_{\mathcal{AB}}\). This follows from the
-  tensor product structure of composite Hilbert spaces and the unitarity of evolution.
-  In the setting considered here, entanglement is generated by local interaction.
-</p>
-
-<h3>The Entanglement Frontier</h3>
-
-<p>
-  Let \(M\) denote the measurement system (spin \(\otimes\) apparatus) and
-  \(\{S_i\}_{i \in \Lambda}\) the environmental degrees of freedom. The quantum mutual
-  information between \(M\) and a subsystem \(S_i\) at time \(t\) is:
-</p>
-
-<div class="math-block">
-  $$I(M : S_i)(t)
-  \;=\; S\!\left(\rho_M(t)\right)
-  + S\!\left(\rho_{S_i}(t)\right)
-  - S\!\left(\rho_{M,\,S_i}(t)\right)$$
-</div>
-
-<p>
-  where \(S(\rho) = -\mathrm{Tr}(\rho \log \rho)\) is the von Neumann entropy.
-  \(I(M : S_i)(t) > 0\) if and only if \(M\) and \(S_i\) share quantum or classical
-  correlations at time \(t\). We can now define the object that gives the propagation
-  picture its precise content.
-</p>
-
-
-  <h3>Causal Entanglement Frontier: </h3>
-  <p style="margin:0 0 0.6rem; font-size:0.97rem;">
-    Fix an operationally negligible threshold \(\varepsilon > 0\). The
-    <strong>correlated region</strong> at time \(t\) is:
-  </p>
-  <p style="margin:0 0 0.6rem;">
-    $$\mathcal{C}(t) \;=\;
-    \bigl\{\, S_i \in \Lambda \;:\; I(M : S_i)(t) \;>\; \varepsilon \,\bigr\}$$
-  </p>
-  <p>
-    The <strong>causal entanglement frontier</strong> (is a term I am introducing for this essay)
-    \(\mathcal{F}(t) = \partial\,\mathcal{C}(t)\) is its boundary. By the locality
-    argument above, \(\mathcal{C}(t)\) is monotonically expanding:
-    \(\mathcal{C}(t_1) \subseteq \mathcal{C}(t_2)\) for all \(t_1 < t_2\). Systems
-    inside \(\mathcal{C}(t)\) have acquired correlations with the measurement record;
-    systems outside have not. For macroscopic systems, the transition across
-    \(\mathcal{F}(t)\) is effectively sharp on any observable timescale, because
-    decoherence occurs in \(\tau_D \sim 10^{-20}\) s once the frontier arrives.
-  </p>
-
-
-<h3>The Lieb–Robinson Bound</h3>
-
-<p>
-  The key theorem quantifying how fast \(\mathcal{F}(t)\) can expand is the
-  Lieb–Robinson bound (Lieb and Robinson, 1972). For a quantum lattice system
-  with Hamiltonian \(H = \sum_X h_X\) satisfying the quasi-locality condition
-  \(\|h_X\| \leq \lambda\,e^{-\mu |X|}\), and for any two operators \(A\), \(B\)
-  supported on regions \(X_A\), \(X_B\) respectively:
-</p>
-
-  <p>
-    $$\bigl\|\,[A(t),\, B]\,\bigr\|
-    \;\leq\;
-    C\,|X_A|\,\|A\|\,\|B\|
-    \;\exp\!\Bigl(-\,\mu\bigl(\,d(X_A,\,X_B)
-    \;-\; v_{\mathrm{LR}}\,|t|\,\bigr)\Bigr)$$
-  </p>
-  <p style="margin:0; font-size:0.93rem; color:#555;">
-    Here \(d(X_A, X_B)\) is the graph distance between supports, \(C\) and \(\mu > 0\)
-    are constants, and \(v_{\mathrm{LR}} \leq 2e\lambda/\mu\) is the
-    <em>Lieb–Robinson velocity</em>. For
-    \(d(X_A, X_B) \gg v_{\mathrm{LR}}\,|t|\), the commutator is exponentially suppressed:
-    operators at \(X_A\) have had negligible causal influence on operators at \(X_B\).
-  </p>
-
-<p>
-  Via a standard argument (see Bravyi, Hastings, and Verstraete, 2006), the bound implies
-  that the reduced density matrix of any system \(S_i\) outside the Lieb–Robinson
-  light cone of \(M\) is approximately unchanged from its free evolution. For the initial
-  product state \(|\Psi(0)\rangle = |\psi_M\rangle \otimes |E_0\rangle\):
-</p>
-
-<div class="math-block">
-  $$\bigl\|\,\rho_{S_i}(t) \;-\; \rho_{S_i}^{(0)}(t)\,\bigr\|_1
-  \;\lesssim\;
-  C'\exp\!\Bigl(-\,\mu\bigl(\,d(M,\, S_i) \;-\; v_{\mathrm{LR}}\,t\,\bigr)\Bigr)$$
-</div>
-
-<p>
-  where \(\rho_{S_i}^{(0)}(t)\) is the reduced state under free evolution of \(S_i\)
-  alone. For \(d(M, S_i) \gg v_{\mathrm{LR}}\,t\), the state of \(S_i\) is
-  essentially unperturbed by the measurement at \(M\), and
-  \(I(M : S_i)(t)\) is negligible. System \(S_i\) lies outside \(\mathcal{C}(t)\).
-</p>
-
-<h3>Consequence for Wigner's Friend</h3>
-
-<p>
-  This is the physical grounding of the claim through Schrödinger's Observer. At time \(t_0\), the
-  measurement event occurs at \(M\). The frontier \(\mathcal{F}(t)\) expands outward
-  from \(M\) at speed at most \(v_{\mathrm{LR}}\). For all \(t\) satisfying
-  \(d(M, \mathrm{Wigner}) \gg v_{\mathrm{LR}}\,t\):
-</p>
-
-<div class="math-block">
-  $$I(M : \mathrm{Wigner})(t) \;\approx\; 0$$
-</div>
-
-<p>
-  Wigner has acquired no correlations with the measurement outcome. His superposition
-  state assignment for the laboratory is the
-  correct quantum mechanical description for an observer outside \(\mathcal{C}(t)\).
-  The Friend's definite state assignment and Wigner's superposition assignment are
-  simultaneously accurate relative to their positions in the expanding entanglement
-  geometry. Their descriptions correspond to being inside versus
-  outside \(\mathcal{C}(t)\) at the relevant time.
-</p>
-
-
-<div class="note">
-  <span class="note-num">3.</span>
-  <strong>Scope of the Lieb–Robinson bound.</strong>
-  The theorem applies rigorously to quantum lattice systems with finite-range or
-  exponentially-decaying interactions but extending it to continuous systems requires care.
-  For the dominant decoherence channel in macroscopic laboratory settings, thermal photon
-  scattering (Joos &amp; Zeh 1985), relativistic causality in quantum field theory
-  bounds the frontier's propagation at \(c\). For phonon-mediated channels in solids,
-  the relevant speed is the speed of sound in the medium. In neither case is propagation
-  instantaneous or superluminal. The physically essential claim, that the frontier
-  expands at a finite, causal speed, so that Wigner is genuinely outside
-  \(\mathcal{C}(t)\) until the frontier reaches him, holds on both lattice
-  and realistic (continuous) grounds. \(v_{\mathrm{LR}}\) should not be read as
-  implying the frontier always travels at \(c\) and rather travels at the speed of whatever
-  local interaction mediates each step.
-</div>
-
-
-  <h2>5. Two Descriptions</h2>
-
-  <p>
-    The apparent contradiction rests on the assumption that both descriptions must
-    simultaneously hold of some single, observer-independent state of affairs, that there is
-    a "fact of the matter" about the lab which one of them must be getting wrong.
-  </p>
-
-  <p>
-    But what the quantum formalism implies, when applied consistently to observers in
-    different positions, is that state assignments depend on what information is available to
-    the observer making the assignment. The friend's state assignment reflects her direct
-    participation in the measurement event and Wigner's reflects his epistemic situation that he
-    knows the lab contains a friend who performed a measurement, but he has received no
-    information about the outcome. These are descriptions from different observational
-    contexts and there is no requirement that they agree prior to comparison.
-  </p>
-
-  <p>
-    This claim is the core of Rovelli's relational quantum mechanics
-    (1996), and variants of it appear in QBism and consistent histories. What Schrödinger's
-    Observer adds is a shift in starting point that rather than arriving at the observer-relativity
-    of state assignments through philosophical argument, you begin from the phenomenological
-    fact of definite internal experience and work outward. The physics is the same but the order
-    of reasoning is different, and I think it makes the structure of the apparent paradox considerably
-    clearer.
-  </p>
-
-  <p>
-    When Wigner eventually opens the lab and observes at time \(t_1\), he becomes entangled
-    with the outcome:
-  </p>
-
-  <div class="math-block">
-    $$|\Psi\rangle \;=\; \frac{1}{\sqrt{2}}\!\left(
-    |\uparrow\rangle|\text{friend saw}\;\uparrow\rangle|\text{Wigner sees}\;\uparrow\rangle
-    \;+\;
-    |\downarrow\rangle|\text{friend saw}\;\downarrow\rangle|\text{Wigner sees}\;\downarrow\rangle
-    \right)$$
-  </div>
-
-  <p>
-    From Wigner's position after observation, he has a definite outcome. His description and
-    the friend's are now mutually consistent as they agree on which result occurred. No one
-    created the friend's prior experience but Wigner
-    became correlated with an outcome the friend had already observed, through ordinary
-    physical interaction.
-  </p>
-
-  <h2>6. The Observer Chain</h2>
-
-  <p>
-    Now, to see this another way, add a third observer to Schrödinger's cat experiment , Alice, watching Bob perform the Schrödinger experiment from
-    outside. Alice never opens the box and before she learns anything from Bob, standard quantum
-    mechanics permits her to describe the composite system (Bob + box) as:
-  </p>
-
-  <div class="math-block">
-    $$|\Psi\rangle_{\mathrm{Alice}} \;=\; \frac{1}{\sqrt{2}}\!\left(
-    |\text{Bob sees awake}\rangle|\text{awake}\rangle
-    \;+\;
-    |\text{Bob sees asleep}\rangle|\text{asleep}\rangle\right)$$
-  </div>
-
-  <p>
-    This is Alice's description of a system she has not yet obtained information about. It
-    does not assert that Bob is in superposition in any experiential sense but Bob opened the
-    box, became correlated with the outcome, and has a definite result from his position.
-    Alice's state assignment to Bob reflects her ignorance, not Bob's uncertainty.
-  </p>
-
-  <p>The temporal structure of information acquisition:</p>
-
-  <ul>
-    <li>\(t_0\): Quantum event occurs. Inside observer has a definite experience.</li>
-    <li>\(t_1\): Bob opens the box, becomes physically correlated with the outcome.</li>
-    <li>\(t_2\): Alice learns from Bob, becomes physically correlated with the outcome.</li>
-  </ul>
-
-  <p>
-    At no point does any observer's acquisition of information reach backward and create
-    definiteness for those earlier in the chain. Alice's observation does not create Bob's
-    earlier definite experience and Bob's observation does not create the inside observer's
-    earlier definite experience and hence the sequence runs strictly forward in time, following the
-    natural direction of physical entanglement.
-  </p>
-
-  <p>
-    There is no privileged moment where reality "becomes real" for everyone. There is only a
-    temporal sequence of physical systems becoming correlated with a measurement outcome
-    through direct interaction. Each observer's description of systems they have not yet
-    interacted with can include superposition which that is what the formalism permits, and it
-    is an accurate representation of their epistemic state but it is not a claim that the
-    earlier observers lack definite experiences.
-  </p>
-
-  <p>
-  The physical basis for observer chain is such that each observer
-  enters \(\mathcal{C}(t)\) when the frontier reaches them, at times
-  \(t_0 + \tau_D \ll t_1 < t_2\). Because \(\mathcal{C}(t)\) is monotonically expanding
-  and irreversible, by the entropy argument of Section 3, recoherence has probability
-  \(\sim \exp(-10^{23})\), no later entry into \(\mathcal{C}\) can alter the status of
-  earlier systems. The Friend's position inside \(\mathcal{C}\) since
-  \(t_0 + \tau_D \sim 10^{-20}\,\text{s}\) is not revised when Wigner enters at \(t_1\).
-  Hence, the sequence runs in one direction only.
-</p>
-
-  <div class="note">
-    <span class="note-num">4.</span>
-    One might ask whether this generates an infinite regress. Could there be a fourth observer
-    who describes Alice as in superposition, and so on? Yes, and the same logic applies at
-    each level. The chain can extend indefinitely but what it never requires is a final observer
-    who validates everyone else. Each state assignment reflects a particular observational
-    context. The regress does not demand a terminus.
-  </div>
-
-  <h2>7. Implications </h2>
-
-  <p>
-    To separate what follows from the formalism and established physics from what requires
-    additional interpretational commitments:
-  </p>
-
-  
-    <h4>What follows: </h4>
-    The von Neumann measurement chain is a mathematical consequence of unitary evolution
-      applied to composite systems with no interpretational assumption required and environmental decoherence (suppression of off-diagonal coherences) follows from unitary evolution applied to open systems.
-      Decoherence timescales for macroscopic objects at room temperature are of order
-      \(10^{-20}\) s, many orders of magnitude below any neural or observation timescale
-      (Joos &amp; Zeh 1985; Schlosshauer 2007). So, Any interference experiment that would operationally test Wigner's superposition description would require reversing environmental entanglement; the probability scales
-      as \(\exp(-10^{23})\), thermodynamically not acheiveable. And different observers can consistently assign different quantum states to the same
-      system, as the formalism implies when applied from different observational positions.
-
-
-    <h4>What requires additional interpretational commitments</h4>
-    <ul>
-      <li>That the friend "has a definite experience" in any precise sense, connecting the
-      reduced density matrix to phenomenology requires a bridge principle not present in the
-      formalism itself.</li>
-      <li>That quantum state assignments are intrinsically relative to observers rather than
-      objective. This is the central claim of relational quantum mechanics (Rovelli 1996),
-      not a consequence of the math.</li>
-      <li>That the apparent contradiction in Wigner's Friend is fully dissolved by perspectival
-      reasoning but whether this constitutes dissolution or reframing depends on what you think
-      the paradox was originally asking.</li>
-      <li>That all interpretations are equally tenable here. Consciousness-collapse
-      interpretations sit uneasily with this framework; Many-Worlds, Relational QM,
-      and Quantum Darwinism are broadly compatible.</li>
-    </ul>
-  <p>
-    The minimal commitments the Schrödinger's Observer framework makes are that quantum state
-    assignments represent information available to a particular observer, and that environmental
-    decoherence explains why the internal observer's perspective is stable and effectively
-    irreversible. These commitments are compatible with several interpretations of quantum
-    mechanics but not all. So claiming the framework is interpretation-neutral would be inaccurate.
-  </p>
-
-  <h2>8. The Frauchiger–Renner Scenario</h2>
-
-  <p>
-    Frauchiger and Renner (2018) extended Wigner's scenario into a protocol involving nested
-    observers that derives a logical contradiction from three premises: that quantum mechanics
-    applies universally, that measurement outcomes are facts observers can consistently reason
-    about, and that observers can apply quantum mechanics to reason about other observers as
-    quantum systems.
-  </p>
-
-  <p>
-    The protocol requires, crucially, that an external observer perform an interference
-    experiment on a system that includes a macroscopic observer who has already made a
-    measurement. In physical terms, you must reverse the decoherence of a warm macroscopic
-    system on a laboratory timescale. The probability of this scales as \(\exp(-10^{23})\),
-    as computed above. The contradiction in Frauchiger–Renner requires, as one of its
-    operational steps, something thermodynamically improbable in the settings discussed here.
-  </p>
-
-  <p>
-    Experiments by Proietti et al. (2019) and Bong et al. (2020) have tested related
-    scenarios using photonic qubits as stand-ins for observers. But, they do not show that macroscopic conscious observers can be maintained in coherent superposition under these ordinary conditions, because photonic qubits
-    can be maintained in coherence precisely because they are not warm macroscopic objects
-    interacting with \(\sim 10^{23}\) environmental degrees of freedom.
-  </p>
-
-
-  <h2>Conclusion</h2>
-
-<p>
-      This started from a fairly simple question of why does Wigner's Friend seem paradoxical
-      when the ingredients for understanding it, like environmental decoherence, observer-relative
-      state assignments, etc. have been in the literature for decades? Part of the answer is that
-      the popular framing of Schrödinger's cat has trained people to think of observers as
-      external to the systems they observe, waiting to collapse wavefunctions by looking.
-      Schrödinger's Observer is an attempt to correct for that framing, by starting from
-      inside rather than outside. Whether it fully dissolves the paradox or only reframes it
-      is something I have left as an honest open question.
+      <figcaption>
+        <strong>Figure 1.</strong> Schematic of environmental decoherence. A quantum system
+        in superposition couples to an apparatus via U<sub>int</sub>, which entangles with
+        environmental degrees of freedom via U<sub>SE</sub>, producing a global state
+        \(\tfrac{1}{\sqrt{2}}\bigl(|\!\uparrow\rangle|A_\uparrow\rangle|E_\uparrow\rangle
+        + |\!\downarrow\rangle|A_\downarrow\rangle|E_\downarrow\rangle\bigr)\).
+        Once \(\langle E_\uparrow|E_\downarrow\rangle \approx 0\), interference between
+        branches is suppressed regardless of what any subsequent external observer does.
+      </figcaption>
+
+    </figure>
+
+
+    <p>
+      The standard telling of Schrödinger's cat, in pop science and in a lot of textbooks as well, goes roughly like,
+      a cat is placed in a
+      sealed box with a quantum device, and until you open the box, the cat is simultaneously
+      alive and dead in superposition. Observation collapses the wavefunction into one definite
+      outcome.
     </p>
 
-  <p>
-    Schrödinger was right to be troubled by the cat because applying it without attention to whose description you are writing leads to
-    apparent absurdity.
-  </p>
+    <p>But this is almost exactly backwards from what Schrödinger intended.</p>
 
-  <p>
-    With Schrödinger's Observer, the apparent contradiction in Wigner's Friend becomes less mysterious once you recognize
-    that the friend's definite experience and Wigner's superposition description are not
-    competing accounts of a single objective state; they are descriptions from different
-    observational contexts, both permitted by the formalism, and there is no requirement that
-    they agree. When Wigner eventually opens the lab, his description and the friend's become
-    mutually consistent and nobody created anyone else's experience. The sequence of observers
-    acquiring information ran forward in time, through ordinary physical entanglement.
-  </p>
+    <p>
+      In his 1935 paper in <em>Naturwissenschaften</em>, Schrödinger was constructing a reductio ad absurdum.
+      He devised the cat in 1935 as a thought experiment to expose what he viewed as the utter absurdity and flaws of
+      the prevailing "Copenhagen interpretation" of quantum mechanics
+      If you apply the superposition principle to macroscopic systems without restriction, you arrive at a
+      conclusion he described as "quite ridiculous" such as a cat simultaneously alive and dead. His
+      point was NOT as seen as it is today on "look how strange quantum mechanics is" but something closer to "this
+      cannot
+      be right and the theory, as stated, does not match what any observer actually experiences."
+      The cat was rather a symptom of an unresolved foundational problem.
+    </p>
+
+    <p>
+      That original concern was about the experience of an observer <em>inside</em> a quantum
+      process and not outside it, but this turns out to be exactly the right thread to pull on when
+      thinking about Wigner's Friend. And the direction it leads, I think, is more clarifying
+      than most of the existing treatments suggest.
+    </p>
+
+    <h2>1. Wigner's Friend</h2>
+
+    <p>
+      In 1961, Eugene Wigner formalized the tension Schrödinger had identified. Consider a
+      friend who performs a quantum measurement inside a sealed laboratory. The system being
+      measured is a spin-\(\frac{1}{2}\) particle prepared in an equal superposition of up
+      and down:
+    </p>
+
+    <div class="math-block">
+      $$|\psi\rangle_\mathcal{S} = \frac{1}{\sqrt{2}}\bigl(|\uparrow\rangle + |\downarrow\rangle\bigr)$$
+    </div>
+
+    <p>
+      The friend interacts with this system via a measurement apparatus. Under the von Neumann
+      model, unitary evolution maps the initial product state to an entangled state:
+    </p>
+
+    <div class="math-block">
+      $$|\psi\rangle_\mathcal{S} \otimes |A_0\rangle \;\xrightarrow{U_{\mathrm{int}}}\;
+      \frac{1}{\sqrt{2}}\!\left(|\uparrow\rangle|\text{friend sees }\uparrow\rangle
+      + |\downarrow\rangle|\text{friend sees }\downarrow\rangle\right)$$
+    </div>
+
+    <p>
+      From the friend's position, she observes one definite outcome, say, spin-up. So she knows
+      the result. But now from Wigner's position, standing outside the sealed laboratory, the formalism
+      permits him to describe the entire lab, with his friend included, as remaining in the entangled
+      superposition above. He has not interacted with the lab and has received no information
+      about the outcome. Standard quantum mechanics does not instruct him to assign a definite
+      value to the friend's measurement record.
+    </p>
+
+    <p>
+      The apparent contradiction here is that the friend reports a definite experience, and Wigner's
+      description shows no definite outcome. If quantum mechanics applies universally to all
+      physical systems, including friends in laboratories, these two descriptions seem to be
+      in tension and that is why this is a paradox.
+    </p>
+
+    <div class="note">
+      <span class="note-num">1.</span>
+      Frauchiger and Renner (2018) converted this tension into a formal theorem where a specific set
+      of assumptions about quantum universality, consistency of agent reasoning, and single-world
+      outcomes leads to a logical contradiction in a carefully constructed nested scenario. Bong
+      et al. (2020) derived a "no-go theorem for local friendliness" from similar premises, with
+      photonic experimental tests. The present discussion
+      addresses the original Wigner scenario; the Frauchiger–Renner extension is addressed in
+      Section 7.
+    </div>
+
+    <h2>2. The Inside View</h2>
+
+    <p>
+      Here is a different way to enter the problem, a nested thought experiment (nested inside Schrödinger's Cat
+      experiment). Forget, for a moment, the external view.
+      Set aside Wigner standing outside and imagine you are the friend, inside the sealed
+      laboratory, and you have just made the measurement. Now, what do you experience?</p>
+
+    <p>
+      You experience one definite outcome which is not a superposition and not "both simultaneously" or
+      "neither until observed." One result, immediately, without ambiguity from your position and
+      Your stream of experience is continuous and definite.</p>
+
+    <p>
+      This is the starting observation of what I want to call the <strong>Schrödinger's Observer</strong>: Consider the
+      cat's perspective.
+      If you are Schrödinger's cat, you are not suspended in some blurred superposition of alive and dead, waiting for a
+      human to open the box and decide your fate. From inside the box, the cat is a macroscopic system embedded in an
+      environment, coupled to air molecules and thermal radiation and its own biochemistry at every moment. The instant
+      the quantum event occurs, the atom decays or it doesn't, the cat's state becomes entangled with that outcome
+      through a cascade of irreversible physical processes. On this view, the cat experiences one definite reality. If
+      it is alive, it is alive continuously, long before anyone outside touches the latch. The external observer's
+      uncertainty about the outcome is real, and the quantum formalism permits them to write a superposition but that is
+      a description of their non-definitiveness. The cat was never waiting for permission to be one thing or the other.
+    </p>
+
+    <p>
+      This is something you need to consider when people speak about superposition of anything. Qubit are superposition
+      of 0 and 1? It is the gap between non-definitiveness of an unmeasured state and the definitiveness of a measured
+      state and this gap is called the "measurement problem". It asks how a quantum system that exists in a
+      probabilistic state of multiple possibilities (a superposition) instantaneously "collapses" into a single,
+      definite reality when it is observed or measured What the Schrödinger's Observer framing does is make this the
+      <em>starting point</em> rather
+      than "the explanandum". You do not need to derive that you will have a definite experience from
+      some more fundamental principle because you observe, immediately, that you do. The question then
+      becomes "what does the quantum formalism say from this position, and how does it relate to what
+      Wigner can consistently say from outside?"
+    </p>
+
+    <h2>3. Decoherence and the Internal Observer</h2>
+
+    <p>
+      Any realistic measurement involves more than a system and an apparatus. It involves an
+      environment i.e. the thermal photons in the lab, the air molecules around the apparatus, the
+      molecular collisions inside any warm material object. Including the environment
+      \(\mathcal{E}\), the post-measurement state extends to:
+    </p>
+
+    <div class="math-block">
+      $$\frac{1}{\sqrt{2}}\!\left(|\uparrow\rangle|A_\uparrow\rangle
+      + |\downarrow\rangle|A_\downarrow\rangle\right)\!\otimes|E_0\rangle
+      \;\xrightarrow{U_{\mathrm{SE}}}\;
+      \frac{1}{\sqrt{2}}\!\left(|\uparrow\rangle|A_\uparrow\rangle|E_\uparrow\rangle
+      + |\downarrow\rangle|A_\downarrow\rangle|E_\downarrow\rangle\right)$$
+    </div>
+
+    <p>
+      This is still unitary evolution with no interpretational assumption. The
+      environmental states \(|E_\uparrow\rangle\) and \(|E_\downarrow\rangle\) become rapidly
+      orthogonal because each involves macroscopically distinct configurations of enormously
+      many degrees of freedom. Once \(\langle E_\uparrow | E_\downarrow \rangle \approx 0\),
+      the reduced density matrix of system and apparatus, obtained by tracing out the
+      environment, becomes:
+    </p>
+
+    <div class="math-block">
+      $$\rho_{\mathcal{SA}} = \mathrm{Tr}_{\mathcal{E}}\!\left[|\Psi\rangle\langle\Psi|\right]
+      \approx \frac{1}{2}\!\left(|\uparrow\rangle\langle\uparrow|\otimes|A_\uparrow\rangle\langle A_\uparrow|
+      + |\downarrow\rangle\langle\downarrow|\otimes|A_\downarrow\rangle\langle A_\downarrow|\right)$$
+    </div>
+
+    <p>
+      The off-diagonal coherence terms have gone, the global state remains pure and
+      entangled and the local state of system and apparatus becomes effectively mixed. This is what is called
+      environmental decoherence, a direct consequence of unitary evolution applied to a system
+      that cannot be isolated from its surroundings.
+    </p>
+
+    <p>
+      Decoherence shows
+      that interference between macroscopically distinct outcomes becomes negligibly small in
+      practice, immeasurably so; but it does not, without further interpretational commitments,
+      select one outcome over another or resolve the question of whether both outcomes persist
+      in some sense. Decoherence is not the same thing as collapse, and conflating them obscures
+      the structure of what remains unsolved.
+    </p>
+
+    <h3>Timescales</h3>
+
+    <p>
+      The decoherence timescale can be estimated from the rate of environmental scattering.
+      For thermal photon scattering from an object of size \(a\) at temperature \(T\), with
+      distinguishable states separated by \(\Delta x\), the characteristic decoherence time
+      is of order (Joos &amp; Zeh 1985; Schlosshauer 2007):
+    </p>
+
+    <div class="math-block">
+      $$\tau_D \;\sim\; \frac{\hbar^2}{m\,\sigma\,k_B T\,\Delta x^2 \cdot n_{\mathrm{photon}}}$$
+    </div>
+
+    <p>
+      where \(\sigma \sim \pi a^2\) is the scattering cross-section and
+      \(n_{\mathrm{photon}} \sim (k_BT/\hbar c)^3\) is the thermal photon number density.
+      For a macroscopic object at room temperature, \(T = 300\) K, \(m \sim 1\) kg,
+      \(a \sim 10\) cm, \(\Delta x \sim 1\) cm, substituting standard constants gives:
+    </p>
+
+    <div class="math-block">
+      $$\tau_D \;\sim\;
+      \frac{(10^{-34})^2}{(1)(10^{-2})(1.4\times10^{-23})(300)(10^{-2})^2\cdot10^{13}}
+      \;\sim\; 10^{-40}\;\text{s}$$
+    </div>
+
+    <p>
+      With partial shielding and more conservative parameters, Schlosshauer (2007) and Joos
+      &amp; Zeh (1985) obtain \(\tau_D \lesssim 10^{-20}\) s as a realistic upper bound for
+      macroscopic superpositions. The shortest neural timescale relevant to perception is of
+      order milliseconds and the gap between decoherence timescale and perceptual timescale is
+      approximately twenty orders of magnitude. The exact number depends on the model, but the point is robust that the
+      decoherence timescale is astronomically shorter than any perceptual timescale.
+    </p>
+
+    <p>
+      The probability of spontaneous recoherence, of the environmental entanglement reversing
+      itself, scales as:
+    </p>
+
+    <div class="math-block">
+      $$P_{\mathrm{recoh}} \;\sim\; \exp\!\left(-\frac{\Delta S}{k_B}\right)
+      \;\sim\; \exp\!\left(-10^{23}\right)$$
+    </div>
+
+    <p>
+      where \(\Delta S \sim k_B \times 10^{23}\) is the entropy increase from encoding the
+      outcome into \(\sim 10^{23}\) environmental degrees of freedom. This is not "extremely
+      unlikely" in the ordinary sense — it is thermodynamically prohibited by the second law.
+    </p>
+
+    <div class="note">
+      <span class="note-num">2.</span>
+      Wigner's superposition description of the lab is formally permitted by the quantum
+      formalism because it represents his epistemic state about a system he has not observed. But it
+      cannot be operationally tested through interference experiments on the laboratory because doing
+      so would require reversing the environmental entanglement accumulated over the decoherence
+      timescale, which is thermodynamically not acheiveable.
+    </div>
+
+    <h2>4. Causal Entanglement</h2>
+
+    <p>
+      But, describing Wigner's superposition state assignment as reflecting "epistemic ignorance" i.e.
+      his lack of information about a pre-existing definite fact, is not quite right, and I think it
+      leaves the argument weaker than it needs to be. It is better not to call this merely “ignorance” and the more
+      precise claim is that Wigner’s state assignment is relative to his causal and informational position. The stronger
+      claim is that
+      within the relational picture developed here, Wigner’s description is the appropriate quantum description for an
+      observer at his location and stage in the causal chain. But the entanglement carrying the measurement outcome
+      has not yet propagated to him, making this precise requires examining the locality
+      structure of quantum evolution. This, framed as the as a continuation
+      of the thought experiment of Schrödinger's Observer's causal picture is the more useful description.
+    </p>
+
+    <h3>Locality of the Hamiltonian</h3>
+
+    <p>
+      Physical Hamiltonians are sums of local interaction terms. For a system on a lattice
+      \(\Lambda\):
+    </p>
+
+    <div class="math-block">
+      $$H = \sum_{X \,\subset\, \Lambda} h_X$$
+    </div>
+
+    <p>
+      where each \(h_X\) acts non-trivially only on the finite region \(X \subset \Lambda\).
+      Interactions may be nearest-neighbor, finite-range, or exponentially decaying but the
+      essential physical requirement is that no single term directly couples arbitrarily
+      distant regions. All long-range influences must propagate through intermediate degrees
+      of freedom.
+    </p>
+
+    <p>
+      This has an immediate and exact consequence. If two systems \(\mathcal{A}\) and
+      \(\mathcal{B}\) share no interaction term in \(H\),
+    </p>
+
+    <div class="math-block">
+      $$H = H_\mathcal{A} \otimes \mathbb{I}_\mathcal{B}
+      \;+\; \mathbb{I}_\mathcal{A} \otimes H_\mathcal{B}$$
+    </div>
+
+    <p>
+      and the initial state is a product
+      \(|\Psi(0)\rangle = |\psi_\mathcal{A}\rangle \otimes |\psi_\mathcal{B}\rangle\),
+      then unitary evolution preserves the product structure for all time:
+    </p>
+
+    <div class="math-block">
+      $$|\Psi(t)\rangle
+      = U_\mathcal{A}(t)\,|\psi_\mathcal{A}\rangle
+      \otimes U_\mathcal{B}(t)\,|\psi_\mathcal{B}\rangle$$
+    </div>
+
+    <p>
+      Entanglement between \(\mathcal{A}\) and \(\mathcal{B}\) is impossible without a
+      cross-term \(H_{\mathcal{AB}}\). This follows from the
+      tensor product structure of composite Hilbert spaces and the unitarity of evolution.
+      In the setting considered here, entanglement is generated by local interaction.
+    </p>
+
+    <h3>The Entanglement Frontier</h3>
+
+    <p>
+      Let \(M\) denote the measurement system (spin \(\otimes\) apparatus) and
+      \(\{S_i\}_{i \in \Lambda}\) the environmental degrees of freedom. The quantum mutual
+      information between \(M\) and a subsystem \(S_i\) at time \(t\) is:
+    </p>
+
+    <div class="math-block">
+      $$I(M : S_i)(t)
+      \;=\; S\!\left(\rho_M(t)\right)
+      + S\!\left(\rho_{S_i}(t)\right)
+      - S\!\left(\rho_{M,\,S_i}(t)\right)$$
+    </div>
+
+    <p>
+      where \(S(\rho) = -\mathrm{Tr}(\rho \log \rho)\) is the von Neumann entropy.
+      \(I(M : S_i)(t) > 0\) if and only if \(M\) and \(S_i\) share quantum or classical
+      correlations at time \(t\). We can now define the object that gives the propagation
+      picture its precise content.
+    </p>
 
 
-  <div class="ending">
-    
-    <p>References:
-       Schrödinger (1935) for the original thought experiment and its
-      intent; Wigner (1961) for the friend scenario; Rovelli (1996) for relational quantum
-      mechanics; Joos &amp; Zeh (1985) and Schlosshauer (2007) for decoherence timescale
-      estimates; Frauchiger &amp; Renner (2018) and Bong et al. (2020) for the extended no-go
-      results; Zurek (2003) for decoherence, einselection, and quantum Darwinism.
-    </p>  </div>
+    <h3>Causal Entanglement Frontier: </h3>
+    <p style="margin:0 0 0.6rem; font-size:0.97rem;">
+      Fix an operationally negligible threshold \(\varepsilon > 0\). The
+      <strong>correlated region</strong> at time \(t\) is:
+    </p>
+    <p style="margin:0 0 0.6rem;">
+      $$\mathcal{C}(t) \;=\;
+      \bigl\{\, S_i \in \Lambda \;:\; I(M : S_i)(t) \;>\; \varepsilon \,\bigr\}$$
+    </p>
+    <p>
+      The <strong>causal entanglement frontier</strong> (is a term I am introducing for this essay)
+      \(\mathcal{F}(t) = \partial\,\mathcal{C}(t)\) is its boundary. By the locality
+      argument above, \(\mathcal{C}(t)\) is monotonically expanding:
+      \(\mathcal{C}(t_1) \subseteq \mathcal{C}(t_2)\) for all \(t_1 < t_2\). Systems inside \(\mathcal{C}(t)\) have
+        acquired correlations with the measurement record; systems outside have not. For macroscopic systems, the
+        transition across \(\mathcal{F}(t)\) is effectively sharp on any observable timescale, because decoherence
+        occurs in \(\tau_D \sim 10^{-20}\) s once the frontier arrives. </p>
 
-</main>
+
+        <h3>The Lieb–Robinson Bound</h3>
+
+        <p>
+          The key theorem quantifying how fast \(\mathcal{F}(t)\) can expand is the
+          Lieb–Robinson bound (Lieb and Robinson, 1972). For a quantum lattice system
+          with Hamiltonian \(H = \sum_X h_X\) satisfying the quasi-locality condition
+          \(\|h_X\| \leq \lambda\,e^{-\mu |X|}\), and for any two operators \(A\), \(B\)
+          supported on regions \(X_A\), \(X_B\) respectively:
+        </p>
+
+        <p>
+          $$\bigl\|\,[A(t),\, B]\,\bigr\|
+          \;\leq\;
+          C\,|X_A|\,\|A\|\,\|B\|
+          \;\exp\!\Bigl(-\,\mu\bigl(\,d(X_A,\,X_B)
+          \;-\; v_{\mathrm{LR}}\,|t|\,\bigr)\Bigr)$$
+        </p>
+        <p style="margin:0; font-size:0.93rem; color:#555;">
+          Here \(d(X_A, X_B)\) is the graph distance between supports, \(C\) and \(\mu > 0\)
+          are constants, and \(v_{\mathrm{LR}} \leq 2e\lambda/\mu\) is the
+          <em>Lieb–Robinson velocity</em>. For
+          \(d(X_A, X_B) \gg v_{\mathrm{LR}}\,|t|\), the commutator is exponentially suppressed:
+          operators at \(X_A\) have had negligible causal influence on operators at \(X_B\).
+        </p>
+
+        <p>
+          Via a standard argument (see Bravyi, Hastings, and Verstraete, 2006), the bound implies
+          that the reduced density matrix of any system \(S_i\) outside the Lieb–Robinson
+          light cone of \(M\) is approximately unchanged from its free evolution. For the initial
+          product state \(|\Psi(0)\rangle = |\psi_M\rangle \otimes |E_0\rangle\):
+        </p>
+
+        <div class="math-block">
+          $$\bigl\|\,\rho_{S_i}(t) \;-\; \rho_{S_i}^{(0)}(t)\,\bigr\|_1
+          \;\lesssim\;
+          C'\exp\!\Bigl(-\,\mu\bigl(\,d(M,\, S_i) \;-\; v_{\mathrm{LR}}\,t\,\bigr)\Bigr)$$
+        </div>
+
+        <p>
+          where \(\rho_{S_i}^{(0)}(t)\) is the reduced state under free evolution of \(S_i\)
+          alone. For \(d(M, S_i) \gg v_{\mathrm{LR}}\,t\), the state of \(S_i\) is
+          essentially unperturbed by the measurement at \(M\), and
+          \(I(M : S_i)(t)\) is negligible. System \(S_i\) lies outside \(\mathcal{C}(t)\).
+        </p>
+
+        <h3>Consequence for Wigner's Friend</h3>
+
+        <p>
+          This is the physical grounding of the claim through Schrödinger's Observer. At time \(t_0\), the
+          measurement event occurs at \(M\). The frontier \(\mathcal{F}(t)\) expands outward
+          from \(M\) at speed at most \(v_{\mathrm{LR}}\). For all \(t\) satisfying
+          \(d(M, \mathrm{Wigner}) \gg v_{\mathrm{LR}}\,t\):
+        </p>
+
+        <div class="math-block">
+          $$I(M : \mathrm{Wigner})(t) \;\approx\; 0$$
+        </div>
+
+        <p>
+          Wigner has acquired no correlations with the measurement outcome. His superposition
+          state assignment for the laboratory is the
+          correct quantum mechanical description for an observer outside \(\mathcal{C}(t)\).
+          The Friend's definite state assignment and Wigner's superposition assignment are
+          simultaneously accurate relative to their positions in the expanding entanglement
+          geometry. Their descriptions correspond to being inside versus
+          outside \(\mathcal{C}(t)\) at the relevant time.
+        </p>
+
+
+        <div class="note">
+          <span class="note-num">3.</span>
+          <strong>Scope of the Lieb–Robinson bound.</strong>
+          The theorem applies rigorously to quantum lattice systems with finite-range or
+          exponentially-decaying interactions but extending it to continuous systems requires care.
+          For the dominant decoherence channel in macroscopic laboratory settings, thermal photon
+          scattering (Joos &amp; Zeh 1985), relativistic causality in quantum field theory
+          bounds the frontier's propagation at \(c\). For phonon-mediated channels in solids,
+          the relevant speed is the speed of sound in the medium. In neither case is propagation
+          instantaneous or superluminal. The physically essential claim, that the frontier
+          expands at a finite, causal speed, so that Wigner is genuinely outside
+          \(\mathcal{C}(t)\) until the frontier reaches him, holds on both lattice
+          and realistic (continuous) grounds. \(v_{\mathrm{LR}}\) should not be read as
+          implying the frontier always travels at \(c\) and rather travels at the speed of whatever
+          local interaction mediates each step.
+        </div>
+
+
+        <h2>5. Two Descriptions</h2>
+
+        <p>
+          The apparent contradiction rests on the assumption that both descriptions must
+          simultaneously hold of some single, observer-independent state of affairs, that there is
+          a "fact of the matter" about the lab which one of them must be getting wrong.
+        </p>
+
+        <p>
+          But what the quantum formalism implies, when applied consistently to observers in
+          different positions, is that state assignments depend on what information is available to
+          the observer making the assignment. The friend's state assignment reflects her direct
+          participation in the measurement event and Wigner's reflects his epistemic situation that he
+          knows the lab contains a friend who performed a measurement, but he has received no
+          information about the outcome. These are descriptions from different observational
+          contexts and there is no requirement that they agree prior to comparison.
+        </p>
+
+        <p>
+          This claim is the core of Rovelli's relational quantum mechanics
+          (1996), and variants of it appear in QBism and consistent histories. What Schrödinger's
+          Observer adds is a shift in starting point that rather than arriving at the observer-relativity
+          of state assignments through philosophical argument, you begin from the phenomenological
+          fact of definite internal experience and work outward. The physics is the same but the order
+          of reasoning is different, and I think it makes the structure of the apparent paradox considerably
+          clearer.
+        </p>
+
+        <p>
+          When Wigner eventually opens the lab and observes at time \(t_1\), he becomes entangled
+          with the outcome:
+        </p>
+
+        <div class="math-block">
+          $$|\Psi\rangle \;=\; \frac{1}{\sqrt{2}}\!\left(
+          |\uparrow\rangle|\text{friend saw}\;\uparrow\rangle|\text{Wigner sees}\;\uparrow\rangle
+          \;+\;
+          |\downarrow\rangle|\text{friend saw}\;\downarrow\rangle|\text{Wigner sees}\;\downarrow\rangle
+          \right)$$
+        </div>
+
+        <p>
+          From Wigner's position after observation, he has a definite outcome. His description and
+          the friend's are now mutually consistent as they agree on which result occurred. No one
+          created the friend's prior experience but Wigner
+          became correlated with an outcome the friend had already observed, through ordinary
+          physical interaction.
+        </p>
+
+        <h2>6. The Observer Chain</h2>
+
+        <p>
+          Now, to see this another way, add a third observer to Schrödinger's cat experiment , Alice, watching Bob
+          perform the Schrödinger experiment from
+          outside. Alice never opens the box and before she learns anything from Bob, standard quantum
+          mechanics permits her to describe the composite system (Bob + box) as:
+        </p>
+
+        <div class="math-block">
+          $$|\Psi\rangle_{\mathrm{Alice}} \;=\; \frac{1}{\sqrt{2}}\!\left(
+          |\text{Bob sees awake}\rangle|\text{awake}\rangle
+          \;+\;
+          |\text{Bob sees asleep}\rangle|\text{asleep}\rangle\right)$$
+        </div>
+
+        <p>
+          This is Alice's description of a system she has not yet obtained information about. It
+          does not assert that Bob is in superposition in any experiential sense but Bob opened the
+          box, became correlated with the outcome, and has a definite result from his position.
+          Alice's state assignment to Bob reflects her ignorance, not Bob's uncertainty.
+        </p>
+
+        <p>The temporal structure of information acquisition:</p>
+
+        <ul>
+          <li>\(t_0\): Quantum event occurs. Inside observer has a definite experience.</li>
+          <li>\(t_1\): Bob opens the box, becomes physically correlated with the outcome.</li>
+          <li>\(t_2\): Alice learns from Bob, becomes physically correlated with the outcome.</li>
+        </ul>
+
+        <p>
+          At no point does any observer's acquisition of information reach backward and create
+          definiteness for those earlier in the chain. Alice's observation does not create Bob's
+          earlier definite experience and Bob's observation does not create the inside observer's
+          earlier definite experience and hence the sequence runs strictly forward in time, following the
+          natural direction of physical entanglement.
+        </p>
+
+        <p>
+          There is no privileged moment where reality "becomes real" for everyone. There is only a
+          temporal sequence of physical systems becoming correlated with a measurement outcome
+          through direct interaction. Each observer's description of systems they have not yet
+          interacted with can include superposition which that is what the formalism permits, and it
+          is an accurate representation of their epistemic state but it is not a claim that the
+          earlier observers lack definite experiences.
+        </p>
+
+        <p>
+          The physical basis for observer chain is such that each observer
+          enters \(\mathcal{C}(t)\) when the frontier reaches them, at times
+          \(t_0 + \tau_D \ll t_1 < t_2\). Because \(\mathcal{C}(t)\) is monotonically expanding and irreversible, by the
+            entropy argument of Section 3, recoherence has probability \(\sim \exp(-10^{23})\), no later entry into
+            \(\mathcal{C}\) can alter the status of earlier systems. The Friend's position inside \(\mathcal{C}\) since
+            \(t_0 + \tau_D \sim 10^{-20}\,\text{s}\) is not revised when Wigner enters at \(t_1\). Hence, the sequence
+            runs in one direction only. </p>
+
+            <div class="note">
+              <span class="note-num">4.</span>
+              One might ask whether this generates an infinite regress. Could there be a fourth observer
+              who describes Alice as in superposition, and so on? Yes, and the same logic applies at
+              each level. The chain can extend indefinitely but what it never requires is a final observer
+              who validates everyone else. Each state assignment reflects a particular observational
+              context. The regress does not demand a terminus.
+            </div>
+
+            <h2>7. Implications </h2>
+
+            <p>
+              To separate what follows from the formalism and established physics from what requires
+              additional interpretational commitments:
+            </p>
+
+
+            <h4>What follows: </h4>
+            The von Neumann measurement chain is a mathematical consequence of unitary evolution
+            applied to composite systems with no interpretational assumption required and environmental decoherence
+            (suppression of off-diagonal coherences) follows from unitary evolution applied to open systems.
+            Decoherence timescales for macroscopic objects at room temperature are of order
+            \(10^{-20}\) s, many orders of magnitude below any neural or observation timescale
+            (Joos &amp; Zeh 1985; Schlosshauer 2007). So, Any interference experiment that would operationally test
+            Wigner's superposition description would require reversing environmental entanglement; the probability
+            scales
+            as \(\exp(-10^{23})\), thermodynamically not acheiveable. And different observers can consistently assign
+            different quantum states to the same
+            system, as the formalism implies when applied from different observational positions.
+
+
+            <h4>What requires additional interpretational commitments</h4>
+            <ul>
+              <li>That the friend "has a definite experience" in any precise sense, connecting the
+                reduced density matrix to phenomenology requires a bridge principle not present in the
+                formalism itself.</li>
+              <li>That quantum state assignments are intrinsically relative to observers rather than
+                objective. This is the central claim of relational quantum mechanics (Rovelli 1996),
+                not a consequence of the math.</li>
+              <li>That the apparent contradiction in Wigner's Friend is fully dissolved by perspectival
+                reasoning but whether this constitutes dissolution or reframing depends on what you think
+                the paradox was originally asking.</li>
+              <li>That all interpretations are equally tenable here. Consciousness-collapse
+                interpretations sit uneasily with this framework; Many-Worlds, Relational QM,
+                and Quantum Darwinism are broadly compatible.</li>
+            </ul>
+            <p>
+              The minimal commitments the Schrödinger's Observer framework makes are that quantum state
+              assignments represent information available to a particular observer, and that environmental
+              decoherence explains why the internal observer's perspective is stable and effectively
+              irreversible. These commitments are compatible with several interpretations of quantum
+              mechanics but not all. So claiming the framework is interpretation-neutral would be inaccurate.
+            </p>
+
+            <h2>8. The Frauchiger–Renner Scenario</h2>
+
+            <p>
+              Frauchiger and Renner (2018) extended Wigner's scenario into a protocol involving nested
+              observers that derives a logical contradiction from three premises: that quantum mechanics
+              applies universally, that measurement outcomes are facts observers can consistently reason
+              about, and that observers can apply quantum mechanics to reason about other observers as
+              quantum systems.
+            </p>
+
+            <p>
+              The protocol requires, crucially, that an external observer perform an interference
+              experiment on a system that includes a macroscopic observer who has already made a
+              measurement. In physical terms, you must reverse the decoherence of a warm macroscopic
+              system on a laboratory timescale. The probability of this scales as \(\exp(-10^{23})\),
+              as computed above. The contradiction in Frauchiger–Renner requires, as one of its
+              operational steps, something thermodynamically improbable in the settings discussed here.
+            </p>
+
+            <p>
+              Experiments by Proietti et al. (2019) and Bong et al. (2020) have tested related
+              scenarios using photonic qubits as stand-ins for observers. But, they do not show that macroscopic
+              conscious observers can be maintained in coherent superposition under these ordinary conditions, because
+              photonic qubits
+              can be maintained in coherence precisely because they are not warm macroscopic objects
+              interacting with \(\sim 10^{23}\) environmental degrees of freedom.
+            </p>
+
+
+            <h2>Conclusion</h2>
+
+            <p>
+              This started from a fairly simple question of why does Wigner's Friend seem paradoxical
+              when the ingredients for understanding it, like environmental decoherence, observer-relative
+              state assignments, etc. have been in the literature for decades? Part of the answer is that
+              the popular framing of Schrödinger's cat has trained people to think of observers as
+              external to the systems they observe, waiting to collapse wavefunctions by looking.
+              Schrödinger's Observer is an attempt to correct for that framing, by starting from
+              inside rather than outside. Whether it fully dissolves the paradox or only reframes it
+              is something I have left as an honest open question.
+            </p>
+
+            <p>
+              Schrödinger was right to be troubled by the cat because applying it without attention to whose description
+              you are writing leads to
+              apparent absurdity.
+            </p>
+
+            <p>
+              With Schrödinger's Observer, the apparent contradiction in Wigner's Friend becomes less mysterious once
+              you recognize
+              that the friend's definite experience and Wigner's superposition description are not
+              competing accounts of a single objective state; they are descriptions from different
+              observational contexts, both permitted by the formalism, and there is no requirement that
+              they agree. When Wigner eventually opens the lab, his description and the friend's become
+              mutually consistent and nobody created anyone else's experience. The sequence of observers
+              acquiring information ran forward in time, through ordinary physical entanglement.
+            </p>
+
+
+            <div class="ending">
+              <p style="font-size: 0.85em; color: #666; margin-bottom: 1.5em;">
+                <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my
+                conversations with Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the
+                conversation (the parts of the chat that were good) and then wrote over the draft.
+              </p>
+
+              <p>References:
+                Schrödinger (1935) for the original thought experiment and its
+                intent; Wigner (1961) for the friend scenario; Rovelli (1996) for relational quantum
+                mechanics; Joos &amp; Zeh (1985) and Schlosshauer (2007) for decoherence timescale
+                estimates; Frauchiger &amp; Renner (2018) and Bong et al. (2020) for the extended no-go
+                results; Zurek (2003) for decoherence, einselection, and quantum Darwinism.
+              </p>
+            </div>
+
+  </main>
 </body>
+
 </html>
