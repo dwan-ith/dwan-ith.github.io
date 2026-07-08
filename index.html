@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dwanith</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -33,61 +34,120 @@
       independently.
     </p>
 
+
     <h2>Blog</h2>
-    <div class="card-grid">
-      <a class="card" href="blog/moravec.html">
-        <div class="card-meta">Feb 2026 &middot; Philosophy</div>
-        <h3 class="card-title">Moravec's Paradox and Evolution vs Controlled Experiments</h3>
-        <p class="card-desc">Analyzing why high-level reasoning is easier to automate than sensorimotor skills.</p>
-      </a>
-      <a class="card" href="blog/wigner.html">
-        <div class="card-meta">Jan 2026 &middot; Physics</div>
-        <h3 class="card-title">Wigner's Friend and Schrodinger's Observer</h3>
-        <p class="card-desc">A deep dive into quantum observers and subjective reality frameworks.</p>
-      </a>
-      <a class="card" href="blog/rsi.html">
-        <div class="card-meta">Dec 2025 &middot; AI</div>
-        <h3 class="card-title">Recursive Self-Improvement</h3>
-        <p class="card-desc">Evaluating the feasibility and limitations of AI self-optimization loops.</p>
-      </a>
-      <a class="card" href="blog/softmax.html">
-        <div class="card-meta">Nov 2025 &middot; ML</div>
-        <h3 class="card-title">Why Softmax Lives in a Curved Space</h3>
-        <p class="card-desc">Understanding the geometric implications of the softmax function in representation
-          learning.</p>
-      </a>
-    </div>
-    <a class="more-link" href="blog.html">More Work &rarr;</a>
+    <ul class="plain-list">
+      <li>
+        <div>
+          <a class="text-link" href="blog/moravec.html">Moravec's Paradox and Evolution vs Controlled Experiments</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(June 2026)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">Analyzing why high-level reasoning is easier to
+          automate than sensorimotor skills.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="blog/wigner.html">Wigner's Friend and Schrodinger's Observer</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(May 2026)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">A deep dive into observers and relational quantum
+          mechanics.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="blog/rsi.html">Recursive Self-Improvement</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(Feb 2025)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">Evaluating the feasibility and limitations of
+          self-improving AI.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="blog/softmax.html">Why Softmax Lives in a Curved Space</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(Jan 2025)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">Understanding the geometric implications of the
+          softmax function in learning.</div>
+      </li>
+    </ul>
+    <a class="text-link" href="blog.html"
+      style="font-size:0.95em; color:#555; display:inline-block; margin-top:0.5rem; margin-bottom:1rem;">More Work</a>
+
+    <h2>Explore</h2>
+    <ul class="plain-list">
+      <li>
+        <div>
+          <a class="text-link" href="explore/extended_pt_phase_diagram.html">Extended PT Phase Diagram</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(June 2026)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">Temperature vs pressure phase diagram in four
+          quadrants.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="explore/cot.html">Controlled CoT</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(June 2026)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">A hypothesis for Process Reward Modeling to
+          balance RL on CoT.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="explore/attractor.html">Antithesis as an Attractor</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(April 2025)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">A mathematical and data analysis of dialectical
+          framing in LLMs.</div>
+      </li>
+    </ul>
+    <a class="text-link" href="explore.html"
+      style="font-size:0.95em; color:#555; display:inline-block; margin-top:0.5rem; margin-bottom:1rem;">More Work</a>
 
     <h2>Projects</h2>
-    <div class="card-grid">
-      <a class="card" href="https://github.com/dwan-ith/GodelEnv" target="_blank">
-        <div class="card-meta">Apr 2026 &middot; RL</div>
-        <h3 class="card-title">GodelEnv</h3>
-        <p class="card-desc">A self-improving RL environment framework designed for agents implementing self-modifying
-          code.</p>
-      </a>
-      <a class="card" href="https://github.com/dwan-ith/RL-Raft" target="_blank">
-        <div class="card-meta">Feb 2026 &middot; MARL</div>
-        <h3 class="card-title">MARL-Raft</h3>
-        <p class="card-desc">Training the Raft consensus algorithm using LLM-guided MAPPO for decentralized systems.</p>
-      </a>
-      <a class="card" href="https://github.com/dwan-ith/Autopilot" target="_blank">
-        <div class="card-meta">Nov 2025 &middot; Agents</div>
-        <h3 class="card-title">Autopilot</h3>
-        <p class="card-desc">An autonomous operator runtime built for system interaction, tool use, and navigation.</p>
-      </a>
-      <a class="card" href="https://github.com/dwan-ith/Accural" target="_blank">
-        <div class="card-meta">May 2025 &middot; Blockchain</div>
-        <h3 class="card-title">Accural</h3>
-        <p class="card-desc">A decentralized network for verifiable agent coordination and on-chain settlement.</p>
-      </a>
-    </div>
-    <a class="more-link" href="projects.html">More Work &rarr;</a>
+    <ul class="plain-list">
+      <li>
+        <div>
+          <a class="text-link" href="https://github.com/dwan-ith/GodelEnv">GodelEnv: A self-improving RL Environment</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(Mar 2026)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">An environment framework designed for agents
+          implementing self-modifying code.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="https://github.com/dwan-ith/RL-Raft">MARL-Raft: Training Raft Algorithm on LLM
+            MAPPO</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(Feb 2026)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">RAFT consensus algorithm
+          using multi-agent proximal policy optimization.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="https://github.com/dwan-ith/Autopilot">Autopilot: Autonomous Operator Runtime</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(May 2025)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">A runtime execution engine built for autonomous
+          system interaction and navigation.</div>
+      </li>
+      <li>
+        <div>
+          <a class="text-link" href="https://github.com/dwan-ith/Accural">Accural</a>
+          <span class="meta" style="margin-left:5px; font-size:0.85em;">(April 2025)</span>
+        </div>
+        <div style="font-size:0.95em; color:#555; margin-top:0.3rem;">A protocol for verifiable agent bwhatanking
+          coordination and settlement.</div>
+      </li>
+    </ul>
+    <a class="text-link" href="projects.html"
+      style="font-size:0.95em; color:#555; display:inline-block; margin-top:0.5rem; margin-bottom:1rem;">More Work</a>
 
     <h2>Papers</h2>
     <ul class="plain-list">
-      <li><a class="text-link" href="#">&mdash;</a></li>
+      <li>
+        <a class="text-link" href="#">
+        </a>
+      </li>
     </ul>
 
     <center>
@@ -97,6 +157,7 @@
         <a class="inline-link" href="mailto:dwanith19@gmail.com">[email]</a>
       </p>
     </center>
+
 
   </main>
 

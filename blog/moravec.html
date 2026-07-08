@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>What Produced You Determines What You Can Do</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '\\(', right: '\\)', display: false}
       ],
       throwOnError: false
     });">
-  </script>
+    </script>
   <link rel="stylesheet" href="../styles.css">
 
-  
+
   <style>
     .stack-figure {
       margin: 2em 0;
@@ -25,6 +25,7 @@
       background: #fafafa;
       padding: 1.4em 1.6em 1em;
     }
+
     .stack-figure figcaption {
       margin-top: 1em;
       font-size: 0.85em;
@@ -32,12 +33,14 @@
       border-top: 1px solid #e0e0e0;
       padding-top: 0.7em;
     }
+
     .stack-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0.6em 1.4em;
       margin-bottom: 0.5em;
     }
+
     .stack-col-label {
       font-size: 0.68em;
       letter-spacing: 0.12em;
@@ -46,13 +49,20 @@
       margin-bottom: 0.3em;
       font-family: monospace;
     }
-    .stack-layers { display: flex; flex-direction: column; gap: 3px; }
+
+    .stack-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
     .stack-layer {
       padding: 0.42em 0.75em;
       font-size: 0.78em;
       font-family: monospace;
       line-height: 1.3;
     }
+
     .stack-arrow {
       text-align: center;
       color: #bbb;
@@ -60,598 +70,703 @@
       padding: 1px 0;
       font-family: monospace;
     }
-    
-    .h1 { background:#2d5a27; color:#e8f5e3; }
-    .h2 { background:#3d7a35; color:#e8f5e3; }
-    .h3 { background:#5a9e51; color:#f0faf0; }
-    .h4 { background:#7dbf73; color:#1a3318; }
-    .h5 { background:#b2d9ae; color:#1a3318; }
-    
-    .a1 { background:#1a3a6e; color:#ddeaff; }
-    .a2 { background:#2a5299; color:#ddeaff; }
-    .a3 { background:#4472c4; color:#eef3ff; }
-    .a4 { background:#8aaad8; color:#0a1e3d; }
-    .a5 { background:#c4d7f0; color:#0a1e3d; opacity:0.55; }
+
+    .h1 {
+      background: #2d5a27;
+      color: #e8f5e3;
+    }
+
+    .h2 {
+      background: #3d7a35;
+      color: #e8f5e3;
+    }
+
+    .h3 {
+      background: #5a9e51;
+      color: #f0faf0;
+    }
+
+    .h4 {
+      background: #7dbf73;
+      color: #1a3318;
+    }
+
+    .h5 {
+      background: #b2d9ae;
+      color: #1a3318;
+    }
+
+    .a1 {
+      background: #1a3a6e;
+      color: #ddeaff;
+    }
+
+    .a2 {
+      background: #2a5299;
+      color: #ddeaff;
+    }
+
+    .a3 {
+      background: #4472c4;
+      color: #eef3ff;
+    }
+
+    .a4 {
+      background: #8aaad8;
+      color: #0a1e3d;
+    }
+
+    .a5 {
+      background: #c4d7f0;
+      color: #0a1e3d;
+      opacity: 0.55;
+    }
+
     .stack-divider {
       grid-column: 1 / -1;
       border: none;
       border-top: 1px dashed #ccc;
       margin: 0.3em 0;
     }
+
     @media (max-width: 540px) {
-      .stack-grid { grid-template-columns: 1fr; }
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<center>
-<nav class="nav">
-  <a href="../index.html">[Home]</a>
-  <a class="active">[Blog]</a>
-  <a href="../explore.html">[Explore]</a>
-  <a href="../papers.html">[Papers]</a>
-</nav>
-</center>
+  <center>
+    <nav class="nav">
+      <a href="../index.html">[Home]</a>
+      <a class="active">[Blog]</a>
+      <a href="../projects.html">[Projects]</a>
+      <a href="../explore.html">[Explore]</a>
+      <a href="../papers.html">[Papers]</a>
+    </nav>
+  </center>
 
-<main class="content article">
-  <h1 class="title">Moravec's Paradox and Evolution vs Controlled Experiments</h1>
-  <div class="meta-top">June 2026 </div>
+  <main class="content article">
+    <h1 class="title">Moravec's Paradox and Evolution vs Controlled Experiments</h1>
+    <div class="meta-top">June 2026 </div>
 
-  
-  <figure class="stack-figure">
-    <div class="stack-grid">
-     
-      <div>
-        <div class="stack-col-label">Human stack — built bottom-up</div>
-        <div class="stack-layers">
-          <div class="stack-layer h5">Formal systems · mathematics, logic, code</div>
-          <div class="stack-arrow">↓ built on top of</div>
-          <div class="stack-layer h4">Language · social coordination interface</div>
-          <div class="stack-arrow">↓ built on top of</div>
-          <div class="stack-layer h3">World model · causal, predictive, counterfactual</div>
-          <div class="stack-arrow">↓ built on top of</div>
-          <div class="stack-layer h2">Sensorimotor schema · embodied physical priors</div>
-          <div class="stack-arrow">↓ built on top of</div>
-          <div class="stack-layer h1">Continuous physical coupling · body in the world</div>
+
+    <figure class="stack-figure">
+      <div class="stack-grid">
+
+        <div>
+          <div class="stack-col-label">Human stack — built bottom-up</div>
+          <div class="stack-layers">
+            <div class="stack-layer h5">Formal systems · mathematics, logic, code</div>
+            <div class="stack-arrow">↓ built on top of</div>
+            <div class="stack-layer h4">Language · social coordination interface</div>
+            <div class="stack-arrow">↓ built on top of</div>
+            <div class="stack-layer h3">World model · causal, predictive, counterfactual</div>
+            <div class="stack-arrow">↓ built on top of</div>
+            <div class="stack-layer h2">Sensorimotor schema · embodied physical priors</div>
+            <div class="stack-arrow">↓ built on top of</div>
+            <div class="stack-layer h1">Continuous physical coupling · body in the world</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="stack-col-label">AI stack — built top-down</div>
+          <div class="stack-layers">
+            <div class="stack-layer a1">Token distributions · statistical compression</div>
+            <div class="stack-arrow">↓ weakly implies</div>
+            <div class="stack-layer a2">Emergent representations · partial world structure</div>
+            <div class="stack-arrow">↓ weakly implies</div>
+            <div class="stack-layer a3">Formal reasoning · proof, code, math <strong>← strong</strong></div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer a4">Physical common sense <strong>← weak</strong></div>
+            <div class="stack-arrow">↓</div>
+            <div class="stack-layer a5">Continuous embodiment <strong>← absent</strong></div>
+          </div>
         </div>
       </div>
-     
-      <div>
-        <div class="stack-col-label">AI stack — built top-down</div>
-        <div class="stack-layers">
-          <div class="stack-layer a1">Token distributions · statistical compression</div>
-          <div class="stack-arrow">↓ weakly implies</div>
-          <div class="stack-layer a2">Emergent representations · partial world structure</div>
-          <div class="stack-arrow">↓ weakly implies</div>
-          <div class="stack-layer a3">Formal reasoning · proof, code, math <strong>← strong</strong></div>
-          <div class="stack-arrow">↓</div>
-          <div class="stack-layer a4">Physical common sense <strong>← weak</strong></div>
-          <div class="stack-arrow">↓</div>
-          <div class="stack-layer a5">Continuous embodiment <strong>← absent</strong></div>
-        </div>
-      </div>
+      <figcaption>
+        <strong>Figure 1.</strong> The human and AI cognitive stacks, constructed in opposite directions from
+        opposite ends of the same hierarchy. Human intelligence was built upward from continuous embodied
+        experience by evolutionary optimization across billions of years; each layer rests on the one beneath it.
+        Current AI was built downward from formal token statistics by controlled gradient-based optimization;
+        its strong capabilities are concentrated at the apex and decay with depth. Difficulty for an AI system
+        scales with how far below the linguistic apex a task's requirements reach, which is precisely the
+        inversion Moravec observed.
+      </figcaption>
+    </figure>
+
+    <div class="note">
+
+      A <a href="https://x.com/stingning/status/2055123219506725201?s=20">30-billion parameter model</a> recently
+      achieved gold-medal performance on the International Mathematical
+      Olympiad using reinforcement learning applied to formal proof search. In this essay I want to discuss on
+      what follows this and mainly how this was even possible. This result was kind of interpreted as evidence that
+      mathematics is not actually hard and that humans are simply bad at it. But I think that interpretation is hasty.
     </div>
-    <figcaption>
-      <strong>Figure 1.</strong> The human and AI cognitive stacks, constructed in opposite directions from
-      opposite ends of the same hierarchy. Human intelligence was built upward from continuous embodied
-      experience by evolutionary optimization across billions of years; each layer rests on the one beneath it.
-      Current AI was built downward from formal token statistics by controlled gradient-based optimization;
-      its strong capabilities are concentrated at the apex and decay with depth. Difficulty for an AI system
-      scales with how far below the linguistic apex a task's requirements reach, which is precisely the
-      inversion Moravec observed.
-    </figcaption>
-  </figure>
-
-  <div class="note">
-    
-    A <a href="https://x.com/stingning/status/2055123219506725201?s=20">30-billion parameter model</a> recently achieved gold-medal performance on the International Mathematical
-    Olympiad using reinforcement learning applied to formal proof search. In this essay I want to discuss on
-    what follows this and mainly how this was even possible. This result was kind of interpreted as evidence that
-    mathematics is not actually hard and that humans are simply bad at it. But I think that interpretation is       hasty. 
-  </div>
-
-  <p>
-    Moravec's paradox, the observation that machines excel at what humans find difficult and struggle at
-    what humans find effortless, is usually presented as a corrected intuition. We were wrong about which
-    cognitive tasks are computationally expensive, and now we know better. But I think, for a stronger
-    reading, the capability inversion was not "an empirical surprise" and was a predictable consequence of the
-    properties of the two optimization processes that produced each system. Understanding the derivation
-    clarifies not only what AI can and cannot do today, but maybe why the gap has the particular structure it
-    does, and what closing it would actually require.
-  </p>
-
-  <p>
-    I suggest reading the "Open-Endedness is Essential for Artificial Superhuman Intelligence" <a href="https://arxiv.org/abs/2406.04268"> paper </a> before reading 
-    this to understand the argument better.
-  </p>
-
-  <h2>1. The Paradox</h2>
-
-  <p>
-    Moravec's 1988 formulation was more of a claim about architectural dependency:
-  </p>
-
-  <blockquote style="padding-left: 1em; color: #444; font-style: italic; margin: 1.2em 0;">
-    "Encoded in the large, highly evolved sensory and motor portions of the human brain is a billion years
-    of experience about the nature of the world and how to survive in it. The deliberate process we call
-    reasoning is, I believe, the thinnest veneer of human thought, effective only because it is supported
-    by this much older and much more powerful, though usually unconscious, machinery."
-  </blockquote>
-
-  <p>
-    Formal reasoning is not the deep substrate of human intelligence. It is a recent, thin layer riding
-    atop enormous unconscious infrastructure built for (or rather evolved for) something else i.e. survival in a continuous, physical, partially observable world. Sensorimotor tasks feel effortless not 
-because they are computationally cheap but because the machinery performing them is so deeply optimized, so far below the threshold of conscious access, that we have no introspective grip on its complexity. Moravec put it bluntly elsewhere as "we're least aware of what our minds do best."
-  </p>
-
-  <p>
-    The standard evolutionary gloss of "older skills had more optimization time" is directionally correct
-    but is structurally incomplete. Knowing <em>when</em> a capacity developed does not explain why timing
-    should determine which tasks are hard for machines. I think a  more general framing supplies the missing structure that
-    every sufficiently capable intelligent system tends to excel at the class of problems its production
-    process processed it for, and to be limited at problems absent from or orthogonal to that process
-    pressure. When two systems have been produced by processes with substantially different objectives,
-    environments, and feedback mechanisms, their capability profiles tend toward different directions. The paradox is
-    not just a special fact about humans and computers. It is rather a pattern that follows from what optimization
-    processes do and human and artificial intelligence are the sharpest available instance of that pattern
-    because their production processes differ in kind, not just in degree.
-  </p>
-
-  <h2>2. Two Processes</h2>
-
-  <h3>Evolution</h3>
-
-  <p>
-    Evolution's objective is not formally specifiable i.e. "Survive and reproduce" and it is not a specification that
-    can be written down and evaluated by an algorithm. Fitness has no meaning independent of the environment
-    in which an organism lives, and the process is modulated by genetic drift, sexual selection, and
-    developmental constraints that routinely produce outcomes not reducible to a simple scalar criterion.
-    But the most important, there is no designer who chose what to optimize.
-  </p>
-
-  <div class="note">
-    It is tempting to summarize evolution as "maximize fitness." But this is misleading as "Fitness" is not a scalar
-    defined independently of environment. Genetic drift, sexual selection, and developmental pleiotropy, etc.
-    introduce dynamics irreducible to a simple optimization criterion. Evolution is better understood as an
-    open-ended search process to adapt than as an optimizer with a fixed objective.
-  </div>
-
-  <p>
-    The feedback mechanism is the physical world itself; high-dimensional, continuous, partially observable,
-    non-stationary<sup>2</sup>. The selection signal is always embodied and consequential, "<em>did this
-    work, in continuous physical conditions, with real stakes, across an astronomical number of trials?</em>"
-    The process runs across timescales measured in millions of generations with no predetermined terminal
-    state and crucially, evolution has no access to the formal properties of the problems it is solving. It
-    cannot write down a loss function. What it can do is subject
-    organisms to continuous, embodied conditions and adapt on outcomes over time.
-  </p>
-
-  <h3>Controlled Experiments</h3>
-
-  <p>
-    Supervised and reinforcement learning have very different properties. The objective is specified
-    explicitly before training begins i.e. minimize cross-entropy on this token distribution and maximize expected
-    reward on this task. The feedback mechanism is a verifier, a formal procedure that evaluates outputs
-    against a criterion and returns a scalar. The environment is controlled with a formal system with known rules. Stochastic gradient descent requires the loss to be
-    differentiable with respect to parameters, which requires the problem to be formally representable in
-    a way that admits gradient computation.
-  </p>
-
-  <p>
-    Two qualifications matter here, because I think the "only formally verifiable tasks" reading is too absolute.
-    Self-supervised learning on perceptual data like masked image prediction, contrastive video learning, etc.
-    do not require human-specified labels or algorithmic verifiers in the same sense. Diffusion models
-    trained on pixel distributions learn representations of continuous visual structure without discrete
-    reward signals. And these are genuine departures from purely formal optimization but even these approaches
-    operate within a controlled experimental setting with explicit architectural choices and human-designed evaluation criteria. The contrast with evolution is structural in the sense that a difference in how much of the problem structure was pre-specified versus discovered through
-    open-ended interaction with an uncontrolled physical world.
-  </p>
-
-  <div class="note">
-    The class of problems where RL has delivered the most dramatic results like mathematical proof search,
-    competitive programming, strategic games, etc. shares a property that they admit computable verifiers.
-    This I think reflects a feature of the process itself such that RL cannot be straightforwardly applied to problems where a formal verifier cannot be built. The concentration of AI capability gains in formally verifiable domains is rather not a coincidence. But even with all this, I don't want to say this is a definitive conclusion because I want to observe what happens with inference on (subjective) human nature and behaviour, for which we will have to wait for the coding inference era to halt.
-  </div>
-
-  <p>
-    The capability inversion follows rather as a strong inference from this contrast<sup>3</sup>. Human intelligence
-    was shaped by adaptation pressure on continuous, embodied, underspecified problems but current AI has
-    been most dramatically shaped by optimization pressure on formally specified, verifiable problems.
-    The capabilities that result are kind of inverted. In hindsight, this was rather not surprising and was kind of predictable in advance from the properties of the two processes.
-  </p>
-
-  <h2>3. Inductive Bias </h2>
-
-  <p>
-    Every learning system carries an <em>inductive bias</em>; a set of assumptions encoded prior to
-    observing any data, which determines what generalizations the system will prefer when multiple
-    hypotheses are consistent with the training signal. In the PAC learning framework, the inductive bias
-    corresponds roughly to the hypothesis class \(\mathcal{H}\) from which the learner selects. The choice
-    of \(\mathcal{H}\) determines sample complexity, generalization behavior, and the structure of failure modes.
-  </p>
-
-  <p>
-    For a finite hypothesis class, the required number of training examples to achieve error \(\leq \varepsilon\)
-    with probability \(\geq 1 - \delta\) is bounded by:
-  </p>
-
-  $$m \;\geq\; \frac{1}{\varepsilon}\!\left(\ln|\mathcal{H}| + \ln\frac{1}{\delta}\right)$$
-
-  <div class="note">
-    The PAC bound given here applies to finite hypothesis classes. For the infinite-dimensional function
-    classes used in deep learning, analogous bounds exist via VC dimension, Rademacher complexity, and
-    PAC-Bayes theory. The structural point, that well-matched inductive biases dramatically reduce the
-    required number of examples, I think holds across all formulations.
-  </div>
-
-  <p>
-    A well-chosen \(\mathcal{H}\) that is small relative to the target function requires far fewer examples<sup>4</sup>.
-    Human inductive biases, shaped by evolution to be well-matched to the structure of the physical world,
-    function as an extremely compact effective hypothesis class for the relevant domains, producing the
-    sample efficiency we observe in infant learning. Example: A child sees two or three examples of a category and
-    generalizes correctly but state-of-the-art image models require millions.
-  </p>
-
-  <p>
-    For current deep learning systems, inductive biases are determined by architectural choices and training
-    procedures selected by researchers on the basis of controlled experiments. Transformers encode a
-    specific prior that all-pairs attention over discrete token sequences, with position encoded separately.
-    This prior is well-calibrated for sequential formal structure and poorly calibrated for continuous
-    spatial dynamics, causal intervention, or multi-timescale physical prediction (and hence the need for Continual Learning). For humans, inductive
-    biases were selected by evolution across billions of years of physical and social interaction, the core
-    knowledge of object persistence and physical causality (Spelke & Kinzler, 2007), sensitivity to
-    intentional agency, rapid category formation from sparse examples, etc. These were
-    selected because they enabled efficient generalization through adaptation in the open-ended physical world.
-  </p>
-
-  <p>
-    A 2025 paper by Shani, Soffer, Jurafsky, LeCun, and Shwartz-Ziv provides empirical grounding for this
-    at the level of internal representations. Applying an information-theoretic framework based on
-    Rate-Distortion Theory and the Information Bottleneck principle to token embeddings from over forty
-    LLMs, evaluated against human categorization benchmarks from cognitive psychology, the paper finds that
-    LLMs broadly align with human category boundaries while failing to capture the fine-grained semantic
-    distinctions of typicality gradients, contextual richness that characterize human conceptual structure.
-    Formally, the Information Bottleneck objective trades compression against task-relevant preservation:
-  </p>
-
-  $$\min_{p(\hat{X}|X)}\; I(X;\hat{X}) - \beta \cdot I(\hat{X};Y)$$
-
-  <div class="note">
-    The Information Bottleneck objective (Tishby et al., 2000) minimizes the mutual information between
-    input \(X\) and compressed representation \(\hat{X}\) (first term) while maximizing the mutual
-    information between the representation and the prediction target \(Y\) (second term). The tradeoff is
-    controlled by \(\beta\). Human conceptual systems appear to operate at high \(\beta\), tolerating
-    representational complexity in exchange for semantic fidelity. LLMs, shaped by token-level cross-entropy
-    minimization, appear to operate at lower effective \(\beta\), a consequence of the training objective (and was
-    not a design choice)
-  </div>
-
-  <p>
-    LLMs appear to operate at lower effective \(\beta\), aggressively compressing away fine-grained
-    distinctions<sup>5</sup>. Human conceptual systems prioritize contextual richness even at the cost of
-    compression efficiency and this is rather consistent with the optimization-process argument that training on
-    token prediction selects for statistical compression, and NOT for the semantically nuanced, contextually
-    grounded representations that evolutionary optimization produced.
-  </p>
-
-  <h2>4. The Inverted Stack</h2>
-
-  <p>
-    The optimization-process, I think, has a specific implication visible in Figure 1 above.
-    Human intelligence develops bottom-up, in the order evolutionary and developmental pressures predict.
-    The foundation is continuous sensorimotor competence i.e. the layer that received the most selection
-    pressure over the longest time. A human infant, before acquiring language, has already developed
-    implicit representations of object persistence, physical causality, facial affect, and intentional
-    agency. These emerge early in development, appear cross-culturally, and are present in partial form in
-    non-human primates, suggesting they reflect evolved inductive biases rather than purely learned
-    cultural knowledge.
-  </p>
-
-  <p>
-    On top of that sensorimotor foundation, the developing human builds predictive world models like compressed,
-    generative representations of causal structure that support counterfactual reasoning. This precedes language in development and underlies it. Language occupies the next layer, an
-    interface for externalizing and socially coordinating the contents of those world models. Formal systems
-    sit at the apex as culturally constructed, recently developed, largely substrate-independent. A
-    mathematician manipulating symbols with no direct perceptual grounding is using the most recent, least
-    evolutionarily optimized layer of the stack (abstraction).
-  </p>
-
-  <p>
-    Current AI systems construct (or we construct them) this in kind of a reverse way. The base layer is tokenized text. Moving downward through
-    the human stack requires bridging from a formal symbolic substrate to a continuous embodied one and there
-    is evidence that large models develop internal representations that partially track causal and
-    spatial properties of the world, but I wouldn't lean too strongly onto that and it is a weak, indirect route
-    compared to the human stack, which builds grounded representations first and linguistic representations
-    on top.
-  </p>
-
-
-  <div class="note">
-    
-    A depth-of-stack principle is kind of as follows: difficulty for an AI system (note here that by AI models in this essay, I almost always refer to language models) scales, roughly, with how far below the
-    linguistic apex a task's core requirements lie. Mathematical proof search sits at the apex and catching a
-    thrown ball sits at the base. This makes a testable prediction that AI systems should be hardest
-    to improve on tasks that require the deepest grounding, not merely on tasks that humans rate as
-    cognitively demanding.
-  </div>
-
-  <p>
-    The practical consequence is that benchmark-measured AI progress systematically overstates progress
-    toward general intelligence<sup>6</sup>. The tasks with the cleanest benchmark metrics are precisely the
-    tasks at the apex of the human stack, where current AI is strongest and the tasks where AI remains
-    brittlest are the tasks where formal evaluation is hardest to construct.
-  </p>
-
-  <h2>5. LeCun's Diagnosis and Its Limits</h2>
-
-  <p>
-    Yann LeCun's research (and Fei-Fei Li' work and Richard Sutton's recent takes) program on world models is very interesting to me because it is the most technically serious existing attempt to take the implications
-    of this analysis seriously as an engineering directive. His 2022 position paper argues that autoregressive
-    language models lack the components required for general intelligence and a world model, hierarchical
-    planning, persistent memory, and the ability to ground symbolic manipulations in continuous physical
-    reality. His Joint Embedding Predictive Architecture addresses this by changing the prediction target and
-    rather than predicting the next token, JEPA predicts abstract representations of future states in a
-    learned latent space, forcing the model to learn compressed, causally structured representations of
-    world dynamics. The training loss is defined over representations:
-  </p>
-
-  $$\mathcal{L}_{\text{JEPA}} = \mathbb{E}_{x,y}\bigl[\,d\!\left(s_\theta(y),\; p_\phi(s_\theta(x), c)\right)\bigr]$$
-
-  <div class="note">
-    The encoder \(s_\theta\) maps observations to a learned representation space. The predictor \(p_\phi\)
-    predicts the representation of a future state \(y\) from a context \(x\) and conditioning information
-    \(c\). The distance \(d\) is computed in representation space, preventing the model from satisfying the
-    loss by memorizing low-level statistics rather than learning causal world structure. The non-collapse
-    constraint (preventing the trivial solution of mapping everything to the same vector) is implemented via
-    variance-invariance-covariance regularization in practice.
-  </div>
-
-  <p>
-    V-JEPA 2 implements this at scale with a 1.2B-parameter model pre-trained on over a million hours of
-    internet video, post-trained on fewer than 62 hours of robot trajectory data, and deployed for zero-shot
-    robotic planning in novel physical environments<sup>7</sup>. LeCun's
-    framing of reasoning as simulation-plus-optimization is also relevant here that if genuine reasoning consists of
-    running a world model forward over possible action sequences and selecting the action that minimizes a
-    cost, a system without a world model can produce text that describes reasoning without performing the
-    underlying computation. Whether this is the right account of reasoning in large language models remains
-    empirically contested but the claim is coherent and the JEPA evidence is directionally supportive and I also think that he is right on the fact that the map(language) is not the territory(reality) and language is a medium, even though very good, still a medium, we use to map reality. So here the map(language) is we use to make the map, so it's one of the best mediums and therefore
-    I don't agree with takes on this is the only "real" reasoning or intelligence because I think RLVR (and mainly end-to-end RL) optimizes enough for performing well at the task with a reasonable range of creative exploration and that is how I think we also got these proofs to Erdos Problems by the GPT models (RL on output tokens, when balanced reasonably with controlled CoT) .
-  </p>
-
-  <p>
-    The optimization-process framing LeCun's diagnosis while extending it in one direction he has
-    not fully emphasized. JEPA changes the prediction objective, which plausibly shifts the inductive biases
-    the training process selects for. But it still operates within a training process with explicitly
-    specified objectives, controlled environments, and human-designed evaluation criteria. It is a
-    better-targeted controlled experiment and maybe this is what we should optimize for given AI could go rogue if it is left genuinely uncontrolled. And that's why the underlying production process differs from evolution in the
-    same structural ways identified in §2. Better architectures and better prediction objectives improve
-    what a controlled experiment produces; they do not change the fact that it is a controlled experiment.
-    Whether the biases evolution selected for can be acquired through controlled training on perceptual data, without the open-endedness and embodied stakes of evolutionary optimization, remains open.
-  </p>
-
-
- <h3> Note: Harnad's Symbol Grounding Problem </h3>
-
-<p> Even though the "diagnosis" as I call it here seems as a bad take at first glance, you should know about Stevan Harnad's (1990) formalization of the grounding problem; in way of how we humans live vs how ai "lives" i.e. symbols only get meaning when they're grounded in non-symbolic, sensorimotor experience. A system that learns "apple" from text alone, has a symbol that points to other symbols, which is almost a closed loop. A child learns "apple" while maybe also holding one or tasting it, smelling it. The symbol gets anchored to the world and that's why the inverse is also difficult, which is abstraction (in the sense of the concept of Infinity and etc.). The problem is deeply connected to John Searle's Chinese Room argument but is not the same argument and that difference should't be blurred. </p>
-
-<p> In this sense, LLMs are ungrounded because they operate in a closed symbolic universe. What looks like knowledge of images is actually knowledge of descriptions of everything i.e. shadows of shadows. This Quanta <a href = "https://www.quantamagazine.org/distinct-ai-models-seem-to-converge-on-how-they-encode-reality-20260107/">post</a> might help you understand more. Another good read would be "The Symbolic Species" by Terrence Deacon. </p>
-
-  <h2>6. Reweighting Versus Rewiring</h2>
-
-  <p>
-    There is a second asymmetry between evolved and trained systems that compounds the optimization-process
-    argument. It concerns learning dynamics rather than training objectives.
-  </p>
-
-  <p>
-    All current AI systems maintain a strict separation between architecture (fixed before training),
-    parameters (updated during training), and computation (executed on the frozen graph at inference).
-    Learning is the process of finding the best parameter configuration within the expressive family the
-    fixed architecture defines. Formally, every gradient-descent-based learner is constrained to:
-  </p>
-
-  $$\mathcal{F}_\theta = \bigl\{\, f_\theta : \theta \in \Theta \,\bigr\}, \quad \theta^* = \arg\min_{\theta \in \Theta}\; \mathcal{L}(\theta)$$
-
-  <div class="note">
-    The hypothesis class \(\mathcal{F}_\theta\) is determined entirely by the architecture before any data
-    is observed. Gradient descent finds the best \(\theta^*\) within this class but cannot enlarge the
-    class. If the true target function \(f^* \notin \mathcal{F}_\theta\), the learner faces irreducible
-    approximation error regardless of training duration or dataset size. Neural architecture search addresses
-    this externally and episodically but biological plasticity addresses it internally and continuously.
-  </div>
-
-  <p>
-    If the target concept lies outside the expressive family \(\mathcal{F}_\theta\), no amount of parameter
-    update can reach it<sup>8</sup> (without RL). Biological neural systems do not maintain this separation in the same
-    way. Synaptic pruning removes unused connections and dendritic remodeling changes how neurons integrate
-    inputs. Hence long-term potentiation and depression alter not just synaptic weights but the topological
-    structure of local information flow. Neurogenesis adds structural capacity in regions under sustained
-    demand. The act of learning modifies the expressive family \(\mathcal{F}\) itself, not merely
-    \(\theta\) within it. Architecture search in biological intelligence is continuous and endogenous.
-  </p>
-
-  <p>
-    Whether this distinction matters at the scales relevant to general intelligence is uncertain; sufficiently
-    expressive fixed architectures may approximate the relevant capabilities well enough. But the difference is    present and the practical obstacles to building rewiring systems are also real. Dynamic
-    topology is harder to train under gradient descent, harder to parallelize on current hardware, and
-    resists the theoretical analysis that guides fixed-architecture design. Existing architectures gesture
-    toward dynamic structure without instantiating it through Mixture of Experts routes computation dynamically
-    but leaves topology fixed; Neural ODEs make effective depth continuous but preserve the functional
-    form of the differential equation and Liquid Neural Networks allow ODE parameters to vary as a function
-    of input history, the closest existing analogue in spirit, though demonstrated only at small scale
-    and within topological constraints fixed at initialization.
-  </p>
-
-  <h2>7. The Continuity Gap</h2>
-
-  <p>
-    There is maybe the deepest asymmetry, which concerns the relationship between formal representation
-    and continuous physical process.
-  </p>
-
-  <p>
-    Evolution optimized human cognition in an environment with no clean state boundaries and no formal specification of correct behavior and the resulting cognitive machinery is
-    constitutively coupled to its environment. This is the core claim of the embodied cognition literature,
-    from Merleau-Ponty through Varela and Thompson that skilled human cognition is not model-based planning
-    deployed through a body as a peripheral actuator. The body is part of the cognitive process and the
-    sensorimotor loop is a substrate in which cognition occurs and not an interface feeding a central reasoner.
-  </p>
-
-  <div class="note">
-    
-    Heidegger's concept of <em>Zuhandenheit</em>, readiness-to-hand, captures one phenomenological
-    manifestation of this. A skilled craftsperson using a hammer does not represent the hammer as an object
-    with physical properties and then compute motor commands. The hammer is transparent to skilled use; it
-    becomes an extension of intention rather than an object of deliberation. This transparency corresponds
-    to the computational point that the most optimized machinery is the least accessible to conscious
-    inspection, which is exactly what Moravec meant.
-  </div>
-
-  <p>
-    Controlled training operates on closed, formally specified environments. Whatever world models emerge
-    are representations <em>of</em> continuous physical processes (as opposed to continuous physical processes
-    occurring <em>in</em> a physical environment<sup>9</sup>). The asymptotic point can be stated as
-    formal discretization of a continuous process can be refined indefinitely with finer pixel grids, more
-    simulation timesteps, and higher-dimensional action spaces, approaching the continuous limit without
-    arriving. For many tasks this residual is negligible and for tasks at the bottom of Moravec's hierarchy,
-    continuous motor control under perturbation, real-time physical problem solving i.e. the continuous and
-    embodied nature of the task may be constitutive of what the task is, and formal approximation
-    approaches correctness asymptotically while leaving an irreducible residual.
-  </p>
-
-  <h2>8. The Measurement Problem</h2>
-
-  <p>
-    RL scaling has delivered genuine and remarkable gains. The progression from o1 to o3, from DeepSeek-R1
-    to 30B models achieving olympiad performance, is a great improvement. But I think that the tasks where RL
-    scaling works best are also the tasks where it is easiest to build verifiers, which are also the tasks
-    where benchmarks are most sensitive and progress is most legible. The tasks where progress is slowest
-    are also the tasks where formal evaluation is hardest to construct.
-  </p>
-
-  <p>
-    Sample efficiency has not improved dramatically with scale and structural transfer across genuinely novel
-    domains is hard to measure with standard test sets. Whether a model reasons causally or matches
-    correlational patterns at very high dimentions, requires controlled intervention experiments that most evaluation pipelines almost
-    never run. Physical common sense failures persist at frontier scale in ways that are well-documented
-    but poorly quantified.
-  </p>
-
-  <div class="note">
-    
-    Two scenarios of rapid convergence on general intelligence, and saturation of the formally verifiable
-    subset of intelligence with the rest of the capability space largely unchanged and would produce
-    similar-looking benchmark curves for several more years under the current evaluation regime.
-    Distinguishing between them requires evaluation instruments that largely do not yet exist. Building
-    those instruments is arguably more important, for understanding where AI actually stands, than building
-    the next benchmark in the current family.
-  </div>
-
-  <p>
-    The field's picture of AI capability is therefore systematically biased toward the domain where current
-    systems are strongest, which is also the domain where current measurement is most sensitive<sup>10</sup>.
-    The benchmark curves look like convergence toward general intelligence. They may instead reflect
-    saturation of the formally verifiable subset of intelligence, with the rest of the capability space
-    largely unchanged.
-  </p>
-
-<p>
-    This is why I also think that difficult real world tasks should be the benchmarks to AI given all that that's being said about AI today rather than these eval tests that are optimized for what the AI can do since we kind of have equated/mixed up intelligence with the ability to do math, code, etc and we are now questioning why the models aren't good enough even if they are so "intelligent".
-  </p>
-
-  <h2>9. What Would Actually Change Things</h2>
-
-  <p>
-    The analysis, if emperically validated, implies that progress on Moravec's hardest cases is not primarily a matter of more compute
-    or better architectures within the current optimization paradigm. It would require engaging with the
-    properties of the evolutionary optimization process itself.
-  </p>
-
-  <p class="highlight">
-    Three research directions follow, with different technical maturities:
-  </p>
-  <ul>
-    <li>
-      <strong><u>Embodied training at scale</u></strong>: Changing the training environment from controlled
-      formal tasks to continuous physical environments where feedback comes from physical interaction.
-      V-JEPA 2's results are suggestive with post-training on fewer than 62 hours of robot trajectory data
-      enables zero-shot planning in novel manipulation environments. Whether this scales to the breadth
-      of physical competence humans acquire in early development is unknown.
-    </li>
-    <li>
-      <strong><u>Neuromorphic hardware for structural plasticity</u></strong>: Changing the computational
-      substrate from one optimized for static-graph matrix multiplication to one where topological
-      self-modification is a first-class operation. Intel's Loihi represents early steps in this direction but
-      the gap between current neuromorphic hardware and biological neural networks remains very large. The
-      theoretical framework for training non-stationary hypothesis classes does not yet exist in mature form.
-    </li>
-    <li>
-      <strong><u>Open-ended optimization processes</u></strong>: Optimization processes that do not require
-      pre-specified objectives or computable rewards, and that generate useful inductive biases from
-      open-ended interaction with uncontrolled environments. A good but not great(or exact) example is AlphaZero and the end to end RL done on it. Quality-diversity algorithms and novelty search
-      represent early theoretical work here but none have been demonstrated at a scale approaching real physical
-      environments. This direction is closest in spirit to what evolution actually did, which is also why
-      it is the hardest to engineer deliberately.
-    </li>
-  </ul>
-
-
-
-  <h2>10. Conclusion</h2>
-
-  <p>
-    The olympiad result suggests we are in the right direction. A 30-billion parameter model solved a real and difficult problem of
-    long-horizon proof search in formally specified mathematical domains under RL with process reward models.
-    The claim that follows obviouslt from it that math is easy easy and humans are bad at it is a rather bad conclusion.
-    Mathematics is formalized and algorithmically verifiable. It sits at
-    the apex of the human cognitive stack, the layer most recently developed and least evolutionarily
-    optimized. Of course AI is good at it because we optimized it to be good at it. The optimization
-    process was always well-suited to exactly this class of problem.
-  </p>
-
-  <p>
-    Moravec's paradox has a structural explanation that has nothing to do with difficulty in any intrinsic
-    sense. Human intelligence was shaped by an open-ended, undirected optimization process running across
-    billions of years in continuous physical environments towards adaptation with no formal verifier and current AI was shaped by controlled optimization on formally specified objectives with
-    computable feedback. Each system is well-adapted to what its optimization process could address and
-    less well-adapted to what it could not. The capability inversion follows from that contrast as a strong
-    structural inference rather than as a discovery about the nature of cognition.
-  </p>
-
-  <p>
-    This framing does not predict that the gap is permanent. It implies that closing the gap on Moravec's
-    hardest cases requires engaging with the properties of the evolutionary optimization process like its
-    open-endedness, its continuous physical grounding, its absence of pre-specified objectives rather
-    than scaling what the current process already does well.
-  </p>
-
-  <p>
-    What the coding results make tempting to forget, and what the Moravec framing makes structurally
-    visible, is that the most impressive AI capabilities are concentrated exactly where they should be,
-    given what produced the systems. The concentration is the signature of the
-    optimization process.
-  </p>
-
-  <p style="font-size: 0.85em; color: #666; margin-top: 2em;">
-    <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my conversations with Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the conversation (the parts of the chat that were good) and then wrote over the draft.
-  </p>
-
-  <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
-  <h3 style="font-size:0.9em; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin-bottom:0.8em;">References</h3>
-  <ol style="font-size:0.82em; line-height:1.7; color:#555; padding-left:1.4em;">
-    <li>Moravec, H. (1988). <em>Mind Children: The Future of Robot and Human Intelligence.</em> Harvard University Press.</li>
-    <li>LeCun, Y. (2022). A Path Towards Autonomous Machine Intelligence. <em>OpenReview preprint.</em></li>
-    <li>Shani, C., Soffer, L., Jurafsky, D., LeCun, Y., &amp; Shwartz-Ziv, R. (2025). From Tokens to Thoughts: How LLMs and Humans Trade Compression for Meaning. <em>arXiv:2505.17117.</em></li>
-    <li>Assran, M. et al. (2025). V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning. <em>arXiv:2506.09985.</em></li>
-    <li>Spelke, E. S., &amp; Kinzler, K. D. (2007). Core Knowledge. <em>Developmental Science, 10</em>(1), 89–96.</li>
-    <li>Tishby, N., Pereira, F. C., &amp; Bialek, W. (2000). The Information Bottleneck Method. <em>arXiv:physics/0004057.</em></li>
-    <li>Varela, F., Thompson, E., &amp; Rosch, E. (1991). <em>The Embodied Mind.</em> MIT Press.</li>
-    <li>Hasani, R. et al. (2021). Liquid Time-Constant Networks. <em>Proceedings of AAAI 2021.</em></li>
-    <li>Lehman, J., &amp; Stanley, K. O. (2011). Abandoning Objectives: Evolution Through the Search for Novelty Alone. <em>Evolutionary Computation, 19</em>(2), 189–223.</li>
-    <li>Erdil, E. (2024). Moravec's Paradox and Its Implications. <em>Epoch AI Technical Report.</em></li>
-  </ol>
-
-</main>
+
+    <p>
+      Moravec's paradox, the observation that machines excel at what humans find difficult and struggle at
+      what humans find effortless, is usually presented as a corrected intuition. We were wrong about which
+      cognitive tasks are computationally expensive, and now we know better. But I think, for a stronger
+      reading, the capability inversion was not "an empirical surprise" and was a predictable consequence of the
+      properties of the two optimization processes that produced each system. Understanding the derivation
+      clarifies not only what AI can and cannot do today, but maybe why the gap has the particular structure it
+      does, and what closing it would actually require.
+    </p>
+
+    <p>
+      I suggest reading the "Open-Endedness is Essential for Artificial Superhuman Intelligence" <a
+        href="https://arxiv.org/abs/2406.04268"> paper </a> before reading
+      this to understand the argument better.
+    </p>
+
+    <h2>1. The Paradox</h2>
+
+    <p>
+      Moravec's 1988 formulation was more of a claim about architectural dependency:
+    </p>
+
+    <blockquote style="padding-left: 1em; color: #444; font-style: italic; margin: 1.2em 0;">
+      "Encoded in the large, highly evolved sensory and motor portions of the human brain is a billion years
+      of experience about the nature of the world and how to survive in it. The deliberate process we call
+      reasoning is, I believe, the thinnest veneer of human thought, effective only because it is supported
+      by this much older and much more powerful, though usually unconscious, machinery."
+    </blockquote>
+
+    <p>
+      Formal reasoning is not the deep substrate of human intelligence. It is a recent, thin layer riding
+      atop enormous unconscious infrastructure built for (or rather evolved for) something else i.e. survival in a
+      continuous, physical, partially observable world. Sensorimotor tasks feel effortless not
+      because they are computationally cheap but because the machinery performing them is so deeply optimized, so far
+      below the threshold of conscious access, that we have no introspective grip on its complexity. Moravec put it
+      bluntly elsewhere as "we're least aware of what our minds do best."
+    </p>
+
+    <p>
+      The standard evolutionary gloss of "older skills had more optimization time" is directionally correct
+      but is structurally incomplete. Knowing <em>when</em> a capacity developed does not explain why timing
+      should determine which tasks are hard for machines. I think a more general framing supplies the missing structure
+      that
+      every sufficiently capable intelligent system tends to excel at the class of problems its production
+      process processed it for, and to be limited at problems absent from or orthogonal to that process
+      pressure. When two systems have been produced by processes with substantially different objectives,
+      environments, and feedback mechanisms, their capability profiles tend toward different directions. The paradox is
+      not just a special fact about humans and computers. It is rather a pattern that follows from what optimization
+      processes do and human and artificial intelligence are the sharpest available instance of that pattern
+      because their production processes differ in kind, not just in degree.
+    </p>
+
+    <h2>2. Two Processes</h2>
+
+    <h3>Evolution</h3>
+
+    <p>
+      Evolution's objective is not formally specifiable i.e. "Survive and reproduce" and it is not a specification that
+      can be written down and evaluated by an algorithm. Fitness has no meaning independent of the environment
+      in which an organism lives, and the process is modulated by genetic drift, sexual selection, and
+      developmental constraints that routinely produce outcomes not reducible to a simple scalar criterion.
+      But the most important, there is no designer who chose what to optimize.
+    </p>
+
+    <div class="note">
+      It is tempting to summarize evolution as "maximize fitness." But this is misleading as "Fitness" is not a scalar
+      defined independently of environment. Genetic drift, sexual selection, and developmental pleiotropy, etc.
+      introduce dynamics irreducible to a simple optimization criterion. Evolution is better understood as an
+      open-ended search process to adapt than as an optimizer with a fixed objective.
+    </div>
+
+    <p>
+      The feedback mechanism is the physical world itself; high-dimensional, continuous, partially observable,
+      non-stationary<sup>2</sup>. The selection signal is always embodied and consequential, "<em>did this
+        work, in continuous physical conditions, with real stakes, across an astronomical number of trials?</em>"
+      The process runs across timescales measured in millions of generations with no predetermined terminal
+      state and crucially, evolution has no access to the formal properties of the problems it is solving. It
+      cannot write down a loss function. What it can do is subject
+      organisms to continuous, embodied conditions and adapt on outcomes over time.
+    </p>
+
+    <h3>Controlled Experiments</h3>
+
+    <p>
+      Supervised and reinforcement learning have very different properties. The objective is specified
+      explicitly before training begins i.e. minimize cross-entropy on this token distribution and maximize expected
+      reward on this task. The feedback mechanism is a verifier, a formal procedure that evaluates outputs
+      against a criterion and returns a scalar. The environment is controlled with a formal system with known rules.
+      Stochastic gradient descent requires the loss to be
+      differentiable with respect to parameters, which requires the problem to be formally representable in
+      a way that admits gradient computation.
+    </p>
+
+    <p>
+      Two qualifications matter here, because I think the "only formally verifiable tasks" reading is too absolute.
+      Self-supervised learning on perceptual data like masked image prediction, contrastive video learning, etc.
+      do not require human-specified labels or algorithmic verifiers in the same sense. Diffusion models
+      trained on pixel distributions learn representations of continuous visual structure without discrete
+      reward signals. And these are genuine departures from purely formal optimization but even these approaches
+      operate within a controlled experimental setting with explicit architectural choices and human-designed evaluation
+      criteria. The contrast with evolution is structural in the sense that a difference in how much of the problem
+      structure was pre-specified versus discovered through
+      open-ended interaction with an uncontrolled physical world.
+    </p>
+
+    <div class="note">
+      The class of problems where RL has delivered the most dramatic results like mathematical proof search,
+      competitive programming, strategic games, etc. shares a property that they admit computable verifiers.
+      This I think reflects a feature of the process itself such that RL cannot be straightforwardly applied to problems
+      where a formal verifier cannot be built. The concentration of AI capability gains in formally verifiable domains
+      is rather not a coincidence. But even with all this, I don't want to say this is a definitive conclusion because I
+      want to observe what happens with inference on (subjective) human nature and behaviour, for which we will have to
+      wait for the coding inference era to halt.
+    </div>
+
+    <p>
+      The capability inversion follows rather as a strong inference from this contrast<sup>3</sup>. Human intelligence
+      was shaped by adaptation pressure on continuous, embodied, underspecified problems but current AI has
+      been most dramatically shaped by optimization pressure on formally specified, verifiable problems.
+      The capabilities that result are kind of inverted. In hindsight, this was rather not surprising and was kind of
+      predictable in advance from the properties of the two processes.
+    </p>
+
+    <h2>3. Inductive Bias </h2>
+
+    <p>
+      Every learning system carries an <em>inductive bias</em>; a set of assumptions encoded prior to
+      observing any data, which determines what generalizations the system will prefer when multiple
+      hypotheses are consistent with the training signal. In the PAC learning framework, the inductive bias
+      corresponds roughly to the hypothesis class \(\mathcal{H}\) from which the learner selects. The choice
+      of \(\mathcal{H}\) determines sample complexity, generalization behavior, and the structure of failure modes.
+    </p>
+
+    <p>
+      For a finite hypothesis class, the required number of training examples to achieve error \(\leq \varepsilon\)
+      with probability \(\geq 1 - \delta\) is bounded by:
+    </p>
+
+    $$m \;\geq\; \frac{1}{\varepsilon}\!\left(\ln|\mathcal{H}| + \ln\frac{1}{\delta}\right)$$
+
+    <div class="note">
+      The PAC bound given here applies to finite hypothesis classes. For the infinite-dimensional function
+      classes used in deep learning, analogous bounds exist via VC dimension, Rademacher complexity, and
+      PAC-Bayes theory. The structural point, that well-matched inductive biases dramatically reduce the
+      required number of examples, I think holds across all formulations.
+    </div>
+
+    <p>
+      A well-chosen \(\mathcal{H}\) that is small relative to the target function requires far fewer
+      examples<sup>4</sup>.
+      Human inductive biases, shaped by evolution to be well-matched to the structure of the physical world,
+      function as an extremely compact effective hypothesis class for the relevant domains, producing the
+      sample efficiency we observe in infant learning. Example: A child sees two or three examples of a category and
+      generalizes correctly but state-of-the-art image models require millions.
+    </p>
+
+    <p>
+      For current deep learning systems, inductive biases are determined by architectural choices and training
+      procedures selected by researchers on the basis of controlled experiments. Transformers encode a
+      specific prior that all-pairs attention over discrete token sequences, with position encoded separately.
+      This prior is well-calibrated for sequential formal structure and poorly calibrated for continuous
+      spatial dynamics, causal intervention, or multi-timescale physical prediction (and hence the need for Continual
+      Learning). For humans, inductive
+      biases were selected by evolution across billions of years of physical and social interaction, the core
+      knowledge of object persistence and physical causality (Spelke & Kinzler, 2007), sensitivity to
+      intentional agency, rapid category formation from sparse examples, etc. These were
+      selected because they enabled efficient generalization through adaptation in the open-ended physical world.
+    </p>
+
+    <p>
+      A 2025 paper by Shani, Soffer, Jurafsky, LeCun, and Shwartz-Ziv provides empirical grounding for this
+      at the level of internal representations. Applying an information-theoretic framework based on
+      Rate-Distortion Theory and the Information Bottleneck principle to token embeddings from over forty
+      LLMs, evaluated against human categorization benchmarks from cognitive psychology, the paper finds that
+      LLMs broadly align with human category boundaries while failing to capture the fine-grained semantic
+      distinctions of typicality gradients, contextual richness that characterize human conceptual structure.
+      Formally, the Information Bottleneck objective trades compression against task-relevant preservation:
+    </p>
+
+    $$\min_{p(\hat{X}|X)}\; I(X;\hat{X}) - \beta \cdot I(\hat{X};Y)$$
+
+    <div class="note">
+      The Information Bottleneck objective (Tishby et al., 2000) minimizes the mutual information between
+      input \(X\) and compressed representation \(\hat{X}\) (first term) while maximizing the mutual
+      information between the representation and the prediction target \(Y\) (second term). The tradeoff is
+      controlled by \(\beta\). Human conceptual systems appear to operate at high \(\beta\), tolerating
+      representational complexity in exchange for semantic fidelity. LLMs, shaped by token-level cross-entropy
+      minimization, appear to operate at lower effective \(\beta\), a consequence of the training objective (and was
+      not a design choice)
+    </div>
+
+    <p>
+      LLMs appear to operate at lower effective \(\beta\), aggressively compressing away fine-grained
+      distinctions<sup>5</sup>. Human conceptual systems prioritize contextual richness even at the cost of
+      compression efficiency and this is rather consistent with the optimization-process argument that training on
+      token prediction selects for statistical compression, and NOT for the semantically nuanced, contextually
+      grounded representations that evolutionary optimization produced.
+    </p>
+
+    <h2>4. The Inverted Stack</h2>
+
+    <p>
+      The optimization-process, I think, has a specific implication visible in Figure 1 above.
+      Human intelligence develops bottom-up, in the order evolutionary and developmental pressures predict.
+      The foundation is continuous sensorimotor competence i.e. the layer that received the most selection
+      pressure over the longest time. A human infant, before acquiring language, has already developed
+      implicit representations of object persistence, physical causality, facial affect, and intentional
+      agency. These emerge early in development, appear cross-culturally, and are present in partial form in
+      non-human primates, suggesting they reflect evolved inductive biases rather than purely learned
+      cultural knowledge.
+    </p>
+
+    <p>
+      On top of that sensorimotor foundation, the developing human builds predictive world models like compressed,
+      generative representations of causal structure that support counterfactual reasoning. This precedes language in
+      development and underlies it. Language occupies the next layer, an
+      interface for externalizing and socially coordinating the contents of those world models. Formal systems
+      sit at the apex as culturally constructed, recently developed, largely substrate-independent. A
+      mathematician manipulating symbols with no direct perceptual grounding is using the most recent, least
+      evolutionarily optimized layer of the stack (abstraction).
+    </p>
+
+    <p>
+      Current AI systems construct (or we construct them) this in kind of a reverse way. The base layer is tokenized
+      text. Moving downward through
+      the human stack requires bridging from a formal symbolic substrate to a continuous embodied one and there
+      is evidence that large models develop internal representations that partially track causal and
+      spatial properties of the world, but I wouldn't lean too strongly onto that and it is a weak, indirect route
+      compared to the human stack, which builds grounded representations first and linguistic representations
+      on top.
+    </p>
+
+
+    <div class="note">
+
+      A depth-of-stack principle is kind of as follows: difficulty for an AI system (note here that by AI models in this
+      essay, I almost always refer to language models) scales, roughly, with how far below the
+      linguistic apex a task's core requirements lie. Mathematical proof search sits at the apex and catching a
+      thrown ball sits at the base. This makes a testable prediction that AI systems should be hardest
+      to improve on tasks that require the deepest grounding, not merely on tasks that humans rate as
+      cognitively demanding.
+    </div>
+
+    <p>
+      The practical consequence is that benchmark-measured AI progress systematically overstates progress
+      toward general intelligence<sup>6</sup>. The tasks with the cleanest benchmark metrics are precisely the
+      tasks at the apex of the human stack, where current AI is strongest and the tasks where AI remains
+      brittlest are the tasks where formal evaluation is hardest to construct.
+    </p>
+
+    <h2>5. LeCun's Diagnosis and Its Limits</h2>
+
+    <p>
+      Yann LeCun's research (and Fei-Fei Li' work and Richard Sutton's recent takes) program on world models is very
+      interesting to me because it is the most technically serious existing attempt to take the implications
+      of this analysis seriously as an engineering directive. His 2022 position paper argues that autoregressive
+      language models lack the components required for general intelligence and a world model, hierarchical
+      planning, persistent memory, and the ability to ground symbolic manipulations in continuous physical
+      reality. His Joint Embedding Predictive Architecture addresses this by changing the prediction target and
+      rather than predicting the next token, JEPA predicts abstract representations of future states in a
+      learned latent space, forcing the model to learn compressed, causally structured representations of
+      world dynamics. The training loss is defined over representations:
+    </p>
+
+    $$\mathcal{L}_{\text{JEPA}} = \mathbb{E}_{x,y}\bigl[\,d\!\left(s_\theta(y),\; p_\phi(s_\theta(x), c)\right)\bigr]$$
+
+    <div class="note">
+      The encoder \(s_\theta\) maps observations to a learned representation space. The predictor \(p_\phi\)
+      predicts the representation of a future state \(y\) from a context \(x\) and conditioning information
+      \(c\). The distance \(d\) is computed in representation space, preventing the model from satisfying the
+      loss by memorizing low-level statistics rather than learning causal world structure. The non-collapse
+      constraint (preventing the trivial solution of mapping everything to the same vector) is implemented via
+      variance-invariance-covariance regularization in practice.
+    </div>
+
+    <p>
+      V-JEPA 2 implements this at scale with a 1.2B-parameter model pre-trained on over a million hours of
+      internet video, post-trained on fewer than 62 hours of robot trajectory data, and deployed for zero-shot
+      robotic planning in novel physical environments<sup>7</sup>. LeCun's
+      framing of reasoning as simulation-plus-optimization is also relevant here that if genuine reasoning consists of
+      running a world model forward over possible action sequences and selecting the action that minimizes a
+      cost, a system without a world model can produce text that describes reasoning without performing the
+      underlying computation. Whether this is the right account of reasoning in large language models remains
+      empirically contested but the claim is coherent and the JEPA evidence is directionally supportive and I also think
+      that he is right on the fact that the map(language) is not the territory(reality) and language is a medium, even
+      though very good, still a medium, we use to map reality. So here the map(language) is we use to make the map, so
+      it's one of the best mediums and therefore
+      I don't agree with takes on this is the only "real" reasoning or intelligence because I think RLVR (and mainly
+      end-to-end RL) optimizes enough for performing well at the task with a reasonable range of creative exploration
+      and that is how I think we also got these proofs to Erdos Problems by the GPT models (RL on output tokens, when
+      balanced reasonably with controlled CoT) .
+    </p>
+
+    <p>
+      The optimization-process framing LeCun's diagnosis while extending it in one direction he has
+      not fully emphasized. JEPA changes the prediction objective, which plausibly shifts the inductive biases
+      the training process selects for. But it still operates within a training process with explicitly
+      specified objectives, controlled environments, and human-designed evaluation criteria. It is a
+      better-targeted controlled experiment and maybe this is what we should optimize for given AI could go rogue if it
+      is left genuinely uncontrolled. And that's why the underlying production process differs from evolution in the
+      same structural ways identified in §2. Better architectures and better prediction objectives improve
+      what a controlled experiment produces; they do not change the fact that it is a controlled experiment.
+      Whether the biases evolution selected for can be acquired through controlled training on perceptual data, without
+      the open-endedness and embodied stakes of evolutionary optimization, remains open.
+    </p>
+
+
+    <h3> Note: Harnad's Symbol Grounding Problem </h3>
+
+    <p> Even though the "diagnosis" as I call it here seems as a bad take at first glance, you should know about Stevan
+      Harnad's (1990) formalization of the grounding problem; in way of how we humans live vs how ai "lives" i.e.
+      symbols only get meaning when they're grounded in non-symbolic, sensorimotor experience. A system that learns
+      "apple" from text alone, has a symbol that points to other symbols, which is almost a closed loop. A child learns
+      "apple" while maybe also holding one or tasting it, smelling it. The symbol gets anchored to the world and that's
+      why the inverse is also difficult, which is abstraction (in the sense of the concept of Infinity and etc.). The
+      problem is deeply connected to John Searle's Chinese Room argument but is not the same argument and that
+      difference should't be blurred. </p>
+
+    <p> In this sense, LLMs are ungrounded because they operate in a closed symbolic universe. What looks like knowledge
+      of images is actually knowledge of descriptions of everything i.e. shadows of shadows. This Quanta <a
+        href="https://www.quantamagazine.org/distinct-ai-models-seem-to-converge-on-how-they-encode-reality-20260107/">post</a>
+      might help you understand more. Another good read would be "The Symbolic Species" by Terrence Deacon. </p>
+
+    <h2>6. Reweighting Versus Rewiring</h2>
+
+    <p>
+      There is a second asymmetry between evolved and trained systems that compounds the optimization-process
+      argument. It concerns learning dynamics rather than training objectives.
+    </p>
+
+    <p>
+      All current AI systems maintain a strict separation between architecture (fixed before training),
+      parameters (updated during training), and computation (executed on the frozen graph at inference).
+      Learning is the process of finding the best parameter configuration within the expressive family the
+      fixed architecture defines. Formally, every gradient-descent-based learner is constrained to:
+    </p>
+
+    $$\mathcal{F}_\theta = \bigl\{\, f_\theta : \theta \in \Theta \,\bigr\}, \quad \theta^* = \arg\min_{\theta \in
+    \Theta}\; \mathcal{L}(\theta)$$
+
+    <div class="note">
+      The hypothesis class \(\mathcal{F}_\theta\) is determined entirely by the architecture before any data
+      is observed. Gradient descent finds the best \(\theta^*\) within this class but cannot enlarge the
+      class. If the true target function \(f^* \notin \mathcal{F}_\theta\), the learner faces irreducible
+      approximation error regardless of training duration or dataset size. Neural architecture search addresses
+      this externally and episodically but biological plasticity addresses it internally and continuously.
+    </div>
+
+    <p>
+      If the target concept lies outside the expressive family \(\mathcal{F}_\theta\), no amount of parameter
+      update can reach it<sup>8</sup> (without RL). Biological neural systems do not maintain this separation in the
+      same
+      way. Synaptic pruning removes unused connections and dendritic remodeling changes how neurons integrate
+      inputs. Hence long-term potentiation and depression alter not just synaptic weights but the topological
+      structure of local information flow. Neurogenesis adds structural capacity in regions under sustained
+      demand. The act of learning modifies the expressive family \(\mathcal{F}\) itself, not merely
+      \(\theta\) within it. Architecture search in biological intelligence is continuous and endogenous.
+    </p>
+
+    <p>
+      Whether this distinction matters at the scales relevant to general intelligence is uncertain; sufficiently
+      expressive fixed architectures may approximate the relevant capabilities well enough. But the difference is
+      present and the practical obstacles to building rewiring systems are also real. Dynamic
+      topology is harder to train under gradient descent, harder to parallelize on current hardware, and
+      resists the theoretical analysis that guides fixed-architecture design. Existing architectures gesture
+      toward dynamic structure without instantiating it through Mixture of Experts routes computation dynamically
+      but leaves topology fixed; Neural ODEs make effective depth continuous but preserve the functional
+      form of the differential equation and Liquid Neural Networks allow ODE parameters to vary as a function
+      of input history, the closest existing analogue in spirit, though demonstrated only at small scale
+      and within topological constraints fixed at initialization.
+    </p>
+
+    <h2>7. The Continuity Gap</h2>
+
+    <p>
+      There is maybe the deepest asymmetry, which concerns the relationship between formal representation
+      and continuous physical process.
+    </p>
+
+    <p>
+      Evolution optimized human cognition in an environment with no clean state boundaries and no formal specification
+      of correct behavior and the resulting cognitive machinery is
+      constitutively coupled to its environment. This is the core claim of the embodied cognition literature,
+      from Merleau-Ponty through Varela and Thompson that skilled human cognition is not model-based planning
+      deployed through a body as a peripheral actuator. The body is part of the cognitive process and the
+      sensorimotor loop is a substrate in which cognition occurs and not an interface feeding a central reasoner.
+    </p>
+
+    <div class="note">
+
+      Heidegger's concept of <em>Zuhandenheit</em>, readiness-to-hand, captures one phenomenological
+      manifestation of this. A skilled craftsperson using a hammer does not represent the hammer as an object
+      with physical properties and then compute motor commands. The hammer is transparent to skilled use; it
+      becomes an extension of intention rather than an object of deliberation. This transparency corresponds
+      to the computational point that the most optimized machinery is the least accessible to conscious
+      inspection, which is exactly what Moravec meant.
+    </div>
+
+    <p>
+      Controlled training operates on closed, formally specified environments. Whatever world models emerge
+      are representations <em>of</em> continuous physical processes (as opposed to continuous physical processes
+      occurring <em>in</em> a physical environment<sup>9</sup>). The asymptotic point can be stated as
+      formal discretization of a continuous process can be refined indefinitely with finer pixel grids, more
+      simulation timesteps, and higher-dimensional action spaces, approaching the continuous limit without
+      arriving. For many tasks this residual is negligible and for tasks at the bottom of Moravec's hierarchy,
+      continuous motor control under perturbation, real-time physical problem solving i.e. the continuous and
+      embodied nature of the task may be constitutive of what the task is, and formal approximation
+      approaches correctness asymptotically while leaving an irreducible residual.
+    </p>
+
+    <h2>8. The Measurement Problem</h2>
+
+    <p>
+      RL scaling has delivered genuine and remarkable gains. The progression from o1 to o3, from DeepSeek-R1
+      to 30B models achieving olympiad performance, is a great improvement. But I think that the tasks where RL
+      scaling works best are also the tasks where it is easiest to build verifiers, which are also the tasks
+      where benchmarks are most sensitive and progress is most legible. The tasks where progress is slowest
+      are also the tasks where formal evaluation is hardest to construct.
+    </p>
+
+    <p>
+      Sample efficiency has not improved dramatically with scale and structural transfer across genuinely novel
+      domains is hard to measure with standard test sets. Whether a model reasons causally or matches
+      correlational patterns at very high dimentions, requires controlled intervention experiments that most evaluation
+      pipelines almost
+      never run. Physical common sense failures persist at frontier scale in ways that are well-documented
+      but poorly quantified.
+    </p>
+
+    <div class="note">
+
+      Two scenarios of rapid convergence on general intelligence, and saturation of the formally verifiable
+      subset of intelligence with the rest of the capability space largely unchanged and would produce
+      similar-looking benchmark curves for several more years under the current evaluation regime.
+      Distinguishing between them requires evaluation instruments that largely do not yet exist. Building
+      those instruments is arguably more important, for understanding where AI actually stands, than building
+      the next benchmark in the current family.
+    </div>
+
+    <p>
+      The field's picture of AI capability is therefore systematically biased toward the domain where current
+      systems are strongest, which is also the domain where current measurement is most sensitive<sup>10</sup>.
+      The benchmark curves look like convergence toward general intelligence. They may instead reflect
+      saturation of the formally verifiable subset of intelligence, with the rest of the capability space
+      largely unchanged.
+    </p>
+
+    <p>
+      This is why I also think that difficult real world tasks should be the benchmarks to AI given all that that's
+      being said about AI today rather than these eval tests that are optimized for what the AI can do since we kind of
+      have equated/mixed up intelligence with the ability to do math, code, etc and we are now questioning why the
+      models aren't good enough even if they are so "intelligent".
+    </p>
+
+    <h2>9. What Would Actually Change Things</h2>
+
+    <p>
+      The analysis, if emperically validated, implies that progress on Moravec's hardest cases is not primarily a matter
+      of more compute
+      or better architectures within the current optimization paradigm. It would require engaging with the
+      properties of the evolutionary optimization process itself.
+    </p>
+
+    <p class="highlight">
+      Three research directions follow, with different technical maturities:
+    </p>
+    <ul>
+      <li>
+        <strong><u>Embodied training at scale</u></strong>: Changing the training environment from controlled
+        formal tasks to continuous physical environments where feedback comes from physical interaction.
+        V-JEPA 2's results are suggestive with post-training on fewer than 62 hours of robot trajectory data
+        enables zero-shot planning in novel manipulation environments. Whether this scales to the breadth
+        of physical competence humans acquire in early development is unknown.
+      </li>
+      <li>
+        <strong><u>Neuromorphic hardware for structural plasticity</u></strong>: Changing the computational
+        substrate from one optimized for static-graph matrix multiplication to one where topological
+        self-modification is a first-class operation. Intel's Loihi represents early steps in this direction but
+        the gap between current neuromorphic hardware and biological neural networks remains very large. The
+        theoretical framework for training non-stationary hypothesis classes does not yet exist in mature form.
+      </li>
+      <li>
+        <strong><u>Open-ended optimization processes</u></strong>: Optimization processes that do not require
+        pre-specified objectives or computable rewards, and that generate useful inductive biases from
+        open-ended interaction with uncontrolled environments. A good but not great(or exact) example is AlphaZero and
+        the end to end RL done on it. Quality-diversity algorithms and novelty search
+        represent early theoretical work here but none have been demonstrated at a scale approaching real physical
+        environments. This direction is closest in spirit to what evolution actually did, which is also why
+        it is the hardest to engineer deliberately.
+      </li>
+    </ul>
+
+
+
+    <h2>10. Conclusion</h2>
+
+    <p>
+      The olympiad result suggests we are in the right direction. A 30-billion parameter model solved a real and
+      difficult problem of
+      long-horizon proof search in formally specified mathematical domains under RL with process reward models.
+      The claim that follows obviouslt from it that math is easy easy and humans are bad at it is a rather bad
+      conclusion.
+      Mathematics is formalized and algorithmically verifiable. It sits at
+      the apex of the human cognitive stack, the layer most recently developed and least evolutionarily
+      optimized. Of course AI is good at it because we optimized it to be good at it. The optimization
+      process was always well-suited to exactly this class of problem.
+    </p>
+
+    <p>
+      Moravec's paradox has a structural explanation that has nothing to do with difficulty in any intrinsic
+      sense. Human intelligence was shaped by an open-ended, undirected optimization process running across
+      billions of years in continuous physical environments towards adaptation with no formal verifier and current AI
+      was shaped by controlled optimization on formally specified objectives with
+      computable feedback. Each system is well-adapted to what its optimization process could address and
+      less well-adapted to what it could not. The capability inversion follows from that contrast as a strong
+      structural inference rather than as a discovery about the nature of cognition.
+    </p>
+
+    <p>
+      This framing does not predict that the gap is permanent. It implies that closing the gap on Moravec's
+      hardest cases requires engaging with the properties of the evolutionary optimization process like its
+      open-endedness, its continuous physical grounding, its absence of pre-specified objectives rather
+      than scaling what the current process already does well.
+    </p>
+
+    <p>
+      What the coding results make tempting to forget, and what the Moravec framing makes structurally
+      visible, is that the most impressive AI capabilities are concentrated exactly where they should be,
+      given what produced the systems. The concentration is the signature of the
+      optimization process.
+    </p>
+
+    <p style="font-size: 0.85em; color: #666; margin-top: 2em;">
+      <strong>AI Use:</strong> This blog was created with the help of AI. I drafted this using my conversations with
+      Claude and ChatGPT and I have directly copy pasted some lines and paragraphs from the conversation (the parts of
+      the chat that were good) and then wrote over the draft.
+    </p>
+
+    <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
+    <h3 style="font-size:0.9em; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin-bottom:0.8em;">
+      References</h3>
+    <ol style="font-size:0.82em; line-height:1.7; color:#555; padding-left:1.4em;">
+      <li>Moravec, H. (1988). <em>Mind Children: The Future of Robot and Human Intelligence.</em> Harvard University
+        Press.</li>
+      <li>LeCun, Y. (2022). A Path Towards Autonomous Machine Intelligence. <em>OpenReview preprint.</em></li>
+      <li>Shani, C., Soffer, L., Jurafsky, D., LeCun, Y., &amp; Shwartz-Ziv, R. (2025). From Tokens to Thoughts: How
+        LLMs and Humans Trade Compression for Meaning. <em>arXiv:2505.17117.</em></li>
+      <li>Assran, M. et al. (2025). V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and
+        Planning. <em>arXiv:2506.09985.</em></li>
+      <li>Spelke, E. S., &amp; Kinzler, K. D. (2007). Core Knowledge. <em>Developmental Science, 10</em>(1), 89–96.</li>
+      <li>Tishby, N., Pereira, F. C., &amp; Bialek, W. (2000). The Information Bottleneck Method.
+        <em>arXiv:physics/0004057.</em></li>
+      <li>Varela, F., Thompson, E., &amp; Rosch, E. (1991). <em>The Embodied Mind.</em> MIT Press.</li>
+      <li>Hasani, R. et al. (2021). Liquid Time-Constant Networks. <em>Proceedings of AAAI 2021.</em></li>
+      <li>Lehman, J., &amp; Stanley, K. O. (2011). Abandoning Objectives: Evolution Through the Search for Novelty
+        Alone. <em>Evolutionary Computation, 19</em>(2), 189–223.</li>
+      <li>Erdil, E. (2024). Moravec's Paradox and Its Implications. <em>Epoch AI Technical Report.</em></li>
+    </ol>
+
+  </main>
 </body>
+
 </html>
