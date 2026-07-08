@@ -42,7 +42,7 @@ body {
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 1.9rem;
   font-weight: normal;
 }
 
@@ -52,7 +52,7 @@ h2 {
 }
 
 p {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 .subtitle {
@@ -106,7 +106,7 @@ p {
 .post-card h3 {
   margin-top: 0;
   letter-spacing: 0.06em;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 .meta {
@@ -147,7 +147,7 @@ p {
 }
 
 .card-title {
-  font-size: 1.1rem;
+  font-size: 1.0rem;
   font-weight: 500;
   margin: 0 0 0.5rem 0;
   color: #111;
